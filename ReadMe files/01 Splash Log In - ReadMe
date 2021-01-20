@@ -1,0 +1,34 @@
+Coding Decision:
+
+1. Terminal> flutter run --release     <== to allow app to launch from homescreen of actual device
+
+2. SystemChrome.setPreferredOrientations   <== set app to always display in landscape mode
+        https://stackoverflow.com/questions/49418332/flutter-how-to-prevent-device-orientation-changes-and-force-portrait
+        main.dart ---
+            import package:flutter/services.dart
+            Put the SystemChrome.setPreferredOrientations inside the Widget build() method.
+
+3. Add  flutter_launcher_name   <== Change the app display name
+        https://pub.dev/packages/flutter_launcher_name
+        pubspec.yaml ---
+            dev_dependencies:
+              flutter_launcher_name: "^0.0.1"
+
+            flutter_launcher_name:
+              name: "yourNewAppLauncherName"
+        Terminal>
+        flutter pub get
+        flutter pub run flutter_launcher_name:main
+
+4. Use app icon @ https://appicon.co    <== change Change custom app icon
+        A. Create app icon with @ https://appicon.co
+        B. Android - Replace the android/app/src/main/res/mipmap folders
+        C. IOS - Replace the ios/Runner/Assets.xcassets folder
+        D. Resize the appicon by selecting android/app/src/main/res
+            > right click to select New > Image Asset
+            > Select the path for the icon image
+            > Resize according to dimension
+
+5. Tast #1 - Splash Page
+
+6. Task #2 - Log in Page
