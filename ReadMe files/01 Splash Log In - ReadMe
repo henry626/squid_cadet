@@ -1,5 +1,7 @@
 Coding Decision:
 
+0. https://github.com/henry626/squid_cadet
+
 1. Terminal> flutter run --release     <== to allow app to launch from homescreen of actual device
 
 2. SystemChrome.setPreferredOrientations   <== set app to always display in landscape mode
@@ -29,6 +31,19 @@ Coding Decision:
             > Select the path for the icon image
             > Resize according to dimension
 
-5. Tast #1 - Splash Page
+5. Setting app theme:
+      //https://stackoverflow.com/questions/49203740/how-to-change-the-entire-themes-text-color-in-flutter
+      theme: ThemeData(
+        backgroundColor: Colors.black,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(
+            color: Colors.white,),),),
 
-6. Task #2 - Log in Page
+6. Move appBar to a class
+
+6. Tast #1 - Splash Page
+        https://www.geeksforgeeks.org/splash-screen-in-flutter/
+        - Using MorseLittlePony.gif
+
+7. Task #2 - Log in Page
+        - TODO
