@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:squid_cadet/mainSkillMenu.dart';
 import 'morse/morseHome.dart';
 import 'cryptology/cryptoHome.dart';
 import 'knots/knotsHome.dart';
 import 'semaphore/semaphoreHome.dart';
+import 'router.dart' as router;
+import 'routeNames.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +25,8 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       title: 'Splash Screen',
+      onGenerateRoute: router.generateRoute,
+      initialRoute: MAINSKILLMENU,
       theme: ThemeData(
         backgroundColor: Colors.black,
         textTheme: TextTheme(
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Splash2(),
+//      home: Splash2(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -41,7 +46,7 @@ class Splash2 extends StatelessWidget {
     return SplashScreen(
       backgroundColor: Colors.black,
       seconds: 6,
-      navigateAfterSeconds: new MorseHome(),
+      navigateAfterSeconds: new MainSkillMenu(),
       title: new Text('Squid Cadets',textScaleFactor: 2,),
       image: Image.asset('images/MorseLittlePony.gif'),
       loadingText: Text("Loading"),

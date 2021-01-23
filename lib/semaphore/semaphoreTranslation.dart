@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:splashscreen/splashscreen.dart';
-import '../mainAppBar.dart';
 import 'semaphoreAppBar.dart';
 
-SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
+SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
 
-class SemaphoreHome extends StatelessWidget {
+class SemaphoreTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    semaphoreAppBar.setSelection(context, 0);
+    semaphoreAppBar.setSelection(context, 3);
     semaphoreAppBar.setSkillIcon(context);
     semaphoreAppBar.setHomeButton(context);
     semaphoreAppBar.setLessonsButton(context);
@@ -23,7 +21,7 @@ class SemaphoreHome extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Center(
         // TODO
-          child:Text("SemaphoreHome",textScaleFactor: 2,)
+          child:Text("SemaphoreTranslation",textScaleFactor: 2,)
       ),
     );
   }

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import '../mainAppBar.dart';
 import 'knotsAppBar.dart';
 
-KnotsAppBar knotsAppBar = KnotsAppBar();
+KnotsAppBar knotsAppBar = new KnotsAppBar();
 
-class KnotsHome extends StatelessWidget {
+class KnotsLessons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    knotsAppBar.setSelection(context, 0);
+    knotsAppBar.setSelection(context, 1);
     knotsAppBar.setSkillIcon(context);
     knotsAppBar.setHomeButton(context);
     knotsAppBar.setLessonsButton(context);
@@ -22,7 +21,7 @@ class KnotsHome extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Center(
         // TODO
-          child:Text("KnotsHome",textScaleFactor: 2,)
+          child:Text("KnotsLessons",textScaleFactor: 2,)
       ),
     );
   }

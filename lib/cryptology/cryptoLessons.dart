@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import '../mainAppBar.dart';
 import 'cryptoAppBar.dart';
 
-CryptoAppBar cryptoAppBar = CryptoAppBar();
+CryptoAppBar cryptoAppBar = new CryptoAppBar();
 
-class CryptoHome extends StatelessWidget {
+class CryptoLessons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    cryptoAppBar.setSelection(context, 0);
+    cryptoAppBar.setSelection(context, 1);
     cryptoAppBar.setSkillIcon(context);
     cryptoAppBar.setHomeButton(context);
     cryptoAppBar.setLessonsButton(context);
@@ -22,7 +21,7 @@ class CryptoHome extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Center(
         // TODO
-          child:Text("CryptoHome",textScaleFactor: 2,)
+          child:Text("CryptoLessons",textScaleFactor: 2,)
       ),
     );
   }
