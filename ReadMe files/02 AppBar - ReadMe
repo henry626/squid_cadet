@@ -1,22 +1,16 @@
 Coding Decision:
 
-1. Terminal> flutter run --release     <== to allow app to launch from homescreen of actual device
+1. Use OOP - Abstraction, Encapsulation, Inheritance, Polymorphism
 
-2. SystemChrome.setPreferredOrientations   <== set app to always display in landscape mode
-        https://stackoverflow.com/questions/49418332/flutter-how-to-prevent-device-orientation-changes-and-force-portrait
-        main.dart ---
-            import package:flutter/services.dart
-            Put the SystemChrome.setPreferredOrientations inside the Widget build() method.
+2. Create MainAppBar
 
-3. Add  flutter_launcher_name   <== Change the app display name
-        https://pub.dev/packages/flutter_launcher_name
-        pubspec.yaml ---
-            dev_dependencies:
-              flutter_launcher_name: "^0.0.1"
+3. Create MorseAppBar extends MainAppBar
 
-            flutter_launcher_name:
-              name: "yourNewAppLauncherName"
-        Terminal>
-        flutter pub get
-        flutter pub run flutter_launcher_name:main
+4. Create SemaphoreAppBar extends MainAppBar
 
+5. Create KnotsAppBar extends MainAppBar
+
+6. Create CryptoAppBar extends MainAppBar
+
+7. Clean Navigation in Flutter
+    https://www.filledstacks.com/snippet/clean-navigation-in-flutter-using-generated-routes/
