@@ -4,13 +4,38 @@ Coding Decision:
 
 2. Create MainAppBar
 
-3. Create MorseAppBar extends MainAppBar
+3. Create MorseAppBar, SemaphoreAppBar, KnotsAppBar, CryptoAppBar extends MainAppBar
 
-4. Create SemaphoreAppBar extends MainAppBar
-
-5. Create KnotsAppBar extends MainAppBar
-
-6. Create CryptoAppBar extends MainAppBar
-
-7. Clean Navigation in Flutter
+4. Clean Navigation in Flutter
     https://www.filledstacks.com/snippet/clean-navigation-in-flutter-using-generated-routes/
+
+5. pushAndRemoveUntil  <== No stack history
+    https://stackoverflow.com/questions/50037710/flutter-move-to-a-new-screen-without-back
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MainPage()),
+      (Route<dynamic> route) => false,
+    );
+
+6. Add padding, Spacer(), roundedCorner to center the buttons in SkillMenu
+    https://stackoverflow.com/questions/49991444/create-a-rounded-button-button-with-border-radius-in-flutter
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18.0),
+      side: BorderSide(color: Colors.red)
+    ),
+
+    Colorize images online tool:
+    https://pinetools.com/colorize-image
+
+7. Capture BackKey to display exit confirmation page
+    check platform Android or IOS
+    https://stackoverflow.com/questions/45109557/flutter-how-to-programmatically-exit-the-app
+     if (Platform.isAndroid)   ||   else if (Platform.isIOS)
+
+    Disabling Back Navigation
+    https://www.woolha.com/tutorials/flutter-disable-override-back-button-with-willpopscope
+    onWillPop: () async => false,
+
+7. Fix mainSkillMenu UI with button and Images  // TODO'
+
+8.

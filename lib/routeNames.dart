@@ -3,7 +3,8 @@
 const String MAINSKILLMENU = 'MainSkillMenu';
 
 // Morse Pages
-const String MORSEHOME = 'routeMorseHome';
+//const String MORSEHOME = 'routeMorseHome';
+const String MORSEHOME = 'MorseHome()';
 const String MORSELESSONS = 'routeMorseLessons';
 const String MORSECHALLENGES = 'routeMorseChallenges';
 const String MORSETRANSLATION = 'routeMorseTranslation';
