@@ -14,11 +14,6 @@ class KnotsHome extends StatelessWidget {
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
     knotsAppBar.setSelection(context, 0);
-    knotsAppBar.setSkillIcon(context);
-    knotsAppBar.setHomeButton(context);
-    knotsAppBar.setLessonsButton(context);
-    knotsAppBar.setChallengesButton(context);
-    knotsAppBar.setLessonsButton(context);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
@@ -26,12 +21,37 @@ class KnotsHome extends StatelessWidget {
       child: new Scaffold(
         appBar: knotsAppBar.appBar(),
         backgroundColor: Colors.black,
-        body: Center(
-          // TODO
-          child: Text(
-            "KnotsHome",
-            textScaleFactor: 2,
-          ),
+        body: Row(
+          children: [
+            Spacer(),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Spacer(),
+                  Text('Skill: Knots',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Lesson: There are 10 individual lessons for this skill',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Challenge: There are 10 challenges for this skill',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Translation: Knots <-> Word',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Setting: Knots Table',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                ]
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );

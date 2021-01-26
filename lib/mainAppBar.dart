@@ -30,6 +30,16 @@ class MainAppBar {
     ); //IconButton
   }
 
+  setSettingsIcon(BuildContext context) {
+    _mContext = context;
+    _mSettingIcon = IconButton(
+      icon: Icon(Icons.settings_rounded), tooltip: 'Settings Icon',
+      onPressed: () {
+        Navigator.pushNamed(context, SEMAPHORESIGNALS);
+      },
+    ); //IconButton
+  }
+
   TextButton setHomeButton(BuildContext context) {
     return TextButton();
   }

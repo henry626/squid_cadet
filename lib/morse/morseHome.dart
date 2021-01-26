@@ -12,11 +12,6 @@ class MorseHome extends StatelessWidget {
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
     morseAppBar.setSelection(context, 0);
-    morseAppBar.setSkillIcon(context);
-    morseAppBar.setHomeButton(context);
-    morseAppBar.setLessonsButton(context);
-    morseAppBar.setChallengesButton(context);
-    morseAppBar.setLessonsButton(context);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
@@ -24,14 +19,40 @@ class MorseHome extends StatelessWidget {
       child: new Scaffold(
         appBar: morseAppBar.appBar(),
         backgroundColor: Colors.black,
-        body: Center(
-          // TODO
-          child: Text(
-            "Morse Home",
-            textScaleFactor: 2,
-          ),
+        body: Row(
+          children: [
+            Spacer(),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Spacer(),
+                  Text('Skill: Morse',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Lesson: There are 15 individual lessons for this skill',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Challenge: There are 15 challenges for this skill',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Translation: Morse <-> Word',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                  Text('Setting: Morse Table',
+                    style: TextStyle(fontWeight: FontWeight.bold,
+                        fontSize: 20),),
+                  Spacer(),
+                ]
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );
   }
 }
+

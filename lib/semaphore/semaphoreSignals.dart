@@ -7,23 +7,22 @@ import 'package:squid_cadet/mainExit.dart';
 SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
 MainExit mMainExit = MainExit();
 
-class SemaphoreChallenges extends StatelessWidget {
+class SemaphoreSignals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    semaphoreAppBar.setSelection(context, 2);
+    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation, 4-NA
+    semaphoreAppBar.setSelection(context, 4);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
       onWillPop: mMainExit.mainPop,
       child: new Scaffold(
         appBar: semaphoreAppBar.appBar(),
-        backgroundColor: Colors.black,
+//        backgroundColor: Colors.black,
         body: Center(
           // TODO
-          child: Text(
-            "SemaphoreChallenges",
-            textScaleFactor: 2,
+          child: Image.asset('images/SemaphoreAZ.jpg'
+
           ),
         ),
       ),

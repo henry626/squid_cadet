@@ -11,6 +11,12 @@ class CryptoAppBar extends MainAppBar {
   setSelection(BuildContext context, int sel) {
     _mContext = context;
     _selection = sel;
+    setSkillIcon(context);
+    setSettingsIcon(context);
+    setHomeButton(context);
+    setLessonsButton(context);
+    setChallengesButton(context);
+    setTranslationButton(context);
   }
 
   @override

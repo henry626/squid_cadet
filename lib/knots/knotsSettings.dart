@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'semaphoreAppBar.dart';
+import 'knotsAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 
-SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
+KnotsAppBar knotsAppBar = new KnotsAppBar();
 MainExit mMainExit = MainExit();
 
-class SemaphoreChallenges extends StatelessWidget {
+class KnotsSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    semaphoreAppBar.setSelection(context, 2);
+    knotsAppBar.setSelection(context, 2);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
       onWillPop: mMainExit.mainPop,
       child: new Scaffold(
-        appBar: semaphoreAppBar.appBar(),
+        appBar: knotsAppBar.appBar(),
         backgroundColor: Colors.black,
         body: Center(
           // TODO
           child: Text(
-            "SemaphoreChallenges",
+            "KnotsSettings",
             textScaleFactor: 2,
           ),
         ),

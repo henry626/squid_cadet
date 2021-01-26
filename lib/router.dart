@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:squid_cadet/semaphore/semaphoreSignals.dart';
 import 'mainSkillMenu.dart';
 import 'routeNames.dart';
 import 'morse/morseHome.dart';
@@ -9,6 +10,7 @@ import 'semaphore/semaphoreHome.dart';
 import 'semaphore/semaphoreTranslation.dart';
 import 'semaphore/semaphoreLessons.dart';
 import 'semaphore/semaphoreChallenges.dart';
+import 'semaphore/semaphoreSignals.dart';
 import 'knots/knotsHome.dart';
 import 'knots/knotsTranslation.dart';
 import 'knots/knotsLessons.dart';
@@ -41,6 +43,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => SemaphoreChallenges());
     case SEMAPHORETRANSLATION:
       return MaterialPageRoute(builder: (_) => SemaphoreTranslation());
+    case SEMAPHORESIGNALS:
+      return MaterialPageRoute(builder: (_) => SemaphoreSignals());
 
     case KNOTSHOME:
       return MaterialPageRoute(builder: (_) => KnotsHome());

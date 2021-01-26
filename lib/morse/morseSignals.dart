@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'semaphoreAppBar.dart';
+import 'morseAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 
-SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
+MorseAppBar morseAppBar = new MorseAppBar();
 MainExit mMainExit = MainExit();
 
-class SemaphoreChallenges extends StatelessWidget {
+class MorseSignals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    semaphoreAppBar.setSelection(context, 2);
+    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation, 4-NA
+    morseAppBar.setSelection(context, 4);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
       onWillPop: mMainExit.mainPop,
       child: new Scaffold(
-        appBar: semaphoreAppBar.appBar(),
-        backgroundColor: Colors.black,
+        appBar: morseAppBar.appBar(),
+//        backgroundColor: Colors.black,
         body: Center(
           // TODO
-          child: Text(
-            "SemaphoreChallenges",
-            textScaleFactor: 2,
-          ),
+//          child: (''),
+//          child: Image.asset('images/MorseAZ.jpg'),
         ),
       ),
     );

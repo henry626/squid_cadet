@@ -9,7 +9,7 @@ import 'knots/knotsHome.dart';
 import 'semaphore/semaphoreHome.dart';
 import 'router.dart' as router;
 import 'routeNames.dart';
-
+import 'semaphore/semaphoreSignals.dart';
 void main() {
   runApp(MyApp());
 }
@@ -46,7 +46,7 @@ class Splash2 extends StatelessWidget {
     return SplashScreen(
       backgroundColor: Colors.black,
       seconds: 6,
-      navigateAfterSeconds: new MainSkillMenu(),
+      navigateAfterSeconds: new SemaphoreSignals(),
       title: new Text('Squid Cadets',textScaleFactor: 2,),
       image: Image.asset('images/MorseLittlePony.gif'),
       loadingText: Text("Loading"),
