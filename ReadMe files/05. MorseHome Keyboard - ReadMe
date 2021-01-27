@@ -1,0 +1,19 @@
+MorseHome - Keyboard
+
+1. Use MaterialButton for Audio / Light buttons
+    https://stackoverflow.com/questions/49809351/how-to-create-a-circle-icon-button-in-flutter
+
+2. Use morse code from
+    http://www.sopravvivere.net/en/morse-code/
+
+3. Toogle button color onSelect
+    https://stackoverflow.com/questions/50863681/flutter-how-do-i-toggle-the-color-of-a-raisedbutton-upon-click
+    bool pressAttention = false;
+    color: pressAttention ? Colors.grey : Colors.blue,
+      onPressed: () => setState(() => pressAttention = !pressAttention),
+
+4.
+
+5.
+
+6.

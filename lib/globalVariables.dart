@@ -29,6 +29,7 @@ class GlobalVars {
   static const String CRYPTCHALLENGES = 'routeCryptChallenges';
   static const String CRYPTTRANSLATION = 'routeCryptTranslation';
 
+  // mainSkillMenu ------- START -----------
   static int currentSelection = 0;
   List<String> skills = [
     'Morse', 'Semaphore','Knots','Cryptography'
@@ -36,5 +37,35 @@ class GlobalVars {
   String getSkills() {
     return skills[currentSelection];
   }
+  // mainSkillMenu ------- END -----------
+
+  //MorseHome ------START-----------
+  // 0 - Audio, 1 - Light
+  static bool currentMorseTool = false;
+
+  Map<String, String> morseTable = {
+    '1': '. - - - -', '2': '. . - - -', '3': '. . . - -', '4': '. . . . -',
+    '5': '. . . . .', '6': '- . . . .', '7': '- - . . .', '8': '- - - . .',
+    '9': '- - - - .', '0': '- - - - -', 'A': '. -', 'B': '- . . .',
+    'C': '- . - .', 'D': '- . .', 'E': '.', 'F': '. . - .',
+    'G': '- - .', 'H': '. . . .', 'I': '. .', 'J': '. - - -',
+    'K': '- . -', 'L': '. - . .', 'M': '- -', 'N': '- .',
+    'O': '- - -', 'P': '. - - .', 'Q': '- - . -', 'R': '. - .',
+    'S': '. . .', 'T': '-', 'U': '. . -', 'V': '. . . -',
+    'W': '. - -', 'X': '- . . -', 'Y': '- . - - ', 'Z': '- - . .',
+    'sos': '. . . - - - . . .', 'Err': '. . . . . . . .',
+    'OK': '- . -', 'Atn': '- . - . -',
+  };
+  String getMorse(String key) {
+    String retStr = '';
+    (key == '') ?
+    retStr = 'Click on the symbol to hear or see it in morse code.' :
+    retStr = morseTable[key];
+    print('key = $key, retStr = $retStr');
+    return retStr;
+  }
+//MorseHome ------END-----------
+
+
 }
 

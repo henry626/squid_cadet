@@ -35,7 +35,8 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_name: "^0.0.1"
-
+  flutter_beep: ^0.2.0
+  torch_compat: ^1.0.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
