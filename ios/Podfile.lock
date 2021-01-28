@@ -1,27 +1,33 @@
 PODS:
-  - Flutter (1.0.0)
-  - flutter_beep (0.0.1):
+  - audioplayers (0.0.1):
     - Flutter
-  - torch_compat (0.0.1):
+  - Flutter (1.0.0)
+  - lamp (0.0.1):
+    - Flutter
+  - path_provider (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
   - Flutter (from `Flutter`)
-  - flutter_beep (from `.symlinks/plugins/flutter_beep/ios`)
-  - torch_compat (from `.symlinks/plugins/torch_compat/ios`)
+  - lamp (from `.symlinks/plugins/lamp/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 EXTERNAL SOURCES:
+  audioplayers:
+    :path: ".symlinks/plugins/audioplayers/ios"
   Flutter:
     :path: Flutter
-  flutter_beep:
-    :path: ".symlinks/plugins/flutter_beep/ios"
-  torch_compat:
-    :path: ".symlinks/plugins/torch_compat/ios"
+  lamp:
+    :path: ".symlinks/plugins/lamp/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
 
 SPEC CHECKSUMS:
+  audioplayers: 455322b54050b30ea4b1af7cd9e9d105f74efa8c
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_beep: 54fb393b22dfa0f0e4573c81b1c74dd71c4e5af8
-  torch_compat: 4bdf81e976740fb92263dad3472666bb58aceca4
+  lamp: d36cd3552d535c77ab49112704c0c9386b9268bb
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

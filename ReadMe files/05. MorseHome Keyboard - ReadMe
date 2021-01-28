@@ -12,8 +12,10 @@ MorseHome - Keyboard
     color: pressAttention ? Colors.grey : Colors.blue,
       onPressed: () => setState(() => pressAttention = !pressAttention),
 
-4.
+4. Play morse audio
+    https://github.com/luanpotter/audioplayers/blob/master/doc/audio_cache.md
 
-5.
+5. Screen / Vibrate / Lamp - On/Off
+    https://www.reddit.com/r/FlutterDev/comments/7t0j2y/3_new_flutter_plugins_lamp_flashlight_screen/
 
 6.

@@ -35,8 +35,12 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_name: "^0.0.1"
-  flutter_beep: ^0.2.0
-  torch_compat: ^1.0.2
+  audioplayers: "^0.17.3"
+  lamp: "^0.0.6"
+
+#  flutter_beep: ^0.2.0
+#  torch_compat: ^1.0.2
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -50,7 +54,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
+    - assets/images/
+    - assets/sounds/
 
 flutter_launcher_name:
   name: "Squid Cadets"
