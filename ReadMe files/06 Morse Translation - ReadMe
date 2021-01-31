@@ -1,0 +1,42 @@
+Morse - Translation
+
+1.  Start from MorseHome
+
+2.  Textfield border and FontStyle
+    https://flutter-examples.com/set-rounded-corner-border-around-textfield/
+
+3.  getText from textField
+    https://flutter.dev/docs/cookbook/forms/retrieve-input
+    content: Text(myController.text),
+
+4.  Get key from Map.
+    https://stackoverflow.com/questions/52052241/how-to-get-map-keys-by-values-in-dart
+    I. var usdKey = curr.keys.firstWhere(
+           (k) => curr[k] == 'myString', orElse: () => null);
+
+    II. var reversed = orig.map((k, v) => MapEntry(v, k));
+
+5.  Dart Binary Tree Structure
+    https://programming-idioms.org/idiom/9/create-a-binary-tree-data-structure/718/dart
+    I. class Node<T> {
+         final T value;
+         Node<T> left, right;
+         Node(this.value, {this.left, this.right});
+       }
+
+    II. struct treenode{
+          int value;
+          struct treenode* left;
+          struct treenode* right;
+        }
+
+6.  Null Operator ??
+    https://news.dartlang.org/2015/08/dart-112-released-with-null-aware.html
+
+7.  Dart split string by more than one conditions
+    https://stackoverflow.com/questions/24672549/split-string-by-two-conditions
+    I. str.replaceAll(":" , "").split(',');
+    II. split("[:,] ")
+
+8.  Custom Keyboard implementation
+    https://stackoverflow.com/questions/58406522/implement-text-editing-feature-with-custom-keyboard-in-flutter

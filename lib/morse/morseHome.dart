@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'morseAppBar.dart';
 import 'dart:async';
-import 'dart:io';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -22,9 +20,6 @@ class _MorseHomeState extends State<MorseHome> {
 
   String currentMorse = GlobalVars().getMorse('');
   String currSymbol = '';
-//  bool morseTool = GlobalVars.currentMorseTool; //false - Audio, true - Light
-  // bool morseTool = currentMorseTool;  //false - Audio, true - Light
-  // bool morseTool = false;  //false - Audio, true - Light
 
   bool _hasFlash = false;
   bool _isOn = false;
@@ -61,7 +56,9 @@ class _MorseHomeState extends State<MorseHome> {
                   Expanded(
                     flex: 5,
                     child: Text(
-                      currentMorse,
+                      (currentMorse == '') ?
+                      'Click on the symbol to hear or see it in morse code.'
+                          : currentMorse,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: (currSymbol != '') ?
