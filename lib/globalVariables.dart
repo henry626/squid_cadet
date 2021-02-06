@@ -1,6 +1,9 @@
 // Names that are use for routes
+import 'package:audioplayers/audio_cache.dart';
+import 'package:lamp/lamp.dart';
 
 class GlobalVars {
+//  GlobalVars._();
 
   static const String MAINSKILLMENU = 'MainSkillMenu';
 
@@ -29,14 +32,36 @@ class GlobalVars {
   static const String CRYPTCHALLENGES = 'routeCryptChallenges';
   static const String CRYPTTRANSLATION = 'routeCryptTranslation';
 
-  // enum appBarMenu {
-  //   home, lesson, challenge, translation
-  // }
+
+  // General
+  static const String memory_game = "Memory Game \n(One Player)";
+  static const String game_single = "Quiz Game \n(One Player)";
+  static const String game_two = "Quiz Game \n(Two Players)";
+  static const String theme_morse = "Morse";
+  static const String theme_semaphore = "Semaphore";
+  static const String flips_left = "Flips Left";
+  static const String points = "points";
+  static const String max_points = "800";
+  static const String get_ready = "Get Ready";
+  static const String game_over = "GAME OVER";
+  static const String score = "Score";
+  static const String restart = "RESTART";
+  static const String return_home = "HOME";
+  static const String choose_theme = "Make a Selection";
+
+  // font-family
+  static const String font_family = "geneva";
+
+  // Image Paths
+//  static const String background_img_path = "assets/back.png";
+  static const String question_img_path = "assets/semaphores/flag.png";
+  static const String morse_img_dir_path = "assets/semaphores/";
+  static const String semaphore_img_dir_path = "assets/semaphores/";
 
   // mainSkillMenu ------- START -----------
   static int currentSelection = 0;
   List<String> skills = [
-    'Morse', 'Semaphore','Knots','Cryptography'
+    '','Morse', 'Semaphore','Knots','Cryptography'
   ];
   String getSkills() {
     return skills[currentSelection];
@@ -57,7 +82,7 @@ class GlobalVars {
     'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
     'S': '...', 'T': '-', 'U': '..-', 'V': '...-',
     'W': '.--', 'X': '-..-', 'Y': '-.-- ', 'Z': '--..',
-    'sos': '...---...', 'Err': '........',
+    'SOS': '...---...', 'Error': '........',
     'OK': '-.-', 'Atn': '-.-.-',
   };
 
@@ -80,8 +105,75 @@ class GlobalVars {
     }
     return retStr;
   }
+
+  void playMorseSound(String currentMorse) async {
+    final player = AudioCache(prefix: 'assets/sounds/');
+
+    for (int i = 0; i < currentMorse.length; i++) {
+      if (currentMorse[i] == '.') {
+        GlobalVars.currentMorseTool
+            ? Lamp.flash(new Duration(milliseconds: 50))
+            : player.play('period.mp3');
+        await Future.delayed(Duration(milliseconds: 300));
+      } else if (currentMorse[i] == '-') {
+        GlobalVars.currentMorseTool
+            ? Lamp.flash(new Duration(milliseconds: 400))
+            : player.play('dash.mp3');
+        await Future.delayed(Duration(milliseconds: 700));
+      } else if (currentMorse[i] == ' ' || currentMorse[i] == '/') {
+        await Future.delayed(Duration(milliseconds: 1000));
+      }
+    }
+  }
+
+
 //MorseHome ------END-----------
 
+
+//Semaphore ------START-----------
+
+  static String memoryGameBestScoreLabel = "Best Score: ";
+  static int memoryGameBestScore = 50;
+  static String memoryGameScoreLabel = "Counts";
+  static int memoryGameScore = 0;
+
+  Map<String, bool> semaphoreTable = {
+    'A': false, 'B': false, 'C': false, 'D': false, 'E': false, 'F': false,
+    'G': false, 'H': false, 'I': false, 'J': false, 'K': false, 'L': false,
+    'M': false, 'N': false, 'O': false, 'P': false, 'Q': false, 'R': false,
+    'S': false, 'T': false, 'U': false, 'V': false, 'W': false, 'X': false,
+    'Y': false, 'Z': false, 'Error': false, 'Rest': false,
+  };
+
+  bool getSemaphoreValue(String key) {
+    bool retVal = false;
+    retVal = semaphoreTable[key] ?? false;  //retVal = morseTable[key], if null, then equal false
+    print('key = $key, retVal = $retVal');
+    return retVal;
+  }
+
+  // String getSemaphoreKey(bool flag) {
+  //   String retStr = '';
+  // TODO: does not work as all flags are false!
+  //   MapEntry entry = morseTable.entries.firstWhere((element) => element.value==flag, orElse: () => null);
+  //   if (entry != null) {
+  //     print('key = ${entry.key}');
+  //     print('value = ${entry.value}');
+  //     retStr = entry.key; //retStr = entry.key, if null, then equal ''
+  //   }
+  //   return retStr;
+  // }
+
+  void setSemaphoreValue(String key) {
+    //String retStr = '';
+    // (key == '') ?
+    // retStr = 'Click on the symbol to hear or see it in morse code.' :
+    if (semaphoreTable[key] != null) {
+      semaphoreTable[key] = !semaphoreTable[key];
+    }   //retStr = morseTable[key], if null, then equal ''
+    print('key = $key, val = $semaphoreTable[key]');
+  }
+//Semaphore ------END-----------
 
 }
 

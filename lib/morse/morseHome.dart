@@ -123,7 +123,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(1.toString());
                         currSymbol = '1';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '1') ? Colors.blue : Colors.white,
@@ -142,7 +142,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(2.toString());
                         currSymbol = '2';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '2') ? Colors.blue : Colors.white,
@@ -161,7 +161,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(3.toString());
                         currSymbol = '3';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '3') ? Colors.blue : Colors.white,
@@ -180,7 +180,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(4.toString());
                         currSymbol = '4';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '4') ? Colors.blue : Colors.white,
@@ -199,7 +199,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(5.toString());
                         currSymbol = '5';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '5') ? Colors.blue : Colors.white,
@@ -218,7 +218,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(6.toString());
                         currSymbol = '6';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '6') ? Colors.blue : Colors.white,
@@ -237,7 +237,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(7.toString());
                         currSymbol = '7';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '7') ? Colors.blue : Colors.white,
@@ -256,7 +256,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(8.toString());
                         currSymbol = '8';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '8') ? Colors.blue : Colors.white,
@@ -275,7 +275,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(9.toString());
                         currSymbol = '9';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '9') ? Colors.blue : Colors.white,
@@ -294,7 +294,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse(0.toString());
                         currSymbol = '0';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == '0') ? Colors.blue : Colors.white,
@@ -322,7 +322,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('Q');
                         currSymbol = 'Q';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'Q') ? Colors.blue : Colors.white,
@@ -341,7 +341,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('W');
                         currSymbol = 'W';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'W') ? Colors.blue : Colors.white,
@@ -360,7 +360,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('E');
                         currSymbol = 'E';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'E') ? Colors.blue : Colors.white,
@@ -379,7 +379,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('R');
                         currSymbol = 'R';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'R') ? Colors.blue : Colors.white,
@@ -398,7 +398,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('T');
                         currSymbol = 'T';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'T') ? Colors.blue : Colors.white,
@@ -417,7 +417,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('Y');
                         currSymbol = 'Y';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'Y') ? Colors.blue : Colors.white,
@@ -436,7 +436,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('U');
                         currSymbol = 'U';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'U') ? Colors.blue : Colors.white,
@@ -455,7 +455,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('I');
                         currSymbol = 'I';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'I') ? Colors.blue : Colors.white,
@@ -474,7 +474,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('O');
                         currSymbol = 'O';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'O') ? Colors.blue : Colors.white,
@@ -493,7 +493,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('P');
                         currSymbol = 'P';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'P') ? Colors.blue : Colors.white,
@@ -521,7 +521,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('A');
                         currSymbol = 'A';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'A') ? Colors.blue : Colors.white,
@@ -540,7 +540,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('S');
                         currSymbol = 'S';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'S') ? Colors.blue : Colors.white,
@@ -559,7 +559,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('D');
                         currSymbol = 'D';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'D') ? Colors.blue : Colors.white,
@@ -578,7 +578,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('F');
                         currSymbol = 'F';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'F') ? Colors.blue : Colors.white,
@@ -597,7 +597,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('G');
                         currSymbol = 'G';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'G') ? Colors.blue : Colors.white,
@@ -616,7 +616,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('H');
                         currSymbol = 'H';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'H') ? Colors.blue : Colors.white,
@@ -635,7 +635,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('J');
                         currSymbol = 'J';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'J') ? Colors.blue : Colors.white,
@@ -654,7 +654,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('K');
                         currSymbol = 'K';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'K') ? Colors.blue : Colors.white,
@@ -673,7 +673,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('L');
                         currSymbol = 'L';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'L') ? Colors.blue : Colors.white,
@@ -692,7 +692,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('Atn');
                         currSymbol = 'Atn';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor:
@@ -722,7 +722,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('Z');
                         currSymbol = 'Z';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'Z') ? Colors.blue : Colors.white,
@@ -741,7 +741,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('X');
                         currSymbol = 'X';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'X') ? Colors.blue : Colors.white,
@@ -760,7 +760,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('C');
                         currSymbol = 'C';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'C') ? Colors.blue : Colors.white,
@@ -779,7 +779,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('V');
                         currSymbol = 'V';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'V') ? Colors.blue : Colors.white,
@@ -798,7 +798,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('B');
                         currSymbol = 'B';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'B') ? Colors.blue : Colors.white,
@@ -817,7 +817,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('N');
                         currSymbol = 'N';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'N') ? Colors.blue : Colors.white,
@@ -836,7 +836,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('M');
                         currSymbol = 'M';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor: (currSymbol == 'M') ? Colors.blue : Colors.white,
@@ -855,7 +855,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('sos');
                         currSymbol = 'sos';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor:
@@ -877,7 +877,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('Err');
                         currSymbol = 'Err';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor:
@@ -899,7 +899,7 @@ class _MorseHomeState extends State<MorseHome> {
                         currentMorse = GlobalVars().getMorse('OK');
                         currSymbol = 'OK';
                       });
-                      playMorseSound();
+                      GlobalVars().playMorseSound(currentMorse);
                     },
                     elevation: 2.0,
                     fillColor:
@@ -921,35 +921,6 @@ class _MorseHomeState extends State<MorseHome> {
             ],
           )),
     );
-  }
-  
-  playMorseSound() async {
-    for(int i=0; i<currentMorse.length; i++) {
-      await Future.delayed(Duration(milliseconds: 400));
-      if (currentMorse[i] == '.') {
-        GlobalVars.currentMorseTool ?
-        Lamp.flash(new Duration(milliseconds: 50)) : player.play('period.mp3');
-      } else if (currentMorse[i] == '-') {
-        GlobalVars.currentMorseTool ?
-        Lamp.flash(new Duration(milliseconds: 300)) : player.play('dash.mp3');
-      }
-    }
-  }
-
-  Future _turnFlash() async {
-    _isOn ? Lamp.turnOff() : Lamp.turnOn(intensity: _intensity);
-    var f = await Lamp.hasLamp;
-    setState((){
-      _hasFlash = f;
-      _isOn = !_isOn;
-    });
-  }
-
-  _intensityChanged(double intensity) {
-    Lamp.turnOn(intensity : intensity);
-    setState((){
-      _intensity = intensity;
-    });
   }
 }
 

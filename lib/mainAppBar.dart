@@ -57,28 +57,57 @@ class MainAppBar {
 
   AppBar appBar(){
 
-    return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.attribution_rounded),
-        tooltip: 'Profile Icon',
-        onPressed: () {},
-      ), //IconButton
-      actions: <Widget>[
-        setHomeButton(_mContext),
-        setLessonsButton(_mContext),
-        setChallengesButton(_mContext),
-        setTranslationButton(_mContext),
-        // TextButton(
-        //   //for spacing
-        // ),
-        // TextButton(
-        //   //for spacing
-        // ),
-        _mSkillIcon,
-        _mSettingIcon,
-      ],
-      backgroundColor: Colors.black45,
-    );
+    if (MediaQuery.of(_mContext).orientation == Orientation.portrait){
+      // is portrait
+      return AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.attribution_rounded),
+          tooltip: 'Profile Icon',
+          onPressed: () {},
+        ), //IconButton
+        actions: <Widget>[
+          //Remove Home for Portrait Mode
+          //setHomeButton(_mContext),
+          setLessonsButton(_mContext),
+          setChallengesButton(_mContext),
+          setTranslationButton(_mContext),
+          // TextButton(
+          //   //for spacing
+          // ),
+          // TextButton(
+          //   //for spacing
+          // ),
+          _mSkillIcon,
+          _mSettingIcon,
+        ],
+        backgroundColor: Colors.black45,
+      );
+    }else{
+      // is landscape
+      return AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.attribution_rounded),
+          tooltip: 'Profile Icon',
+          onPressed: () {},
+        ), //IconButton
+        actions: <Widget>[
+          setHomeButton(_mContext),
+          setLessonsButton(_mContext),
+          setChallengesButton(_mContext),
+          setTranslationButton(_mContext),
+          // TextButton(
+          //   //for spacing
+          // ),
+          // TextButton(
+          //   //for spacing
+          // ),
+          _mSkillIcon,
+          _mSettingIcon,
+        ],
+        backgroundColor: Colors.black45,
+      );
+    }
+
   }
 }
 

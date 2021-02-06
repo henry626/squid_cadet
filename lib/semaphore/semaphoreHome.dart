@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'package:splashscreen/splashscreen.dart';
-import '../mainAppBar.dart';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
+import 'package:squid_cadet/globalVariables.dart';
+import 'package:squid_cadet/memorygame/data/data.dart';
+import 'package:squid_cadet/memorygame/models/tile.dart';
+import 'package:squid_cadet/widgets/customTileView.dart';
 
+SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
 MainExit mMainExit = MainExit();
-SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
 
-class SemaphoreHome extends StatelessWidget {
+class SemaphoreHome extends StatefulWidget {
+  @override
+  _SemaphoreHomeState createState() => _SemaphoreHomeState();
+}
+
+class _SemaphoreHomeState extends State<SemaphoreHome> {
+
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
@@ -28,23 +36,23 @@ class SemaphoreHome extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Spacer(),
-                  Text('Skill: Semaphore',
+                  Text('Skill: Cryptography',
                     style: TextStyle(fontWeight: FontWeight.bold,
                         fontSize: 20),),
                   Spacer(),
-                  Text('Lesson: There are 10 individual lessons for this skill',
+                  Text('Lesson: There are 15 individual lessons for this skill',
                     style: TextStyle(fontWeight: FontWeight.bold,
                         fontSize: 20),),
                   Spacer(),
-                  Text('Challenge: There are 10 challenges for this skill',
+                  Text('Challenge: There are 15 challenges for this skill',
                     style: TextStyle(fontWeight: FontWeight.bold,
                         fontSize: 20),),
                   Spacer(),
-                  Text('Translation: Semaphore <-> Word',
+                  Text('Translation: Cryptography <-> Word',
                     style: TextStyle(fontWeight: FontWeight.bold,
                         fontSize: 20),),
                   Spacer(),
-                  Text('Setting: Semaphore Table',
+                  Text('Setting: Cryptography Table',
                     style: TextStyle(fontWeight: FontWeight.bold,
                         fontSize: 20),),
                   Spacer(),

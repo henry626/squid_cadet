@@ -267,7 +267,7 @@ class _MorseTranslationState extends State<MorseTranslation> {
                             // display morse from given text
                             currentMorse =
                                 translateText2Morse(_controller.text);
-                            playMorseSound();
+                            GlobalVars().playMorseSound(currentMorse);
                           } else {
                             // display text from given morse code
                             currentMorse =
@@ -427,22 +427,5 @@ class _MorseTranslationState extends State<MorseTranslation> {
     }
     print("retStr = " + retStr);
     return retStr;
-  }
-
-  playMorseSound() async {
-    for (int i = 0; i < currentMorse.length; i++) {
-      await Future.delayed(Duration(milliseconds: 400));
-      if (currentMorse[i] == '.') {
-        GlobalVars.currentMorseTool
-            ? Lamp.flash(new Duration(milliseconds: 50))
-            : player.play('period.mp3');
-      } else if (currentMorse[i] == '-') {
-        GlobalVars.currentMorseTool
-            ? Lamp.flash(new Duration(milliseconds: 300))
-            : player.play('dash.mp3');
-      } else if (currentMorse[i] == ' ' || currentMorse[i] == '/') {
-        await Future.delayed(Duration(milliseconds: 1000));
-      }
-    }
   }
 }

@@ -1,0 +1,10 @@
+Morse - Lessons
+
+1.  Start from MorseHome
+
+2.  Textfield border and FontStyle
+    https://flutter-examples.com/set-rounded-corner-border-around-textfield/
+
+3.  getText from textField
+    https://flutter.dev/docs/cookbook/forms/retrieve-input
+    content: Text(myController.text),

@@ -1,0 +1,12 @@
+1. Splash Screen  -- DONE
+2. Scrollable View
+    https://stackoverflow.com/questions/52053850/flutter-how-to-make-a-column-screen-scrollable
+3. Portrait and Horizontal mode
+    https://api.flutter.dev/flutter/widgets/MediaQuery-class.html
+    A. Use MediaQuery:
+        MediaQuery.of(context).size; //screen size,
+        MediaQuery.of(context).orientation;  //orientation,
+        MediaQuery.of(context).textScaleFactor //Font size
+        etc.
+4. Morse Lesson
+5. KnotsHome

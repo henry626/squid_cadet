@@ -45,5 +45,13 @@ Coding Decision:
         https://www.geeksforgeeks.org/splash-screen-in-flutter/
         - Using MorseLittlePony.gif
 
-7. Task #2 - Log in Page
+7. Orientation changes
+    https://stackoverflow.com/questions/50815014/how-to-detect-orientation-change-in-layout-in-flutter
+    if (MediaQuery.of(context).orientation == Orientation.portrait){
+        // is portrait
+    }else{
+    // is landscape
+    }
+
+8. Task #2 - Log in Page
         - TODO

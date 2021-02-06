@@ -44,10 +44,20 @@ class _MorseLessonsState extends State<MorseLessons> {
 
   Widget _buildRow(List<String> texts) {
     return Row(
+
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: texts
-            .map((text) => RaisedButton(
-            child: Text(text), onPressed: () => _insertText(text)))
+        children:
+          texts
+            .map((text) => RawMaterialButton(
+            elevation: 2.0,
+            fillColor: Colors.white,
+            child: Text(text,
+                style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            padding: EdgeInsets.all(10.0),
+            shape: CircleBorder(),
+            onPressed: () => _insertText(text)))
             .toList());
   }
 
@@ -63,17 +73,21 @@ class _MorseLessonsState extends State<MorseLessons> {
       child: new Scaffold(
         appBar: morseAppBar.appBar(),
         backgroundColor: Colors.black,
-        body: Column(
+        body: new Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: TextField(
-                controller: _textController,
-                readOnly: true,
-                showCursor: true,
-              ),
-            ),
-            _buildRow(['.', '/', '-']),
+            _buildRow(['Start']),
+            Spacer(),
+            Spacer(),
+            _buildRow(['E, T']),
+            Spacer(),
+            Spacer(),
+            _buildRow(['I, M', 'A, N']),
+            Spacer(),
+            Spacer(),
+            _buildRow(['S, U', 'R, W', 'D, K', 'G, O']),
+            Spacer(),
+            Spacer(),
+            _buildRow(['H, V', 'F', 'L', 'P, J', 'B, X', 'C, Y', 'Z, Q']),
           ],
         ),
       ),
