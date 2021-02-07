@@ -8,7 +8,7 @@ class MainAppBar {
   IconButton _mSettingIcon;
   TextButton _mHomeButton;
   TextButton _mLessonsButton;
-  TextButton _mChallengesButton;
+  TextButton _mGamesButton;
   TextButton _mTranslationButton;
 
   MainAppBar() {
@@ -47,7 +47,7 @@ class MainAppBar {
     return TextButton();
   }
 
-  TextButton setChallengesButton(BuildContext context) {
+  TextButton setGamesButton(BuildContext context) {
     return TextButton();
   }
 
@@ -69,7 +69,7 @@ class MainAppBar {
           //Remove Home for Portrait Mode
           //setHomeButton(_mContext),
           setLessonsButton(_mContext),
-          setChallengesButton(_mContext),
+          setGamesButton(_mContext),
           setTranslationButton(_mContext),
           // TextButton(
           //   //for spacing
@@ -93,7 +93,7 @@ class MainAppBar {
         actions: <Widget>[
           setHomeButton(_mContext),
           setLessonsButton(_mContext),
-          setChallengesButton(_mContext),
+          setGamesButton(_mContext),
           setTranslationButton(_mContext),
           // TextButton(
           //   //for spacing

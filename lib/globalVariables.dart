@@ -11,30 +11,30 @@ class GlobalVars {
 //const String MORSEHOME = 'routeMorseHome';
   static const String MORSEHOME = 'routeMorseHome';
   static const String MORSELESSONS = 'routeMorseLessons';
-  static const String MORSECHALLENGES = 'routeMorseChallenges';
+  static const String MORSEGAMES = 'routeMorseGames';
   static const String MORSETRANSLATION = 'routeMorseTranslation';
 
 // Semaphore Pages
   static const String SEMAPHOREHOME = 'routeSemaphoreHome';
   static const String SEMAPHORELESSONS = 'routeSemaphoreLessons';
-  static const String SEMAPHORECHALLENGES = 'routeSemaphoreChallenges';
+  static const String SEMAPHOREGAMES = 'routeSemaphoreGames';
   static const String SEMAPHORETRANSLATION = 'routeSemaphoreTranslation';
 
 // Knots Pages
   static const String KNOTSHOME = 'routeKnotsHome';
   static const String KNOTSLESSONS = 'routeKnotsLessons';
-  static const String KNOTSCHALLENGES = 'routeKnotsChallenges';
+  static const String KNOTSGAMES = 'routeKnotsGames';
   static const String KNOTSTRANSLATION = 'routeKnotsTranslation';
 
 // Cryptology Pages
   static const String CRYPTHOME = 'routeCryptHome';
   static const String CRYPTLESSONS = 'routeCryptLessons';
-  static const String CRYPTCHALLENGES = 'routeCryptChallenges';
+  static const String CRYPTGAMES = 'routeCryptGames';
   static const String CRYPTTRANSLATION = 'routeCryptTranslation';
 
 
   // General
-  static const String memory_game = "Memory Game \n(One Player)";
+  static const String memory_game = "Memory Game";
   static const String game_single = "Quiz Game \n(One Player)";
   static const String game_two = "Quiz Game \n(Two Players)";
   static const String theme_morse = "Morse";

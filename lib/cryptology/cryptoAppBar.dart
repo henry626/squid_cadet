@@ -15,7 +15,7 @@ class CryptoAppBar extends MainAppBar {
     setSettingsIcon(context);
     setHomeButton(context);
     setLessonsButton(context);
-    setChallengesButton(context);
+    setGamesButton(context);
     setTranslationButton(context);
   }
 
@@ -54,18 +54,18 @@ class CryptoAppBar extends MainAppBar {
   }
 
   @override
-  TextButton setChallengesButton(BuildContext context) {
+  TextButton setGamesButton(BuildContext context) {
     if (_selection == 2) {
       return TextButton(
         onPressed: () {},
-        child: Text("Challenges"),
+        child: Text("Games"),
         style: TextButton.styleFrom(primary: Colors.blueGrey),);
     } else {
       return TextButton(
         onPressed: () {
-          Navigator.pushNamed(context, CRYPTCHALLENGES);
+          Navigator.pushNamed(context, CRYPTGAMES);
         },
-        child: Text("Challenges"),
+        child: Text("Games"),
         style: TextButton.styleFrom(primary: Colors.white),);
     }
   }

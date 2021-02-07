@@ -56,7 +56,7 @@ class Splash2 extends StatelessWidget {
       navigateAfterSeconds: new MainSkillMenu(),
       title: new Text('Squid Cadets',
         style: TextStyle(
-          fontSize: GlobalVars.getHeight(height, 0.08),
+          fontSize: GlobalVars.getHeight(height, 0.06),
           fontFamily: GlobalVars.font_family,
           color: Colors.white,
 //          fontWeight: FontWeight.w800,
@@ -65,8 +65,8 @@ class Splash2 extends StatelessWidget {
       ),
       // TODO: change this image please!
       image: Image.asset('assets/images/MorseLittlePony.gif',
-      height: GlobalVars.getHeight(height, 0.50),
-      width: GlobalVars.getHeight(width, 0.50),),
+      height: GlobalVars.getHeight(height, 0.20),
+      width: GlobalVars.getHeight(width, 0.20),),
       loadingText: Text("Loading",
         style: TextStyle(
           fontSize: GlobalVars.getHeight(height, 0.03),

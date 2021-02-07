@@ -11,16 +11,16 @@ import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 MainExit mMainExit = MainExit();
 SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
 
-class SemaphoreChallenges extends StatefulWidget {
+class SemaphoreGames extends StatefulWidget {
   @override
-  _SemaphoreChallengesState createState() => _SemaphoreChallengesState();
+  _SemaphoreGamesState createState() => _SemaphoreGamesState();
 }
 
-class _SemaphoreChallengesState extends State<SemaphoreChallenges> {
+class _SemaphoreGamesState extends State<SemaphoreGames> {
 
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
     semaphoreAppBar.setSelection(context, 2);
     mMainExit.setContextMainExit(context);
     var width = MediaQuery.of(context).size.width;
@@ -34,9 +34,9 @@ class _SemaphoreChallengesState extends State<SemaphoreChallenges> {
         body: SafeArea(
           bottom: false,
           child: Container(
-            padding: EdgeInsets.all(25),
-            height: double.infinity,
-            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: GlobalVars.getWidth(width, 0.10)),
+            // height: double.infinity,
+            // width: double.infinity,
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               // crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +57,7 @@ class _SemaphoreChallengesState extends State<SemaphoreChallenges> {
                     text: GlobalVars.game_single,
 //                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
                     fontColor: Colors.black,
-                    fontSize: GlobalVars.getHeight(height, 0.05),
+                    fontSize: GlobalVars.getHeight(height, 0.04),
                   ),
                 ),
                 SizedBox(
@@ -76,7 +76,7 @@ class _SemaphoreChallengesState extends State<SemaphoreChallenges> {
                     text: GlobalVars.game_two,
 //                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
                     fontColor: Colors.black,
-                    fontSize: GlobalVars.getHeight(height, 0.05),
+                    fontSize: GlobalVars.getHeight(height, 0.04),
                   ),
                 ),
                 SizedBox(
@@ -95,7 +95,7 @@ class _SemaphoreChallengesState extends State<SemaphoreChallenges> {
                     text: GlobalVars.memory_game,
                     fontColor: Colors.black,
 //                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
-                    fontSize: GlobalVars.getHeight(height, 0.05),
+                    fontSize: GlobalVars.getHeight(height, 0.04),
                   ),
                 ),
               ],

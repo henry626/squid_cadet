@@ -3,7 +3,7 @@ import '../mainAppBar.dart';
 import '../routeNames.dart';
 import 'morseHome.dart';
 import 'morseLessons.dart';
-import 'morseChallenges.dart';
+import 'morseGames.dart';
 import 'morseTranslation.dart';
 
 class MorseAppBar extends MainAppBar {
@@ -19,7 +19,7 @@ class MorseAppBar extends MainAppBar {
     setSettingsIcon(context);
     setHomeButton(context);
     setLessonsButton(context);
-    setChallengesButton(context);
+    setGamesButton(context);
     setTranslationButton(context);
   }
 
@@ -58,18 +58,18 @@ class MorseAppBar extends MainAppBar {
   }
 
   @override
-  TextButton setChallengesButton(BuildContext context) {
+  TextButton setGamesButton(BuildContext context) {
     if (_selection == 2) {
       return TextButton(
         onPressed: () {},
-        child: Text("Challenges"),
+        child: Text("Games"),
         style: TextButton.styleFrom(primary: Colors.blueGrey),);
     } else {
       return TextButton(
         onPressed: () {
-          Navigator.pushNamed(context, MORSECHALLENGES);
+          Navigator.pushNamed(context, MORSEGAMES);
         },
-        child: Text("Challenges"),
+        child: Text("Games"),
         style: TextButton.styleFrom(primary: Colors.white),);
     }
   }

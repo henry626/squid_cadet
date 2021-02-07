@@ -25,7 +25,7 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
 
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation, 4-NA
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation, 4-NA
     mainAppBar.setSettingsIcon(context);
     mMainExit.setContextMainExit(context);
     var width = MediaQuery.of(context).size.width;
@@ -64,7 +64,7 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                   tileColor: Colors.green,
                   text: GlobalVars.theme_morse,
                   fontColor: Colors.black,
-                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  fontSize: GlobalVars.getHeight(height, 0.04),
                   //MyColors.widgetColor[GlobalVars.theme_morse],
                 ),
               ),
@@ -86,7 +86,7 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                   tileColor: Colors.blue,
                   text: GlobalVars.theme_semaphore,
                   fontColor: Colors.black,
-                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  fontSize: GlobalVars.getHeight(height, 0.04),
                   //MyColors.widgetColor[GlobalVars.theme_morse],
                 ),
               ),
@@ -108,7 +108,7 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                   tileColor: Colors.yellow,
                   text: GlobalVars.theme_knots,
                   fontColor: Colors.black,
-                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  fontSize: GlobalVars.getHeight(height, 0.04),
                   //MyColors.widgetColor[GlobalVars.theme_morse],
                 ),
               ),
@@ -130,7 +130,7 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                   tileColor: Colors.red,
                   text: GlobalVars.theme_cryptography,
                   fontColor: Colors.black,
-                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  fontSize: GlobalVars.getHeight(height, 0.04),
                   //MyColors.widgetColor[GlobalVars.theme_morse],
                 ),
               ),

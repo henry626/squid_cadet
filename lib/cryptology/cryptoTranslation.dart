@@ -10,7 +10,7 @@ MainExit mMainExit = MainExit();
 class CryptoTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
     cryptoAppBar.setSelection(context, 3);
     mMainExit.setContextMainExit(context);
 

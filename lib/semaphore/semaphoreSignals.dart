@@ -10,7 +10,7 @@ MainExit mMainExit = MainExit();
 class SemaphoreSignals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation, 4-NA
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation, 4-NA
     semaphoreAppBar.setSelection(context, 4);
     mMainExit.setContextMainExit(context);
 

@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-import 'knotsAppBar.dart';
+import 'cryptoAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 
-KnotsAppBar knotsAppBar = new KnotsAppBar();
+CryptoAppBar cryptoAppBar = new CryptoAppBar();
 MainExit mMainExit = MainExit();
 
-class KnotsChallenges extends StatelessWidget {
+class CryptoGames extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Challenges, 3-Translation
-    knotsAppBar.setSelection(context, 2);
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
+    cryptoAppBar.setSelection(context, 2);
     mMainExit.setContextMainExit(context);
 
     return new WillPopScope(
       onWillPop: mMainExit.mainPop,
       child: new Scaffold(
-        appBar: knotsAppBar.appBar(),
+        appBar: cryptoAppBar.appBar(),
         backgroundColor: Colors.black,
         body: Center(
           // TODO
           child: Text(
-            "KnotsChallenges",
+            "CryptoGames",
             textScaleFactor: 2,
           ),
         ),
