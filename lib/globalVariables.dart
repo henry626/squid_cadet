@@ -39,6 +39,8 @@ class GlobalVars {
   static const String game_two = "Quiz Game \n(Two Players)";
   static const String theme_morse = "Morse";
   static const String theme_semaphore = "Semaphore";
+  static const String theme_knots = "Knots";
+  static const String theme_cryptography = "Cryptography";
   static const String flips_left = "Flips Left";
   static const String points = "points";
   static const String max_points = "800";
@@ -57,6 +59,15 @@ class GlobalVars {
   static const String question_img_path = "assets/semaphores/flag.png";
   static const String morse_img_dir_path = "assets/semaphores/";
   static const String semaphore_img_dir_path = "assets/semaphores/";
+
+  static double getHeight(double height, double percent) {
+    return (height < 0.0) ? 0.0 : height * percent;
+
+  }
+
+  static double getWidth(double width, double percent) {
+      return (width < 0.0) ? 0.0 : width * percent;
+  }
 
   // mainSkillMenu ------- START -----------
   static int currentSelection = 0;
@@ -136,6 +147,17 @@ class GlobalVars {
   static int memoryGameBestScore = 50;
   static String memoryGameScoreLabel = "Counts";
   static int memoryGameScore = 0;
+  static String memoryGameEasyLabel = "Easy";
+  static String memoryGameHardLabel = "Hard";
+  static String memoryGameCurrentLevel = memoryGameEasyLabel;
+
+  Map<String, int>  memoryGameLevels = {
+    'Easy': 8, 'Hard': 16,
+  };
+
+  int getMemoryGameLevel(String key) {
+    return memoryGameLevels[key];
+  }
 
   Map<String, bool> semaphoreTable = {
     'A': false, 'B': false, 'C': false, 'D': false, 'E': false, 'F': false,
@@ -151,18 +173,6 @@ class GlobalVars {
     print('key = $key, retVal = $retVal');
     return retVal;
   }
-
-  // String getSemaphoreKey(bool flag) {
-  //   String retStr = '';
-  // TODO: does not work as all flags are false!
-  //   MapEntry entry = morseTable.entries.firstWhere((element) => element.value==flag, orElse: () => null);
-  //   if (entry != null) {
-  //     print('key = ${entry.key}');
-  //     print('value = ${entry.value}');
-  //     retStr = entry.key; //retStr = entry.key, if null, then equal ''
-  //   }
-  //   return retStr;
-  // }
 
   void setSemaphoreValue(String key) {
     //String retStr = '';

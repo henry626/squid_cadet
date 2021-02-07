@@ -9,6 +9,7 @@ import 'cryptology/cryptoHome.dart';
 import 'dart:io' show Platform, exit;
 import 'mainExit.dart';
 import 'globalVariables.dart';
+import 'package:squid_cadet/widgets/customCardView.dart';
 
 MainAppBar mainAppBar = MainAppBar();
 MainExit mMainExit = MainExit();
@@ -27,6 +28,9 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
     // 0-Home, 1-Lessons, 2-Challenges, 3-Translation, 4-NA
     mainAppBar.setSettingsIcon(context);
     mMainExit.setContextMainExit(context);
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       // is portrait
       return new WillPopScope(
@@ -35,169 +39,107 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
           appBar: mainAppBar.appBar(),
           backgroundColor: Colors.black,
           body: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Spacer(),
               Text('Current Selection: $currSkill',
                 style: TextStyle(fontWeight: FontWeight.bold,
                     fontSize: 20),),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-//                      side: BorderSide(width: 5, color: Colors.white)
-                            ),
-                            color: Colors.green,
-//                  child: Image.asset('images/imageMorseGreen.png'),
-                            child: Text('Morse',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 1;
-                              });
-                              //Navigate to Screen 0
-                              // Navigator.pushNamed(context, MORSEHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => MorseHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.blue,
-//                  child: Image.asset('images/imageMorseGreen.png'),
-                            child: Text('Semaphore',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 2;
-                              });
-                              //Navigate to Screen 1
-                              // Navigator.pushNamed(context, SEMAPHOREHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SemaphoreHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.yellow,
-                            child: Text('Knots',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 3;
-                              });
-                              //Navigate to Screen 2
-                              //Navigator.pushNamed(context, KNOTSHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => KnotsHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-                child: Row(
-                  children: <Widget>[
-                    Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.red,
-                            child: Text('Cryptography',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 4;
-                              });
-                              //Navigate to Screen 3
-                              //Navigator.pushNamed(context, CRYPTHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => CryptoHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                  ],
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MorseHome()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                child: CustomCardView(
+//              height: 150,
+                  height: GlobalVars.getHeight(height, 0.15),
+                  width: GlobalVars.getWidth(width, 0.80),
+                  showTile: true,
+                  tileColor: Colors.green,
+                  text: GlobalVars.theme_morse,
+                  fontColor: Colors.black,
+                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  //MyColors.widgetColor[GlobalVars.theme_morse],
                 ),
               ),
               Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SemaphoreHome()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                child: CustomCardView(
+//              height: 150,
+                  height: GlobalVars.getHeight(height, 0.15),
+                  width: GlobalVars.getWidth(width, 0.80),
+                  showTile: true,
+                  tileColor: Colors.blue,
+                  text: GlobalVars.theme_semaphore,
+                  fontColor: Colors.black,
+                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  //MyColors.widgetColor[GlobalVars.theme_morse],
+                ),
+              ),
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => KnotsHome()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                child: CustomCardView(
+//              height: 150,
+                  height: GlobalVars.getHeight(height, 0.15),
+                  width: GlobalVars.getWidth(width, 0.80),
+                  showTile: true,
+                  tileColor: Colors.yellow,
+                  text: GlobalVars.theme_knots,
+                  fontColor: Colors.black,
+                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  //MyColors.widgetColor[GlobalVars.theme_morse],
+                ),
+              ),
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CryptoHome()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                child: CustomCardView(
+//              height: 150,
+                  height: GlobalVars.getHeight(height, 0.15),
+                  width: GlobalVars.getWidth(width, 0.80),
+                  showTile: true,
+                  tileColor: Colors.red,
+                  text: GlobalVars.theme_cryptography,
+                  fontColor: Colors.black,
+                  fontSize: GlobalVars.getHeight(height, 0.05),
+                  //MyColors.widgetColor[GlobalVars.theme_morse],
+                ),
+              ),
+              Spacer(),
+              InkWell(
+                //This inkwell is just for alignment
+                onTap: () {},
+                child: CustomCardView(height: 1, width: width, text: ""),
+              ),
             ],
           ),
         ),
@@ -221,65 +163,47 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                 child: Row(
                   children: <Widget>[
                     Spacer(),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-//                      side: BorderSide(width: 5, color: Colors.white)
-                            ),
-                            color: Colors.green,
-//                  child: Image.asset('images/imageMorseGreen.png'),
-                            child: Text('Morse',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 1;
-                              });
-                              //Navigate to Screen 0
-                              // Navigator.pushNamed(context, MORSEHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => MorseHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MorseHome()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: CustomCardView(
+//              height: 150,
+                        height: GlobalVars.getHeight(height, 0.20),
+                        width: GlobalVars.getWidth(width, 0.35),
+                        showTile: true,
+                        tileColor: Colors.green,
+                        text: GlobalVars.theme_morse,
+                        fontColor: Colors.black,
+                        fontSize: GlobalVars.getHeight(height, 0.05),
+                        //MyColors.widgetColor[GlobalVars.theme_morse],
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.blue,
-//                  child: Image.asset('images/imageMorseGreen.png'),
-                            child: Text('Semaphore',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 2;
-                              });
-                              //Navigate to Screen 1
-                              // Navigator.pushNamed(context, SEMAPHOREHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SemaphoreHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SemaphoreHome()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: CustomCardView(
+//              height: 150,
+                        height: GlobalVars.getHeight(height, 0.20),
+                        width: GlobalVars.getWidth(width, 0.35),
+                        showTile: true,
+                        tileColor: Colors.blue,
+                        text: GlobalVars.theme_semaphore,
+                        fontColor: Colors.black,
+                        fontSize: GlobalVars.getHeight(height, 0.05),
+                        //MyColors.widgetColor[GlobalVars.theme_morse],
                       ),
                     ),
                     Spacer(),
@@ -292,60 +216,47 @@ class _MainSkillMenuState extends State<MainSkillMenu> {
                 child: Row(
                   children: <Widget>[
                     Spacer(),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.yellow,
-                            child: Text('Knots',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 3;
-                              });
-                              //Navigate to Screen 2
-                              //Navigator.pushNamed(context, KNOTSHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => KnotsHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KnotsHome()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: CustomCardView(
+//              height: 150,
+                        height: GlobalVars.getHeight(height, 0.20),
+                        width: GlobalVars.getWidth(width, 0.35),
+                        showTile: true,
+                        tileColor: Colors.yellow,
+                        text: GlobalVars.theme_knots,
+                        fontColor: Colors.black,
+                        fontSize: GlobalVars.getHeight(height, 0.05),
+                        //MyColors.widgetColor[GlobalVars.theme_morse],
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 75.0,
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0)),
-                            color: Colors.red,
-                            child: Text('Cryptography',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 20),),
-                            onPressed: () {
-                              setState(() {
-                                GlobalVars.currentSelection = 4;
-                              });
-                              //Navigate to Screen 3
-                              //Navigator.pushNamed(context, CRYPTHOME);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (context) => CryptoHome()),
-                                    (Route<dynamic> route) => false,
-                              );
-                            },
-                          ),
-                        ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CryptoHome()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: CustomCardView(
+//              height: 150,
+                        height: GlobalVars.getHeight(height, 0.20),
+                        width: GlobalVars.getWidth(width, 0.35),
+                        showTile: true,
+                        tileColor: Colors.red,
+                        text: GlobalVars.theme_cryptography,
+                        fontColor: Colors.black,
+                        fontSize: GlobalVars.getHeight(height, 0.05),
+                        //MyColors.widgetColor[GlobalVars.theme_morse],
                       ),
                     ),
                     Spacer(),

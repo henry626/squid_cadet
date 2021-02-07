@@ -10,6 +10,8 @@ import 'semaphore/semaphoreHome.dart';
 import 'router.dart' as router;
 import 'routeNames.dart';
 import 'semaphore/semaphoreSignals.dart';
+import 'globalVariables.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
     //   DeviceOrientation.landscapeLeft,
     //   DeviceOrientation.landscapeRight,
     // ]);
+
     return MaterialApp(
       title: 'Splash Screen',
       onGenerateRoute: router.generateRoute,
@@ -44,13 +47,34 @@ class MyApp extends StatelessWidget {
 class Splash2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
     return SplashScreen(
       backgroundColor: Colors.black,
       seconds: 6,
       navigateAfterSeconds: new MainSkillMenu(),
-      title: new Text('Squid Cadets',textScaleFactor: 2,),
-      image: Image.asset('assets/images/MorseLittlePony.gif'),
-      loadingText: Text("Loading"),
+      title: new Text('Squid Cadets',
+        style: TextStyle(
+          fontSize: GlobalVars.getHeight(height, 0.08),
+          fontFamily: GlobalVars.font_family,
+          color: Colors.white,
+//          fontWeight: FontWeight.w800,
+        ),
+//        textScaleFactor: 2,
+      ),
+      // TODO: change this image please!
+      image: Image.asset('assets/images/MorseLittlePony.gif',
+      height: GlobalVars.getHeight(height, 0.50),
+      width: GlobalVars.getHeight(width, 0.50),),
+      loadingText: Text("Loading",
+        style: TextStyle(
+          fontSize: GlobalVars.getHeight(height, 0.03),
+          fontFamily: GlobalVars.font_family,
+          color: Colors.white,
+//          fontWeight: FontWeight.w800,
+        ),
+      ),
       photoSize: 100.0,
       loaderColor: Colors.white,
     );

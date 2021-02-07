@@ -10,10 +10,13 @@ import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 class GameOverView extends StatelessWidget {
   Function callbackGameView;
   GameOverView({this.callbackGameView});
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    int score = maxFlipCount - flipCount;
+
     return SafeArea(
       child: Container(
         width: width,
@@ -27,14 +30,14 @@ class GameOverView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                (flipCount == 0 && totalMatches != easyLevel)
+                (flipCount == 0 && totalMatches != currentLevel)
                     ? GlobalVars.game_over
 //              : GlobalVars.score + " : $viewPoints",
-                    : GlobalVars.score + " : $flipCount",
+                    : GlobalVars.score + " : $score",
                 style: TextStyle(
                   fontSize: 35.0,
                   fontFamily: GlobalVars.font_family,
-                  color: (flipCount == 0 && totalMatches != easyLevel)
+                  color: (flipCount == 0 && totalMatches != currentLevel)
                       ? MyColors.widgetColor[GlobalVars.choose_theme]
                       : MyColors.widgetColor[GlobalVars.score],
                   fontWeight: FontWeight.w800,

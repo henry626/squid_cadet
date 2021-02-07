@@ -1,3 +1,13 @@
 Memory Game - ReadMe
 1.  Reference to Kapil Gupta Memory Monarch on Github.
     https://github.com/kapilbindal/Flutter-Games/tree/master/memory_monarch
+
+2. Portrait and Horizontal mode  -- DONE
+       https://api.flutter.dev/flutter/widgets/MediaQuery-class.html
+       A. Use MediaQuery:
+           MediaQuery.of(context).size; //screen size,
+           MediaQuery.of(context).orientation;  //orientation,
+           MediaQuery.of(context).textScaleFactor //Font size
+           etc.
+
+3.

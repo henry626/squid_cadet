@@ -25,6 +25,7 @@ int selectedImageIndex;
 String theme = "";
 List<TileModel> pairs = List<TileModel>();
 
+int currentLevel = 8;
 
 void hideAllPairs(List<TileModel> visibleList) {
   for (int i = 0; i < visibleList.length; i++) {
@@ -46,8 +47,7 @@ List<TileModel> getMorsePairs() {
   imgNames.shuffle();
   //  print("images = $imgNames");
 
-  for (int i = 0; i < easyLevel; i++) {
-//  for (int i = 0; i < imgNames.length; i++) {
+  for (int i = 0; i < currentLevel; i++) {
     TileModel cardCopy1 = TileModel();
     cardCopy1.setImagePath(GlobalVars().getMorse(imgNames[i]));
     cardCopy1.setIsSelected(true);
@@ -76,8 +76,7 @@ List<TileModel> getSemaphorePairs() {
   imgNames.shuffle();
 //  print("images = $imgNames");
 
-  for (int i = 0; i < easyLevel; i++) {
-//  for (int i = 0; i < imgNames.length; i++) {
+  for (int i = 0; i < currentLevel; i++) {
     TileModel cardCopy1 = TileModel();
     cardCopy1.setImagePath(GlobalVars.semaphore_img_dir_path + imgNames[i] + ".gif");
     cardCopy1.setIsSelected(true);

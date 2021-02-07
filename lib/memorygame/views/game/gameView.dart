@@ -10,6 +10,7 @@ class GameView extends StatefulWidget {
   GameView({this.callbackMain});
   @override
   _GameViewState createState() => _GameViewState();
+
 }
 
 class _GameViewState extends State<GameView> {
@@ -27,7 +28,14 @@ class _GameViewState extends State<GameView> {
     restart();
   }
 
+  @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
   void restart() {
+    print ('game restart -- ');
     pairs = theme == GlobalVars.theme_morse
         ? getMorsePairs()
         : getSemaphorePairs(); // sab True
@@ -65,6 +73,7 @@ class _GameViewState extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
+
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       // is portrait
       crossCount = 4;
@@ -85,7 +94,7 @@ class _GameViewState extends State<GameView> {
       child: Stack(
         children: <Widget>[
           AnimatedOpacity(
-            opacity: (totalMatches == easyLevel || flipCount == 0) ? 0.3 : 1,
+            opacity: (totalMatches == currentLevel || flipCount == 0) ? 0.3 : 1,
             duration: Duration(seconds: 1),
             child: GridView(
               shrinkWrap: true,
@@ -107,7 +116,7 @@ class _GameViewState extends State<GameView> {
               ),
             ),
           ),
-          totalMatches == easyLevel || flipCount == 0
+          totalMatches == currentLevel || flipCount == 0
               ? GameOverView(
             callbackGameView: callbackFromGameOverView,
           )

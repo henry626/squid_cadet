@@ -21,6 +21,7 @@ class TileView extends StatefulWidget {
 }
 
 class _TileViewState extends State<TileView> {
+
   @override
   Widget build(BuildContext context) {
     TileModel currentTile = widget.visiblePairs[widget.index];
@@ -43,17 +44,14 @@ class _TileViewState extends State<TileView> {
               // Matched
               if ((theme == GlobalVars.theme_morse &&
                   selectedImagePath == currentTile.imagePath) ||
-                  //check for last number in the name for "HUM TUM" theme
                   (theme == GlobalVars.theme_semaphore &&
                   selectedImagePath == currentTile.imagePath) ) {
                 totalMatches += 1;
-//                viewPoints += 100;
                 widget.visiblePairs[selectedImageIndex].setIsMatched(true);
                 currentTile.setIsMatched(true);
               }
               //Not Matched
               else {
-//                viewPoints = max(0, viewPoints - 10);
                 widget.visiblePairs[selectedImageIndex].setIsSelected(false);
                 currentTile.setIsSelected(false);
               }
@@ -67,8 +65,7 @@ class _TileViewState extends State<TileView> {
             selectedImagePath = currentTile.imagePath;
             selectedImageIndex = widget.index;
           }
-//          if (totalPoints == 800 || flipCount == 0) allowClick = false;
-          if (totalMatches == easyLevel || flipCount == 0) {
+          if (totalMatches == currentLevel || flipCount == 0) {
             allowClick = false;
           }
         }
