@@ -59,320 +59,170 @@ class _GamePageState extends State<GamePage> {
     var cardFontHeight = height / 18;
     int bestScore = 50;
 
-    // if (MediaQuery.of(context).orientation == Orientation.portrait) {
-      // is portrait
-      return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
             ),
-            title: Text(
-              GlobalVars.memory_game,
-            ),
-            centerTitle: true,
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: Container(
-            color: Colors.black,
-            height: height,
-            width: width,
-            padding: EdgeInsets.all(10),
-            // decoration: BoxDecoration(
-            //   image: DecorationImage(
-            //     image: AssetImage(GlobalVars.background_img_path),
-            //     fit: BoxFit.cover,
-            //   ),
-            // ),
-            child: Column(
-              children: <Widget>[
-                CustomCardView(
+          title: Text(
+            GlobalVars.memory_game,
+          ),
+          centerTitle: true,
+        ),
+        body: Container(
+          color: Colors.black,
+          height: height,
+          width: width,
+          padding: EdgeInsets.all(10),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage(GlobalVars.background_img_path),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
+          child: Column(
+            children: <Widget>[
+              CustomCardView(
 //              backColor: Colors.black,
-                  height: GlobalVars.getHeight(height, 0.10),
-                  width: width,
-                  text: theme,
-                  fontColor: theme == GlobalVars.theme_morse
-                      ? MyColors.widgetColor[GlobalVars.theme_morse]
-                      : MyColors.widgetColor[GlobalVars.theme_semaphore],
-                  fontSize: GlobalVars.getHeight(height, 0.05),
-                ),
-                SizedBox(height: GlobalVars.getHeight(height, 0.01)),
-                Expanded(
-                  child: _start != 0
-                      ? Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white54,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            GlobalVars.get_ready + "\n $_start",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w700),
-//                  style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            // Scoreline
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      GlobalVars.memoryGameBestScoreLabel +
-                                          GlobalVars.memoryGameBestScore
-                                              .toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: (currentLevel == hardLevel) ?
-                                          GlobalVars.getHeight(height, 0.02) :
-                                          GlobalVars.getHeight(height, 0.03)
-                                      ),
-//                            style: Theme.of(context).textTheme.display1,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "$flipCount " + GlobalVars.flips_left,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: (currentLevel == hardLevel) ?
-                                          GlobalVars.getHeight(height, 0.02) :
-                                          GlobalVars.getHeight(height, 0.03)
-                                      ),
-//                            style: Theme.of(context).textTheme.display1,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        if (easyLevel != currentLevel) {
-                                          currentLevel = easyLevel;
-                                          Navigator.pop(
-                                              context); // pop current page
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(builder: (context) => GamePage()));
-                                        }
-                                      },
-                                      child: new Padding(
-                                        padding: new EdgeInsets.all(1.0),
-                                        child: new Text(
-                                            GlobalVars.memoryGameEasyLabel,
-                                          style: TextStyle(
-                                            color: (easyLevel != currentLevel )
-                                                ? Colors.white
-                                                : MyColors.widgetColor[GlobalVars.theme_semaphore],
-                                              fontSize: (currentLevel == hardLevel) ?
-                                              GlobalVars.getHeight(height, 0.02) :
-                                              GlobalVars.getHeight(height, 0.03),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        if (hardLevel != currentLevel ) {
-                                          currentLevel = hardLevel;
-                                          Navigator.pop(
-                                              context); // pop current page
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(builder: (context) => GamePage()));
-                                        }
-                                      },
-                                      child: new Padding(
-                                        padding: new EdgeInsets.all(1.0),
-                                        child: new Text(
-                                            GlobalVars.memoryGameHardLabel,
-                                            style: TextStyle(
-                                            color: (hardLevel != currentLevel )
-                                            ? Colors.white
-                                            : MyColors.widgetColor[GlobalVars.theme_semaphore],
-                                              fontSize: (currentLevel == hardLevel) ?
-                                              GlobalVars.getHeight(height, 0.02) :
-                                              GlobalVars.getHeight(height, 0.03),
-                                              fontWeight: FontWeight.bold,
-                                      ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            GameView(
-                              callbackMain: callback,
-                            ),
-                          ],
+                height: GlobalVars.getHeight(height, 0.10),
+                width: width,
+                text: theme,
+                fontColor: theme == GlobalVars.theme_morse
+                    ? MyColors.widgetColor[GlobalVars.theme_morse]
+                    : MyColors.widgetColor[GlobalVars.theme_semaphore],
+                fontSize: GlobalVars.getHeight(height, 0.05),
+              ),
+              SizedBox(height: GlobalVars.getHeight(height, 0.01)),
+              Expanded(
+                child: _start != 0
+                    ? Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          shape: BoxShape.circle,
                         ),
-                ),
-              ],
-            ),
+                        child: Text(
+                          GlobalVars.get_ready + "\n $_start",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w700),
+//                  style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          // Scoreline
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    GlobalVars.memoryGameBestScoreLabel +
+                                        GlobalVars.memoryGameBestScore
+                                            .toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: (currentLevel == hardLevel) ?
+                                        GlobalVars.getHeight(height, 0.02) :
+                                        GlobalVars.getHeight(height, 0.03)
+                                    ),
+//                            style: Theme.of(context).textTheme.display1,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "$flipCount " + GlobalVars.flips_left,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: (currentLevel == hardLevel) ?
+                                        GlobalVars.getHeight(height, 0.02) :
+                                        GlobalVars.getHeight(height, 0.03)
+                                    ),
+//                            style: Theme.of(context).textTheme.display1,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      if (easyLevel != currentLevel) {
+                                        currentLevel = easyLevel;
+                                        Navigator.pop(
+                                            context); // pop current page
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(builder: (context) => GamePage()));
+                                      }
+                                    },
+                                    child: new Padding(
+                                      padding: new EdgeInsets.all(1.0),
+                                      child: new Text(
+                                          GlobalVars.memoryGameEasyLabel,
+                                        style: TextStyle(
+                                          color: (easyLevel != currentLevel )
+                                              ? Colors.white
+                                              : MyColors.widgetColor[GlobalVars.theme_semaphore],
+                                            fontSize: (currentLevel == hardLevel) ?
+                                            GlobalVars.getHeight(height, 0.02) :
+                                            GlobalVars.getHeight(height, 0.03),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      if (hardLevel != currentLevel ) {
+                                        currentLevel = hardLevel;
+                                        Navigator.pop(
+                                            context); // pop current page
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(builder: (context) => GamePage()));
+                                      }
+                                    },
+                                    child: new Padding(
+                                      padding: new EdgeInsets.all(1.0),
+                                      child: new Text(
+                                          GlobalVars.memoryGameHardLabel,
+                                          style: TextStyle(
+                                          color: (hardLevel != currentLevel )
+                                          ? Colors.white
+                                          : MyColors.widgetColor[GlobalVars.theme_semaphore],
+                                            fontSize: (currentLevel == hardLevel) ?
+                                            GlobalVars.getHeight(height, 0.02) :
+                                            GlobalVars.getHeight(height, 0.03),
+                                            fontWeight: FontWeight.bold,
+                                    ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          GameView(
+                            callbackMain: callback,
+                          ),
+                        ],
+                      ),
+              ),
+            ],
           ),
         ),
-      );
-//     } else {
-//       // is landscape
-//       return Scaffold(
-//         appBar: AppBar(
-//           backgroundColor: Colors.black,
-//           leading: IconButton(
-//             icon: Icon(
-//               Icons.arrow_back,
-//             ),
-//             onPressed: () => Navigator.of(context).pop(),
-//           ),
-//           title: Text(
-//             GlobalVars.memory_game,
-//           ),
-//           centerTitle: true,
-//         ),
-//         body: Container(
-//           color: Colors.black,
-//           height: height,
-//           width: width,
-//           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-//           // decoration: BoxDecoration(
-//           //   image: DecorationImage(
-//           //     image: AssetImage(GlobalVars.background_img_path),
-//           //     fit: BoxFit.cover,
-//           //   ),
-//           // ),
-//           child: Column(
-//             children: <Widget>[
-//               CustomCardView(
-// //              backColor: Colors.black,
-//                 height: cardHeight,
-//                 width: width,
-//                 text: theme,
-//                 fontSize: cardFontHeight,
-//                 fontColor: theme == GlobalVars.theme_morse
-//                     ? MyColors.widgetColor[GlobalVars.theme_morse]
-//                     : MyColors.widgetColor[GlobalVars.theme_semaphore],
-//               ),
-//               SizedBox(height: 5),
-//               Expanded(
-//                 child: _start != 0
-//                     ? Container(
-//                         alignment: Alignment.center,
-//                         decoration: BoxDecoration(
-//                           color: Colors.white54,
-//                           shape: BoxShape.circle,
-//                         ),
-//                         child: Text(
-//                           GlobalVars.get_ready + "\n $_start",
-//                           textAlign: TextAlign.center,
-//                           style: TextStyle(
-//                               fontSize: 30, fontWeight: FontWeight.w700),
-// //                  style: Theme.of(context).textTheme.bodyText1,
-//                         ),
-//                       )
-//                     : Column(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: <Widget>[
-//                           // Scoreline
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                             children: <Widget>[
-//                               Column(
-//                                 mainAxisAlignment: MainAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     GlobalVars.memoryGameBestScoreLabel +
-//                                         GlobalVars.memoryGameBestScore
-//                                             .toString(),
-// //                            style: Theme.of(context).textTheme.display1,
-//                                   ),
-//                                   SizedBox(
-//                                     height: 5,
-//                                   ),
-//                                   Text(
-//                                     "$flipCount " + GlobalVars.flips_left,
-// //                            style: Theme.of(context).textTheme.display1,
-//                                   ),
-//                                 ],
-//                               ),
-//                               Column(
-//                                 mainAxisAlignment: MainAxisAlignment.end,
-//                                 children: [
-//                                   InkWell(
-//                                     onTap: () {
-//                                       if (easyLevel != currentLevel ) {
-//                                         currentLevel = easyLevel;
-//                                         Navigator.pop(
-//                                             context); // pop current page
-//                                         Navigator.of(context)
-//                                             .push(MaterialPageRoute(builder: (context) => GamePage()));
-//                                       }
-//                                     },
-//                                     child: new Padding(
-//                                       padding: new EdgeInsets.all(1.0),
-//                                       child: new Text(
-//                                           GlobalVars.memoryGameEasyLabel,
-//                                         style: TextStyle(
-//                                           color: (easyLevel != currentLevel )
-//                                               ? Colors.white
-//                                               : MyColors.widgetColor[GlobalVars.theme_semaphore],
-//                                           fontWeight: FontWeight.bold,
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   SizedBox(
-//                                     height: 5,
-//                                   ),
-//                                   InkWell(
-//                                     onTap: () {
-//                                       if (hardLevel != currentLevel ) {
-//                                         currentLevel = hardLevel;
-//                                         Navigator.pop(
-//                                             context); // pop current page
-//                                         Navigator.of(context)
-//                                             .push(MaterialPageRoute(builder: (context) => GamePage()));
-//                                       }
-//                                     },
-//                                     child: new Padding(
-//                                       padding: new EdgeInsets.all(1.0),
-//                                       child: new Text(
-//                                           GlobalVars.memoryGameHardLabel,
-//                                         style: TextStyle(
-//                                           color: (hardLevel != currentLevel )
-//                                             ? Colors.white
-//                                             : MyColors.widgetColor[GlobalVars.theme_semaphore],
-//                                           fontWeight: FontWeight.bold,
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                           GameView(
-//                             callbackMain: callback,
-//                           ),
-//                         ],
-//                       ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-//     }
+      ),
+    );
   }
 }

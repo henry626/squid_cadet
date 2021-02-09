@@ -60,11 +60,12 @@ class GlobalVars {
   static const String morse_img_dir_path = "assets/semaphores/";
   static const String semaphore_img_dir_path = "assets/semaphores/";
 
+  // return Height as a percentage of the screenHeight
   static double getHeight(double height, double percent) {
     return (height < 0.0) ? 0.0 : height * percent;
-
   }
 
+  // return width as a percentage of the screenWidth
   static double getWidth(double width, double percent) {
       return (width < 0.0) ? 0.0 : width * percent;
   }
