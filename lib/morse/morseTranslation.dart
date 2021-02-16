@@ -164,53 +164,54 @@ class _MorseTranslationState extends State<MorseTranslation> {
                 children: <Widget>[
                   Spacer(),
                   Expanded(
-                      flex: 5,
-                      child: new SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        reverse: true,
-                        child: TextField(
-                          controller: _controller,
-                          readOnly: _text2Morse ? false : true,
-                          showCursor: true,
-                          style: new TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                              color: Colors.white),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5.0),
-                            border: OutlineInputBorder(),
-                            hintText: _text2Morse
-                                ? 'Enter the text string here.'
-                                : 'Enter morse code here. \nUse / between letters',
-                            hintStyle: TextStyle(
-                                fontSize: 14.0, color: Colors.white54),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0)),
-                              borderSide:
-                                  BorderSide(color: Colors.blue, width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(color: Colors.blue),
-                            ),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    _controller.clear();
-                                    currentMorse = '';
-                                  },
-                                );
-                              },
-                              icon: Icon(Icons.clear),
-                            ),
+                    flex: 5,
+                    child: new SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      reverse: true,
+                      child: TextField(
+                        controller: _controller,
+                        readOnly: _text2Morse ? false : true,
+                        showCursor: true,
+                        style: new TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                            color: Colors.white),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5.0),
+                          border: OutlineInputBorder(),
+                          hintText: _text2Morse
+                              ? 'Enter the text string here.'
+                              : 'Enter morse code here. \nUse / between letters',
+                          hintStyle:
+                              TextStyle(fontSize: 14.0, color: Colors.white54),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12.0)),
+                            borderSide:
+                                BorderSide(color: Colors.blue, width: 2),
                           ),
-                          minLines: 1,
-                          maxLines: 2,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(
+                                () {
+                                  _controller.clear();
+                                  currentMorse = '';
+                                },
+                              );
+                            },
+                            icon: Icon(Icons.clear),
+                          ),
                         ),
-                      )),
+                        minLines: 1,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: 5,
                   ),

@@ -1,10 +1,7 @@
 Morse - Lessons
 
-1.  Start from MorseHome
+1.  Use Google Morse Learn Style
+    https://morse.withgoogle.com/learn/
 
-2.  Textfield border and FontStyle
-    https://flutter-examples.com/set-rounded-corner-border-around-textfield/
-
-3.  getText from textField
-    https://flutter.dev/docs/cookbook/forms/retrieve-input
-    content: Text(myController.text),
+2.  Use Make words with these letter at:
+    https://wordmaker.info/how-many/abcd.html

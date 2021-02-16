@@ -186,5 +186,10 @@ class GlobalVars {
   }
 //Semaphore ------END-----------
 
+
+//Knots   ---------START---------
+  static String knotSelected = "";
+
+//Knots   ---------END-----------
 }
 

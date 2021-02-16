@@ -1,0 +1,22 @@
+KnotsHome - Readme
+
+1.  Knot of the Day
+    randomly select from the list of Knots
+
+2.  Knots Info page
+    https://www.animatedknots.com/
+
+3.  Pass a list of images into listview
+    https://stackoverflow.com/questions/56544200/flutter-how-to-get-a-list-of-names-of-all-images-in-assets-directory
+
+4.  Path Provider package
+    https://pub.dev/packages/path_provider
+
+Knot Lesson - Readme
+
+1.  GridView sample code
+    https://stackoverflow.com/questions/44183795/flutter-layout-a-grid
+
+2.  Selected Knot is displayed to the knotsGuide page.
+
+

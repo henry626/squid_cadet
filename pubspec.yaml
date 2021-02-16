@@ -23,6 +23,8 @@ dependencies:
   audioplayers: "^0.17.3"
   lamp: "^0.0.6"
   flutter_icons: "^1.1.0"
+  path_provider: "^1.6.27"
+  rflutter_alert: "^1.1.0"
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +46,8 @@ flutter:
     - assets/images/
     - assets/sounds/
     - assets/semaphores/
+    - assets/knots/
+    - assets/knotsGuide/
 
 flutter_launcher_name:
   name: "Squid Cadets"

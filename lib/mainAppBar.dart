@@ -79,11 +79,11 @@ class MainAppBar {
           //Remove Home for Portrait Mode
           //setHomeButton(_mContext),
           Spacer(),
-          Expanded(flex: 2, child: setLessonsButton(_mContext)),
-          Expanded(flex: 2, child: setGamesButton(_mContext)),
-          Expanded(flex: 2, child: setTranslationButton(_mContext)),
-          Expanded(flex: 1, child: _mSkillIcon),
-          Expanded(flex: 1, child: _mSettingIcon),
+          Expanded(flex: 4, child: setLessonsButton(_mContext)),
+          Expanded(flex: 3, child: setGamesButton(_mContext)),
+          Expanded(flex: 4, child: setTranslationButton(_mContext)),
+          Expanded(flex: 2, child: _mSkillIcon),
+          Expanded(flex: 2, child: _mSettingIcon),
         ],
         backgroundColor: Colors.black45,
       );
@@ -96,7 +96,6 @@ class MainAppBar {
           onPressed: () {},
         ), //IconButton
         actions: <Widget>[
-          Spacer(),
           Spacer(),
           Expanded(flex: 1, child: setHomeButton(_mContext)),
           Expanded(flex: 1, child: setLessonsButton(_mContext)),

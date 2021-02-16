@@ -13,16 +13,6 @@ import 'package:lamp/lamp.dart';
 SemaphoreAppBar semaphoreAppBar = new SemaphoreAppBar();
 MainExit mMainExit = MainExit();
 
-// class MyClip extends CustomClipper<Rect> {
-//   Rect getClip(Size size) {
-//     return Rect.fromLTWH(20, 20, 100, 100);
-//   }
-//
-//   bool shouldReclip(oldClipper) {
-//     return false;
-//   }
-// }
-
 class SemaphoreHome extends StatefulWidget {
   @override
   _SemaphoreHomeState createState() => _SemaphoreHomeState();
@@ -108,7 +98,7 @@ class _SemaphoreHomeState extends State<SemaphoreHome> {
                         Container(
                           child: Text(
                             (currentSemaphore == '') ?
-                            'Click on the symbol to see the semaphore.'
+                            'Click key to see it in semaphore.'
                                 : currentSemaphore,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
@@ -117,7 +107,7 @@ class _SemaphoreHomeState extends State<SemaphoreHome> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: (currSymbol != '') ?
                                 GlobalVars.getWidth(width, 0.20) :
-                                GlobalVars.getWidth(width, 0.025),
+                                GlobalVars.getWidth(width, 0.05),
                                 color: Colors.white) :
                             TextStyle(
                                 fontWeight: FontWeight.bold,

@@ -12,7 +12,7 @@ import 'semaphore/semaphoreLessons.dart';
 import 'semaphore/semaphoreGames.dart';
 import 'semaphore/semaphoreSignals.dart';
 import 'knots/knotsHome.dart';
-import 'knots/knotsTranslation.dart';
+import 'knots/knotsGuide.dart';
 import 'knots/knotsLessons.dart';
 import 'knots/knotsGames.dart';
 import 'cryptology/cryptoHome.dart';
@@ -52,8 +52,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => KnotsLessons());
     case KNOTSGAMES:
       return MaterialPageRoute(builder: (_) => KnotsGames());
-    case KNOTSTRANSLATION:
-      return MaterialPageRoute(builder: (_) => KnotsTranslation());
+    // case KNOTSTRANSLATION: //Remove
+    //   return MaterialPageRoute(builder: (_) => KnotsTranslation());
 
     case CRYPTHOME:
       return MaterialPageRoute(builder: (_) => CryptoHome());

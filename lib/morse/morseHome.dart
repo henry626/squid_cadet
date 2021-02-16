@@ -144,7 +144,7 @@ class _MorseHomeState extends State<MorseHome> {
                               fontWeight: FontWeight.bold,
                               fontSize: (currSymbol != '') ?
                               GlobalVars.getWidth(width, 0.20) :
-                              GlobalVars.getWidth(width, 0.025),
+                              GlobalVars.getWidth(width, 0.04),
                               color: Colors.white) :
                           TextStyle(
                               fontWeight: FontWeight.bold,

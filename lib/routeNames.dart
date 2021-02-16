@@ -22,7 +22,7 @@ const String SEMAPHORESIGNALS = 'routeSemaphoreSignals';
 const String KNOTSHOME = 'routeKnotsHome';
 const String KNOTSLESSONS = 'routeKnotsLessons';
 const String KNOTSGAMES = 'routeKnotsGames';
-const String KNOTSTRANSLATION = 'routeKnotsTranslation';
+//const String KNOTSTRANSLATION = 'routeKnotsTranslation';
 const String KNOTSSETTINGS = 'routeKnotsSettings';
 
 // Cryptology Pages

@@ -34,38 +34,39 @@ import 'package:meta/meta.dart' show required;
 MainExit mMainExit = MainExit();
 SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
 
-class SemaphoreLessons extends StatefulWidget {
-  @override
-  _SemaphoreLessonsState createState() => _SemaphoreLessonsState();
-}
-
-class _SemaphoreLessonsState extends State<SemaphoreLessons> {
+class SemaphoreLessons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
+    semaphoreAppBar.setSelection(context, 1);
+    mMainExit.setContextMainExit(context);
+    return WillPopScope(
+      onWillPop: mMainExit.mainPop,
+      child: Scaffold(
+        appBar: semaphoreAppBar.appBar(),
+        backgroundColor: Colors.black,
+        body: SafeArea (
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: SemaphorePage(),
+          ),
+        ),
+      ),
+    );
   }
 }
 
-// class SemaphoreLessons extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     // 0-Home, 1-Lessons, 2-Games, 3-Translation
-//     semaphoreAppBar.setSelection(context, 1);
-//     mMainExit.setContextMainExit(context);
-//
-//     return new WillPopScope(
-//       onWillPop: mMainExit.mainPop,
-//       child: new Scaffold(
-//         appBar: semaphoreAppBar.appBar(),
-//         backgroundColor: Colors.black,
-//         body: Center(
-//           // TODO
-//           child: Text(
-//             "SemaphoreLessons",
-//             textScaleFactor: 2,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class SemaphorePage extends StatefulWidget {
+  @override
+  _SemaphorePageState createState() => _SemaphorePageState();
+}
+
+class _SemaphorePageState extends State<SemaphorePage> {
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    return Container();
+  }
+}

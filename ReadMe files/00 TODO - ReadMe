@@ -1,8 +1,9 @@
 1. Fix Memory Game - Add Easy / Hard Mode - DONE
-2. Semaphore Home Page
+2. Semaphore Home Page  -- DONE
+3. KnotsHome  -- DONE
+4. Morse Lesson
+4. Semaphore Lesson
 3. Semaphore Quiz Game (single player)
 4. Semaphore Translation using Scrollable View below
 5. Scrollable View
     https://stackoverflow.com/questions/52053850/flutter-how-to-make-a-column-screen-scrollable
-6. Morse Lesson
-7. KnotsHome
