@@ -48,6 +48,7 @@ flutter:
     - assets/semaphores/
     - assets/knots/
     - assets/knotsGuide/
+    - assets/morses/
 
 flutter_launcher_name:
   name: "Squid Cadets"

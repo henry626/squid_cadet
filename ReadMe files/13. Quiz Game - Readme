@@ -1,0 +1,8 @@
+Quiz Game - ReadMe
+
+1. Layout and Timer from
+    https://medium.com/flutterdevs/creating-a-countdown-timer-using-animation-in-flutter-2d56d4f3f5f1
+
+2. Shuffle the morseTable and select a key (no need for randomization)
+    https://stackoverflow.com/questions/37701148/how-to-select-random-element-from-map-in-dart
+

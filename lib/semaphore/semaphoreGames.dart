@@ -11,13 +11,7 @@ import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 MainExit mMainExit = MainExit();
 SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
 
-class SemaphoreGames extends StatefulWidget {
-  @override
-  _SemaphoreGamesState createState() => _SemaphoreGamesState();
-}
-
-class _SemaphoreGamesState extends State<SemaphoreGames> {
-
+class SemaphoreGames extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Games, 3-Translation
@@ -26,15 +20,16 @@ class _SemaphoreGamesState extends State<SemaphoreGames> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    return new WillPopScope(
+    return WillPopScope(
       onWillPop: mMainExit.mainPop,
-      child: new Scaffold(
+      child: Scaffold(
         appBar: semaphoreAppBar.appBar(),
         backgroundColor: Colors.black,
         body: SafeArea(
           bottom: false,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: GlobalVars.getWidth(width, 0.10)),
+            padding: EdgeInsets.symmetric(
+                horizontal: GlobalVars.getWidth(width, 0.10)),
             // height: double.infinity,
             // width: double.infinity,
             child: Column(
@@ -101,7 +96,7 @@ class _SemaphoreGamesState extends State<SemaphoreGames> {
               ],
             ),
           ),
-        ),
+        )
       ),
     );
   }

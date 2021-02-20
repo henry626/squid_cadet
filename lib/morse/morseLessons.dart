@@ -3,133 +3,118 @@ import 'morseAppBar.dart';
 import 'dart:async';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
-import 'package:audioplayers/audio_cache.dart';
-import 'package:lamp/lamp.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'lessonBrain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:squid_cadet/morse/data.dart';
+import 'package:squid_cadet/globalVariables.dart';
+import 'package:squid_cadet/routeNames.dart';
 
 MorseAppBar morseAppBar = new MorseAppBar();
 MainExit mMainExit = MainExit();
-QuestionBrain questionBrain = QuestionBrain();
+QuestionBrain questionBrain = QuestionBrain(0);
+GlobalVars globalVars = GlobalVars();
 
-class MorseLessons extends StatefulWidget {
+class MorseLessons extends StatelessWidget {
   @override
-  _MorseLessonsState createState() => _MorseLessonsState();
+  Widget build(BuildContext context) {
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
+    morseAppBar.setSelection(context, 1);
+    mMainExit.setContextMainExit(context);
+
+    return WillPopScope(
+      onWillPop: mMainExit.mainPop,
+      child: Scaffold(
+        appBar: morseAppBar.appBar(),
+        backgroundColor: Colors.black,
+        body: Padding(
+          padding: (MediaQuery.of(context).orientation == Orientation.portrait)
+              ? EdgeInsets.symmetric(vertical: 20.0)
+              : EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+          child: MorsePage(),
+        ),
+      ),
+    );
+  }
 }
 
-class _MorseLessonsState extends State<MorseLessons> {
+class MorsePage extends StatefulWidget {
+  @override
+  _MorsePageState createState() => _MorsePageState();
+}
+
+class _MorsePageState extends State<MorsePage> {
   var _textController = TextEditingController();
-  List morseButtons = ['.', '-'];
-  List morseLevel1 = ['A','E','T'];
-  List morseLevel2 = ['A','E','I','T'];
-  List morseLevel3 = ['A','E','I','M','T'];
-  List morseLevel4 = ['A','E','I','M','S','T'];
-  List morseLevel5 = ['A','E','I','M','O','S','T'];
-  List morseLevel6 = ['A','E','H','I','M','O','S','T'];
-  List morseLevel7 = ['A','E','H','I','N','M','O','S','T'];
-  List morseLevel8 = ['A','C','E','H','I','N','M','O','S','T'];
-  List morseLevel9 = ['A','C','E','H','I','N','M','O','R','S','T'];
-  List morseLevel10 = ['A','C','D','E','H','I','N','M','O','R','S','T'];
-  List morseLevel11 = ['A','C','D','E','H','I','N','M','O','R','S','T',
-    'U'];
-  List morseLevel12 = ['A','C','D','E','H','I','K','N','M','O','R','S',
-    'T','U'];
-  List morseLevel13 = ['A','C','D','E','H','I','K','L','N','M','O','R',
-    'S','T','U'];
-  List morseLevel14 = ['A','C','D','E','F','H','I','K','L','N','M','O',
-    'R','S','T','U'];
-  List morseLevel15 = ['A','B','C','D','E','F','H','I','K','L','N','M',
-    'O','R','S','T','U'];
-  List morseLevel16 = ['A','B','C','D','E','F','H','I','K','L','N','M',
-    'O','P','R','S','T','U'];
-  List morseLevel17 = ['A','B','C','D','E','F','G','H','I','K','L','N',
-    'M','O','P','R','S','T','U'];
-  List morseLevel18 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','R','S','T','U'];
-  List morseLevel19 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','R','S','T','U','V'];
-  List morseLevel20 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V'];
-  List morseLevel21 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V','W'];
-  List morseLevel22 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V','W','X'];
-  List morseLevel23 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V','W','X','Y'];
-  List morseLevel24 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-  List morseLevel25 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-    'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-    '1','2','3','4','5'];
-  List morseLevel26 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-  'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-  '1','2','3','4','5','6','7','8','9','0'];
-
-  bool isSelected(List texts, String text) {
-    bool retValue = false;
-    print('texts = ' + texts.toString());
-    print('texts length = ' + texts.length.toString());
-    print('text = ' + text);
-//    print('text index = ' + texts[text].);
-    //check the current index
-    setState(() {
-      if (currentLetterIndex == letterIndex) {
-        retValue = true;
-        letterIndex++;
-      } else {
-        retValue = false;
-      }
-    });
-    return retValue;
-  }
-
   int currentLetterIndex = 0;
   int letterIndex = 0;
-  List<Icon> scoreKeeper = [];
 
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController();
+    // print('questionBrain.getCurrentLevel() = ' +
+    //     questionBrain.getCurrentLevel().toString());
+    // if (questionBrain.getCurrentLevel() != 0) {
+    //   // TODO: add a button to confirm restart
+    //   showRestartAlert();
+    // }
   }
 
-  void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = true; //questionBrain.getCorrectAnswer());
+  bool isSelected(List texts, String text) {
+    bool retValue = false;
 
     setState(() {
-      //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
-      if (questionBrain.isFinished() == true) {
-        //Modified for our purposes:
-        Alert(
-          context: context,
-          title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
-        ).show();
-
-        questionBrain.reset();
-
-        scoreKeeper = [];
+      if (currentLetterIndex == letterIndex) {
+        currLetter = text;
+//        print ('currentLetter = ' + currLetter);
+        retValue = true;
+      } else {
+        retValue = false;
       }
+    });
+    letterIndex++;
+    return retValue;
+  }
 
-      else {
-        if (userPickedAnswer == correctAnswer) {
-          scoreKeeper.add(Icon(
-            Icons.check,
-            color: Colors.green,
-          ));
+  void getNextQuestion() {
+    setState(() {
+      currentLetterIndex++;
+      letterIndex = 0;
+      if (currentLetterIndex == questionBrain.getQuestionText().length) {
+        if ((questionBrain.isFinished() == true)) {
+          //Modified for our purposes:
+          Alert(
+            context: context,
+            title: 'Finish!',
+            desc: 'You\'ve reached the end of the morse lesson.',
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "OK",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () {
+                  questionBrain.reset();
+                  Navigator.pushNamed(context, MORSELESSONS);
+                },
+                width: 120,
+              )
+            ],
+          ).show();
+
+          questionBrain.reset();
+          currentLetterIndex = 0;
+          letterIndex = 0;
         } else {
-          scoreKeeper.add(Icon(
-            Icons.close,
-            color: Colors.red,
-          ));
+//          print('currentLevel = ' + questionBrain.getCurrentLevel().toString());
+          questionBrain.nextQuestion();
+          currentLetterIndex = 0;
+          letterIndex = 0;
         }
-        questionBrain.nextQuestion();
       }
     });
   }
 
-  _insertText(String textToInsert) {
+  _insertText(String textToInsert) async {
     if (_textController.text.length > 4) _textController.clear();
     if (_textController.selection.start >= 0) {
       int newPosition = _textController.selection.start + textToInsert.length;
@@ -140,29 +125,133 @@ class _MorseLessonsState extends State<MorseLessons> {
       );
     } else {
       _textController.text += textToInsert;
+      await Future.delayed(Duration(milliseconds: 500));
     }
     if (_textController.text.isNotEmpty) {
       // 1. check length, get the morse code length of the char.
-      if (_textController.text.length == 2) {
-        // TODO
-
+      if (_textController.text.length <=
+          globalVars.morseTable[currLetter].length) {
+        if (_textController.text == globalVars.morseTable[currLetter]) {
+          // length match and Correct answer: increase confident level of the letter,
+          // clear editor, move to the next letter.
+          letterConfidentLevel[currLetter] += 1;
+          _textController.clear();
+          getNextQuestion();
+        } else {
+          if (globalVars.morseTable[currLetter]
+                  .contains(_textController.text) ==
+              false) {
+            // wrong answer: reduce confidentLevel,
+            // clear editor, cursor stay at the same letter.
+            setState(() {
+              letterConfidentLevel[currLetter] =
+                  (letterConfidentLevel[currLetter] - 3 <= 0)
+                      ? 0
+                      : letterConfidentLevel[currLetter] - 3;
+            });
+            _textController.clear();
+            if (letterConfidentLevel[currLetter] == 0) {
+              //show Hint
+            }
+          }
+        }
       } else {
-        //length is less than
-        // check if the text is contain
-        // else return not match
+        print('ERROR: _textController.text.length > ' +
+            'globalVars.morseTable[currLetter].length');
       }
     }
-    checkAnswer(true);
   }
 
-  Widget _buildRowAlphabet(List<String> texts) {
+  bool isTextInMorseLevel(String text) {
+    bool retValue = false;
+    switch (questionBrain.currentLevel) {
+      case 0:
+        retValue = morseLevel0.contains(text);
+        break;
+      case 1:
+        retValue = morseLevel1.contains(text);
+        break;
+      case 2:
+        retValue = morseLevel2.contains(text);
+        break;
+      case 3:
+        retValue = morseLevel3.contains(text);
+        break;
+      case 4:
+        retValue = morseLevel4.contains(text);
+        break;
+      case 5:
+        retValue = morseLevel5.contains(text);
+        break;
+      case 6:
+        retValue = morseLevel6.contains(text);
+        break;
+      case 7:
+        retValue = morseLevel7.contains(text);
+        break;
+      case 8:
+        retValue = morseLevel8.contains(text);
+        break;
+      case 9:
+        retValue = morseLevel9.contains(text);
+        break;
+      case 10:
+        retValue = morseLevel10.contains(text);
+        break;
+      case 11:
+        retValue = morseLevel11.contains(text);
+        break;
+      case 12:
+        retValue = morseLevel12.contains(text);
+        break;
+      case 13:
+        retValue = morseLevel13.contains(text);
+        break;
+      case 14:
+        retValue = morseLevel14.contains(text);
+        break;
+      case 15:
+        retValue = morseLevel15.contains(text);
+        break;
+      case 16:
+        retValue = morseLevel16.contains(text);
+        break;
+      case 17:
+        retValue = morseLevel17.contains(text);
+        break;
+      case 18:
+        retValue = morseLevel18.contains(text);
+        break;
+      case 19:
+        retValue = morseLevel19.contains(text);
+        break;
+      case 20:
+        retValue = morseLevel20.contains(text);
+        break;
+      case 21:
+        retValue = morseLevel21.contains(text);
+        break;
+      case 22:
+        retValue = morseLevel22.contains(text);
+        break;
+      case 23:
+        retValue = morseLevel23.contains(text);
+        break;
+      default:
+        retValue = morseLevel0.contains(text);
+        break;
+    }
+    return retValue;
+  }
+
+  Widget _buildRowAlphabet(List<dynamic> texts) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: texts
             .map((text) => Text(
                   text,
 //                  textScaleFactor: ,
-                  style: (morseLevel1.contains(text))
+                  style: (isTextInMorseLevel(text))
                       ? TextStyle(
                           //grey[50],grey[200],grey[400],grey[600],grey[900]
                           color: Colors.grey[100],
@@ -179,25 +268,53 @@ class _MorseLessonsState extends State<MorseLessons> {
     return Align(
       alignment: Alignment.center,
       child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: texts
             .map(
               (text) => RawMaterialButton(
+                constraints: (texts.length <= 6)
+                    ? BoxConstraints(minWidth: 50)
+                    : BoxConstraints(minWidth: 40),
                 elevation: 2.0,
-//                fillColor: Colors.grey,
-                fillColor: isSelected(texts, text) ? Colors.grey : Colors.black,
+                fillColor:
+                    (isSelected(texts, text)) ? Colors.grey : Colors.black,
                 child: Text(
                   text,
-                  textScaleFactor: 3,
+                  textScaleFactor: (texts.length <= 6) ? 3 : 2.5,
                   style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-                padding: EdgeInsets.all(10.0),
+                padding: (texts.length <= 6)
+                    ? EdgeInsets.all(10.0)
+                    : EdgeInsets.all(10.0),
                 shape: CircleBorder(),
                 onPressed: () {},
               ),
             )
             .toList(),
+      ),
+    );
+  }
+
+  Widget _buildLetterHint() {
+//    letterIndex = 0;
+//    print ('_buildLetterHint: currentLetterIndex = $currentLetterIndex, letterIndex = $letterIndex');
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width * 0.2,
+        child: ClipOval(
+          child: (letterConfidentLevel[currLetter] <= 1)
+          ? Image.asset(
+            'assets/morses/$currLetter.gif',
+            fit: BoxFit.scaleDown,
+          )
+          : Image.asset(
+            'assets/morses/blank.gif',
+            fit: BoxFit.scaleDown,
+          ),
+        ),
       ),
     );
   }
@@ -211,23 +328,23 @@ class _MorseLessonsState extends State<MorseLessons> {
           Expanded(
             flex: 2,
             child: FlatButton(
-              onPressed: () {
-                _insertText(morseButtons[0]);
-              },
-              padding: EdgeInsets.all(1.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.blue)),
-              color: Colors.white,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(morseButtons[0],
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30.0,
-                        color: Colors.black)),
-              )
-            ),
+                onPressed: () {
+                  _insertText(morseButtons[0]);
+                },
+                padding: EdgeInsets.all(1.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Colors.blue)),
+                color: Colors.white,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(morseButtons[0],
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
+                              ? 60: 30.0,
+                          color: Colors.black)),
+                )),
           ),
           SizedBox(
             width: 20,
@@ -238,17 +355,20 @@ class _MorseLessonsState extends State<MorseLessons> {
               onPressed: () {
                 _insertText(morseButtons[1]);
               },
-              padding: EdgeInsets.all(1.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.blue)),
-              color: Colors.white,
-              child: Text(morseButtons[1],
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                      color: Colors.black)),
-            ),
+                padding: EdgeInsets.all(1.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: BorderSide(color: Colors.blue)),
+                color: Colors.white,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(morseButtons[1],
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
+                          ? 60: 30.0,
+                          color: Colors.black)),
+                )),
           ),
           Spacer(),
         ],
@@ -262,73 +382,82 @@ class _MorseLessonsState extends State<MorseLessons> {
     morseAppBar.setSelection(context, 1);
     mMainExit.setContextMainExit(context);
 
-    return new WillPopScope(
-      onWillPop: mMainExit.mainPop,
-      child: SafeArea(
-        child: new Scaffold(
-          appBar: morseAppBar.appBar(),
-          backgroundColor: Colors.black,
-          body: Align(
-            alignment: Alignment.center,
-            child: new Column(
-              children: <Widget>[
-                Padding(
-                  padding: (MediaQuery.of(context).orientation == Orientation.portrait)
-                      ? EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0)
-                      : EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  child: _buildRowAlphabet([
-                    'A',
-                    'B',
-                    'C',
-                    'D',
-                    'E',
-                    'F',
-                    'G',
-                    'H',
-                    'I',
-                    'J',
-                    'K',
-                    'L',
-                    'M',
-                    'N',
-                    'O',
-                    'P',
-                    'Q',
-                    'R',
-                    'S',
-                    'T',
-                    'U',
-                    'V',
-                    'W',
-                    'X',
-                    'Y',
-                    'Z'
-                  ]),
-                ),
-                Spacer(),
-                Spacer(),
-                _buildRowWord(questionBrain.getQuestionText()),
-                Spacer(),
-                Expanded(
-//                flex: 5,
-                  child: TextField(
-                    controller: _textController,
-                    enabled: false,
-                    readOnly: true,
-                    showCursor: false,
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
+    return new Scaffold(
+      // appBar: morseAppBar.appBar(),
+      backgroundColor: Colors.black,
+      body: Align(
+        alignment: Alignment.center,
+        child: new Column(
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: (MediaQuery.of(context).orientation ==
+                        Orientation.portrait)
+                    ? EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0)
+                    : EdgeInsets.symmetric(vertical: 1.0, horizontal: 20.0),
+                child: _buildRowAlphabet(morseLevel23),
+              ),
+            ),
+//            Spacer(),
+            Expanded(
+              flex: 3,
+              child: InkWell(
+                onTap: () {
+                  questionBrain.reset();
+                  Navigator.pushNamed(context, MORSELESSONS);
+                },
+                child: new Padding(
+                  padding: new EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: new Text(
+                      'Restart',
+                      style: TextStyle(
+                        color: Colors.white,
+                        // fontSize: (currentLevel == hardLevel) ?
+                        // GlobalVars.getHeight(height, 0.02) :
+                        // GlobalVars.getHeight(height, 0.03),
                         fontWeight: FontWeight.bold,
-                        fontSize: 40.0,
-                        color: Colors.white),
-                    maxLines: 1,
+                      ),
+                    ),
                   ),
                 ),
-                Spacer(),
-                _buildRow(['.', '-']),
-              ],
+              ),
             ),
-          ),
+//            Spacer(),
+            Expanded(
+              flex: 6,
+              child:
+              _buildRowWord(questionBrain.getQuestionText()),
+            ),
+//            Spacer(),
+            Expanded(
+              flex: 5,
+              child: _buildLetterHint(),
+            ),
+            Spacer(),
+            Expanded(
+                flex: 2,
+              child: TextField(
+                controller: _textController,
+                enabled: false,
+                readOnly: true,
+                showCursor: false,
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0,
+                    color: Colors.white),
+                maxLines: 1,
+              ),
+            ),
+            Spacer(),
+            Expanded(
+              flex: 3,
+              child: _buildRow(['.', '-']),
+            ),
+          ],
         ),
       ),
     );

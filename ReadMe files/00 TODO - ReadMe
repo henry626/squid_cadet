@@ -2,8 +2,12 @@
 2. Semaphore Home Page  -- DONE
 3. KnotsHome  -- DONE
 4. Morse Lesson
-4. Semaphore Lesson
-3. Semaphore Quiz Game (single player)
-4. Semaphore Translation using Scrollable View below
+    1. Add Tween - TODO
+    2. Add Restart Button - DONE
+    3. Fix the Complete lesson Alert - DONE
+5. Morse Quiz Game -
+6. Semaphore Quiz Game (single player)
+7. Semaphore Lesson
+8. Semaphore Translation using Scrollable View below
 5. Scrollable View
     https://stackoverflow.com/questions/52053850/flutter-how-to-make-a-column-screen-scrollable

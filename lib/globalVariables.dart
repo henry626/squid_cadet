@@ -35,6 +35,7 @@ class GlobalVars {
 
   // General
   static const String memory_game = "Memory Game";
+  static const String morse_quiz_game = "Morse Quiz Game";
   static const String game_single = "Quiz Game \n(One Player)";
   static const String game_two = "Quiz Game \n(Two Players)";
   static const String theme_morse = "Morse";
@@ -83,11 +84,15 @@ class GlobalVars {
   //MorseHome ------START-----------
   // 0 - Audio, 1 - Light
   static bool currentMorseTool = false;
+  static String morseGameBestScoreLabel = "Best Score: ";
+  static int morseGameBestScore = 0;
+  static String morseGameScoreLabel = "Counts";
 
   Map<String, String> morseTable = {
     '1': '.----', '2': '..---', '3': '...--', '4': '....-',
     '5': '.....', '6': '-....', '7': '--...', '8': '---..',
-    '9': '----.', '0': '-----', 'A': '.-', 'B': '-...',
+    '9': '----.', '0': '-----',
+    'A': '.-', 'B': '-...',
     'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
     'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
     'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.',
