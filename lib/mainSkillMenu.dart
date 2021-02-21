@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'mainAppBar.dart';
-import 'routeNames.dart';
 import 'morse/morseHome.dart';
 import 'semaphore/semaphoreHome.dart';
 import 'knots/knotsHome.dart';
 import 'cryptology/cryptoHome.dart';
-import 'dart:io' show Platform, exit;
 import 'mainExit.dart';
 import 'globalVariables.dart';
 import 'package:squid_cadet/widgets/customCardView.dart';

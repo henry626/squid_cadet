@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import 'package:squid_cadet/widgets/customCardView.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/utils/colors.dart';
 import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 
 MainExit mMainExit = MainExit();

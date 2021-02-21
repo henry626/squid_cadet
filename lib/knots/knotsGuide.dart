@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'knotsAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import 'package:squid_cadet/globalVariables.dart';
@@ -15,7 +13,7 @@ class KnotsGuide extends StatelessWidget {
   String fileName = "";
   String guideImagePath = "";
 
-  String AddSpacesToSentence(String text)
+  String addSpacesToSentence(String text)
   {
     if (text == null) return "";
     String newText = "";
@@ -39,7 +37,7 @@ class KnotsGuide extends StatelessWidget {
       retStr = (fileName != null) ? fileName.split('.')[0] : retStr;
 
     }
-    return AddSpacesToSentence(retStr);
+    return addSpacesToSentence(retStr);
   }
 
   String getGuideImagePath() {

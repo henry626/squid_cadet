@@ -5,7 +5,6 @@ import 'package:squid_cadet/widgets/customCardView.dart';
 import 'package:squid_cadet/memorygame/data/data.dart';
 import 'package:squid_cadet/utils/colors.dart';
 import 'gameView.dart';
-import 'gameOverView.dart';
 
 class GamePage extends StatefulWidget {
   @override
@@ -55,9 +54,9 @@ class _GamePageState extends State<GamePage> {
     var height = MediaQuery.of(context).size.height;
     print("width = $width");
     print("height = $height");
-    var cardHeight = height / 12;
-    var cardFontHeight = height / 18;
-    int bestScore = 50;
+    // var cardHeight = height / 12;
+    // var cardFontHeight = height / 18;
+    // int bestScore = 50;
 
     return SafeArea(
       child: Scaffold(

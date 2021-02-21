@@ -51,12 +51,6 @@ class _MorsePageState extends State<MorsePage> {
   void initState() {
     super.initState();
     _textController = TextEditingController();
-    // print('questionBrain.getCurrentLevel() = ' +
-    //     questionBrain.getCurrentLevel().toString());
-    // if (questionBrain.getCurrentLevel() != 0) {
-    //   // TODO: add a button to confirm restart
-    //   showRestartAlert();
-    // }
   }
 
   bool isSelected(List texts, String text) {
@@ -117,7 +111,7 @@ class _MorsePageState extends State<MorsePage> {
   _insertText(String textToInsert) async {
     if (_textController.text.length > 4) _textController.clear();
     if (_textController.selection.start >= 0) {
-      int newPosition = _textController.selection.start + textToInsert.length;
+//      int newPosition = _textController.selection.start + textToInsert.length;
       _textController.text = _textController.text.replaceRange(
         _textController.selection.start,
         _textController.selection.end,
@@ -250,7 +244,9 @@ class _MorsePageState extends State<MorsePage> {
         children: texts
             .map((text) => Text(
                   text,
-//                  textScaleFactor: ,
+                  textScaleFactor: (MediaQuery.of(context).orientation == Orientation.portrait)
+                  ? MediaQuery.of(context).size.height * 0.0015
+                  : MediaQuery.of(context).size.width * 0.0015,
                   style: (isTextInMorseLevel(text))
                       ? TextStyle(
                           //grey[50],grey[200],grey[400],grey[600],grey[900]
@@ -280,7 +276,7 @@ class _MorsePageState extends State<MorsePage> {
                     (isSelected(texts, text)) ? Colors.grey : Colors.black,
                 child: Text(
                   text,
-                  textScaleFactor: (texts.length <= 6) ? 3 : 2.5,
+                  textScaleFactor: MediaQuery.of(context).size.height * 0.005,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -341,8 +337,7 @@ class _MorsePageState extends State<MorsePage> {
                   child: Text(morseButtons[0],
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                              ? 60: 30.0,
+                          fontSize: MediaQuery.of(context).size.height * 0.08,
                           color: Colors.black)),
                 )),
           ),
@@ -365,8 +360,7 @@ class _MorsePageState extends State<MorsePage> {
                   child: Text(morseButtons[1],
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                          ? 60: 30.0,
+                          fontSize: MediaQuery.of(context).size.height * 0.1,
                           color: Colors.black)),
                 )),
           ),
@@ -419,6 +413,7 @@ class _MorsePageState extends State<MorsePage> {
                         // GlobalVars.getHeight(height, 0.02) :
                         // GlobalVars.getHeight(height, 0.03),
                         fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.height * 0.03,
                       ),
                     ),
                   ),

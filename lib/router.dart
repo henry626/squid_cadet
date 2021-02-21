@@ -12,7 +12,6 @@ import 'semaphore/semaphoreLessons.dart';
 import 'semaphore/semaphoreGames.dart';
 import 'semaphore/semaphoreSignals.dart';
 import 'knots/knotsHome.dart';
-import 'knots/knotsGuide.dart';
 import 'knots/knotsLessons.dart';
 import 'knots/knotsGames.dart';
 import 'cryptology/cryptoHome.dart';

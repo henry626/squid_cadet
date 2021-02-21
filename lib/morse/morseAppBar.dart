@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import '../mainAppBar.dart';
 import '../routeNames.dart';
-import 'morseHome.dart';
-import 'morseLessons.dart';
-import 'morseGames.dart';
-import 'morseTranslation.dart';
 
 class MorseAppBar extends MainAppBar {
   int _selection = 0;
 
-  @override
-  BuildContext _mContext;
+  // @override
+  // BuildContext _mContext;
 
   setSelection(BuildContext context, int sel) {
-    _mContext = context;
+//    _mContext = context;
     _selection = sel;
     setSkillIcon(context);
     setSettingsIcon(context);
@@ -90,5 +86,15 @@ class MorseAppBar extends MainAppBar {
         style: TextButton.styleFrom(primary: Colors.white),);
     }
   }
+  // @override
+  // TextButton setSettingsIcon(BuildContext context) {
+  //   _mContext = context;
+  //   _mSettingIcon = IconButton(
+  //     icon: Icon(Icons.settings_rounded),
+  //     tooltip: 'Settings Icon',
+  //     onPressed: () {
+  //       Navigator.pushNamed(context, SEMAPHORESIGNALS);
+  //     },
+  //   ); //IconButton
 }
 

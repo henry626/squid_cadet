@@ -1,15 +1,5 @@
 import 'package:squid_cadet/globalVariables.dart';
-//import 'customCardView.dart';
-//import 'package:squid_cadet/memorygame/utils/theme.dart';
-import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/widgets/customCardView.dart';
-import 'package:squid_cadet/memorygame/data/data.dart';
-import 'package:squid_cadet/utils//theme.dart';
-import 'package:squid_cadet/utils//colors.dart';
-import 'package:squid_cadet/memorygame/views/home/homePage.dart';
-import 'package:squid_cadet/memorygame/data/data.dart';
 import 'package:squid_cadet/memorygame/models/tile.dart';
-import 'dart:math';
 
 int viewPoints = 0;
 int bestScore = maxFlipCount;

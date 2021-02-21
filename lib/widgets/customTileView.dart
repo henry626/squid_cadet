@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:squid_cadet/globalVariables.dart';
 import 'package:squid_cadet/memorygame/data/data.dart';

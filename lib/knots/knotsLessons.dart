@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'dart:async';
-import '../mainAppBar.dart';
 import 'knotsAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
-import 'package:squid_cadet/routeNames.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io' as io;
 import 'knotsGuide.dart';
 import 'dart:convert';
 

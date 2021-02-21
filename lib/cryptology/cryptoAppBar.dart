@@ -5,11 +5,11 @@ import '../routeNames.dart';
 class CryptoAppBar extends MainAppBar {
   int _selection = 0;
 
-  @override
-  BuildContext _mContext;
+  // @override
+  // BuildContext _mContext;
 
   setSelection(BuildContext context, int sel) {
-    _mContext = context;
+//    _mContext = context;
     _selection = sel;
     setSkillIcon(context);
     setSettingsIcon(context);

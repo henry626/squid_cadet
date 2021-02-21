@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'routeNames.dart';
-import 'router.dart';
-import 'globalVariables.dart';
 
 class MainAppBar {
   BuildContext _mContext;
   IconButton _mSkillIcon;
   IconButton _mSettingIcon;
-  TextButton _mHomeButton;
-  TextButton _mLessonsButton;
-  TextButton _mGamesButton;
-  TextButton _mTranslationButton;
+  // TextButton _mHomeButton;
+  // TextButton _mLessonsButton;
+  // TextButton _mGamesButton;
+  // TextButton _mTranslationButton;
 
   MainAppBar() {
     _mSkillIcon = IconButton(
@@ -48,24 +46,36 @@ class MainAppBar {
   }
 
   TextButton setHomeButton(BuildContext context) {
-    return TextButton();
+    return TextButton(
+      child: Text(''),
+      onPressed: () {},
+    );
   }
 
   TextButton setLessonsButton(BuildContext context) {
-    return TextButton();
+    return TextButton(
+      child: Text(''),
+      onPressed: () {},
+    );
   }
 
   TextButton setGamesButton(BuildContext context) {
-    return TextButton();
+    return TextButton(
+      child: Text(''),
+      onPressed: () {},
+    );
   }
 
   TextButton setTranslationButton(BuildContext context) {
-    return TextButton();
+    return TextButton(
+      child: Text(''),
+      onPressed: () {},
+    );
   }
 
   AppBar appBar() {
-    var width = MediaQuery.of(_mContext).size.width;
-    var height = MediaQuery.of(_mContext).size.height;
+    // var width = MediaQuery.of(_mContext).size.width;
+    // var height = MediaQuery.of(_mContext).size.height;
 
     if (MediaQuery.of(_mContext).orientation == Orientation.portrait) {
       // is portrait

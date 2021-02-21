@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chooseThemeView.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/utils/theme.dart';
 
 class HomePage extends StatefulWidget {
   @override

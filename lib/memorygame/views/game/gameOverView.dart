@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/widgets/customCardView.dart';
 import 'package:squid_cadet/memorygame/data/data.dart';
-import 'package:squid_cadet/utils//theme.dart';
 import 'package:squid_cadet/utils//colors.dart';
 import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 
@@ -14,8 +12,8 @@ class GameOverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    int score = maxFlipCount - flipCount;
+//    var height = MediaQuery.of(context).size.height;
+    final int score = maxFlipCount - flipCount;
 
     return SafeArea(
       child: Container(

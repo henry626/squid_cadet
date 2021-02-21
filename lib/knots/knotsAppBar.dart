@@ -5,11 +5,11 @@ import '../routeNames.dart';
 class KnotsAppBar extends MainAppBar {
   int _selection = 0;
 
-  @override
-  BuildContext _mContext;
+  // @override
+  // BuildContext _mContext;
 
   setSelection(BuildContext context, int sel) {
-    _mContext = context;
+//    _mContext = context;
     _selection = sel;
     setSkillIcon(context);
     setSettingsIcon(context);
@@ -76,6 +76,7 @@ class KnotsAppBar extends MainAppBar {
       return TextButton(
         onPressed: () {},
 //        child: Text("Translation"),
+        child: Text(''),
         style: TextButton.styleFrom(primary: Colors.blueGrey),);
     } else {
       return TextButton(
@@ -83,6 +84,7 @@ class KnotsAppBar extends MainAppBar {
         //   Navigator.pushNamed(context, KNOTSTRANSLATION);
         },
 //        child: Text("Translation"),
+        child: Text(''),
         style: TextButton.styleFrom(primary: Colors.white),);
     }
   }

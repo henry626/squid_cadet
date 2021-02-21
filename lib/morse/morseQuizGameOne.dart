@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:squid_cadet/morse/morseLessons.dart';
-import 'morseAppBar.dart';
-import 'dart:async';
-import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
-import 'package:audioplayers/audio_cache.dart';
-import 'package:lamp/lamp.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'lessonBrain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:squid_cadet/morse/data.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/routeNames.dart';
 import 'package:squid_cadet/morse/customTimerPainter.dart';
 
 class MorseQuizGameOne extends StatefulWidget {
@@ -27,7 +19,9 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
   int animationTimer = animationTimerCount['easyLevel'];
   List keys = globalVars.morseTable.keys.toList()..shuffle();
   List guessKeys = globalVars.morseTable.keys.toList()..shuffle();
-  List randomBinaryList = List<int>.generate(globalVars.morseTable.length, (i) => (i + 1)%2)..shuffle();
+  List randomBinaryList =
+      List<int>.generate(globalVars.morseTable.length, (i) => (i + 1) % 2)
+        ..shuffle();
   int keysIndex = 0;
   String rightButtonText = '';
   String leftButtonText = '';
@@ -108,14 +102,16 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
 
     // 1. get a list of Keys from Shuffled List
     keys = globalVars.morseTable.keys.toList()..shuffle();
-    print (keys);
+    print(keys);
 
     // 2. get random guess from another shuffle
     guessKeys = globalVars.morseTable.keys.toList()..shuffle();
 
     // 3. Assign Answer and random guess to L-R buttons randomly
     // Temporary assignments
-    randomBinaryList = List<int>.generate(globalVars.morseTable.length, (i) => (i + 1)%2)..shuffle();
+    randomBinaryList =
+        List<int>.generate(globalVars.morseTable.length, (i) => (i + 1) % 2)
+          ..shuffle();
     if (randomBinaryList[keysIndex] == 0) {
       rightButtonText = keys[keysIndex];
       leftButtonText = guessKeys[keysIndex];
@@ -136,14 +132,14 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
       leftButtonText = guessKeys[keysIndex];
       // prevent matching buttonTexts, change the guessText
       if ((rightButtonText == leftButtonText) && (keysIndex > 0)) {
-        leftButtonText = guessKeys[keysIndex-1];
+        leftButtonText = guessKeys[keysIndex - 1];
       }
     } else {
       rightButtonText = guessKeys[keysIndex];
       leftButtonText = keys[keysIndex];
       // prevent matching buttonTexts, change the guessText
       if ((rightButtonText == leftButtonText) && (keysIndex > 0)) {
-        rightButtonText = guessKeys[keysIndex-1];
+        rightButtonText = guessKeys[keysIndex - 1];
       }
     }
     //increment for the next getGameNextClue() call
@@ -165,9 +161,9 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
 
     //1. if choice is correct, increase Count, restart timer, display new clue & guesses
 //    print('checkAnswer: userChoice = $userChoice, gameAnswer = $currAnswer');
-    if ((userChoice == currAnswer)  || (userChoice =='Play')){
+    if ((userChoice == currAnswer) || (userChoice == 'Play')) {
       currentCount = (userChoice == currAnswer) ? currentCount + 1 : 0;
-      gameLives = (userChoice == 'Play') ? gameLives-1 : gameLives;
+      gameLives = (userChoice == 'Play') ? gameLives - 1 : gameLives;
       // print('checkAnswer: gameLives = $gameLives');
       if (currentCount > gameLevels['mediumLevel']) {
         animationTimer = animationTimerCount['hardLevel'];
@@ -199,8 +195,8 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
         // (show correct choice, show score, update best score, restart game option)
         controller.stop();
         controller.reset();
-        alertDesc = '\nAnswer: $currAnswer, Select: $userChoice \n' +
-            computeScore();
+        alertDesc =
+            '\nAnswer: $currAnswer, Select: $userChoice \n' + computeScore();
         if (gameLives == 0) {
           //display: GameOver, New game?
           displayAlert(context, 'Game Over', alertDesc);
@@ -223,7 +219,7 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+//    var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
     return SafeArea(
@@ -269,7 +265,6 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                                         color: Colors.white,
                                         fontSize:
                                             GlobalVars.getHeight(height, 0.02)),
-//                            style: Theme.of(context).textTheme.display1,
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -281,39 +276,12 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                                         color: Colors.white,
                                         fontSize:
                                             GlobalVars.getHeight(height, 0.02)),
-//                            style: Theme.of(context).textTheme.display1,
                                   ),
                                 ],
                               ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     if (easyLevel != currentLevel) {
-                                  //       currentLevel = easyLevel;
-                                  //       Navigator.pop(
-                                  //           context); // pop current page
-                                  //       Navigator.of(context)
-                                  //           .push(MaterialPageRoute(builder: (context) => GamePage()));
-                                  //     }
-                                  //   },
-                                  //   child: new Padding(
-                                  //     padding: new EdgeInsets.all(1.0),
-                                  //     child: new Text(
-                                  //       GlobalVars.memoryGameEasyLabel,
-                                  //       style: TextStyle(
-                                  //         color: (easyLevel != currentLevel )
-                                  //             ? Colors.white
-                                  //             : MyColors.widgetColor[GlobalVars.theme_semaphore],
-                                  //         fontSize: (currentLevel == hardLevel) ?
-                                  //         GlobalVars.getHeight(height, 0.02) :
-                                  //         GlobalVars.getHeight(height, 0.03),
-                                  //         fontWeight: FontWeight.bold,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                   Row(
                                     children: <Widget>[
                                       Icon(
@@ -340,57 +308,28 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                                     height: 10,
                                   ),
                                   AnimatedBuilder(
-                                      animation: controller,
-                                      builder: (context, child) {
-                                        return FloatingActionButton.extended(
-                                            onPressed: () {
-                                              if (controller.isAnimating) {
+                                    animation: controller,
+                                    builder: (context, child) {
+                                      return FloatingActionButton.extended(
+                                          onPressed: () {
+                                            if (controller.isAnimating) {
 //                                                controller.stop();
-                                                print('Play button pressed');
-                                              } else {
-                                                setState(() {
-                                                  startNewGame('Play');
-                                                  checkAnswer('Play');
-                                                });
-                                              }
-                                            },
-                                            icon: Icon(controller.isAnimating
-                                                ? Icons.access_alarm_outlined
-                                                : Icons.play_arrow),
-                                            label: Text(controller.isAnimating
-                                                ? "Good Luck"
-                                                : "Play"));
-                                      }),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     if (hardLevel != currentLevel) {
-                                  //       currentLevel = hardLevel;
-                                  //       Navigator.pop(
-                                  //           context); // pop current page
-                                  //       Navigator.of(context).push(
-                                  //           MaterialPageRoute(
-                                  //               builder: (context) =>
-                                  //                   GamePage()));
-                                  //     }
-                                  //   },
-                                  //   child: new Padding(
-                                  //     padding: new EdgeInsets.all(1.0),
-                                  //     child: new Text(
-                                  //       GlobalVars.memoryGameHardLabel,
-                                  //       style: TextStyle(
-                                  //         color: (hardLevel != currentLevel)
-                                  //             ? Colors.white
-                                  //             : MyColors.widgetColor[
-                                  //                 GlobalVars.theme_semaphore],
-                                  //         fontSize: (currentLevel == hardLevel)
-                                  //             ? GlobalVars.getHeight(height, 0.02)
-                                  //             : GlobalVars.getHeight(
-                                  //                 height, 0.03),
-                                  //         fontWeight: FontWeight.bold,
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
+                                              print('Play button pressed');
+                                            } else {
+                                              setState(() {
+                                                startNewGame('Play');
+                                                checkAnswer('Play');
+                                              });
+                                            }
+                                          },
+                                          icon: Icon(controller.isAnimating
+                                              ? Icons.access_alarm_outlined
+                                              : Icons.play_arrow),
+                                          label: Text(controller.isAnimating
+                                              ? "Good Luck"
+                                              : "Play"));
+                                    },
+                                  ),
                                 ],
                               ),
                             ],
@@ -413,64 +352,18 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                                     Align(
                                       alignment: FractionalOffset.center,
                                       child: Text(
-                                        (gameClue == 'Clue')
-                                            ? 'Click Play'
-                                            : gameClue,
+                                        (gameClue == 'Clue') ? ' ' : gameClue,
                                         style: TextStyle(
                                             fontSize: GlobalVars.getHeight(
-                                                height, 0.07),
+                                                height, 0.12),
                                             color: Colors.white),
                                       ),
                                     ),
-                                    // Align(
-                                    //   alignment: FractionalOffset.center,
-                                    //   child: Column(
-                                    //     mainAxisAlignment:
-                                    //         MainAxisAlignment.spaceEvenly,
-                                    //     crossAxisAlignment:
-                                    //         CrossAxisAlignment.center,
-                                    //     children: <Widget>[
-                                    //       Text(
-                                    //         "Count Down Timer",
-                                    //         style: TextStyle(
-                                    //             fontSize: 20.0,
-                                    //             color: Colors.white),
-                                    //       ),
-                                    //       Text(
-                                    //         timerString,
-                                    //         style: TextStyle(
-                                    //             fontSize: 112.0,
-                                    //             color: Colors.white),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
                             ),
                           ),
-                          // AnimatedBuilder(
-                          //     animation: controller,
-                          //     builder: (context, child) {
-                          //       return FloatingActionButton.extended(
-                          //           onPressed: () {
-                          //             if (controller.isAnimating)
-                          //               controller.stop();
-                          //             else {
-                          //               controller.reverse(
-                          //                   from: controller.value == 0.0
-                          //                       ? 1.0
-                          //                       : controller.value);
-                          //             }
-                          //           },
-                          //           icon: Icon(controller.isAnimating
-                          //               ? Icons.pause
-                          //               : Icons.play_arrow),
-                          //           label: Text(controller.isAnimating
-                          //               ? "Pause"
-                          //               : "Play"));
-                          //     }),
                           Row(
                             children: <Widget>[
                               Expanded(
@@ -506,7 +399,9 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                                   child: FlatButton(
                                     color: Colors.white,
                                     child: Text(
-                                      (rightButtonText == '') ? 'True' : rightButtonText,
+                                      (rightButtonText == '')
+                                          ? 'True'
+                                          : rightButtonText,
                                       style: TextStyle(
                                         fontSize:
                                             GlobalVars.getHeight(height, 0.05),

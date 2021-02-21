@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/memorygame/data/data.dart';
-import 'package:squid_cadet/memorygame/models/tile.dart';
-import 'package:squid_cadet/widgets/customTileView.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:lamp/lamp.dart';
 
@@ -25,9 +20,9 @@ class _SemaphoreHomeState extends State<SemaphoreHome> {
   String currentSemaphore = GlobalVars().getMorse('');
   String currSymbol = '';
 
-  bool _hasFlash = false;
-  bool _isOn = false;
-  double _intensity = 1.0;
+//  bool _hasFlash = false;
+  // bool _isOn = false;
+  // double _intensity = 1.0;
 
   @override
   initState() {
@@ -38,7 +33,7 @@ class _SemaphoreHomeState extends State<SemaphoreHome> {
   initPlatformState() async {
     bool hasFlash = await Lamp.hasLamp;
     print("Device has flash ? $hasFlash");
-    setState(() { _hasFlash = hasFlash; });
+//    setState(() { _hasFlash = hasFlash; });
   }
 
   double getKeyboardPadding(BuildContext context, double width, double percent) {
@@ -909,7 +904,7 @@ class _SemaphoreHomeState extends State<SemaphoreHome> {
                                   shape: CircleBorder(),
                                 )),
                              Expanded(
-                                 child: RawMaterialButton(
+                                 child: RawMaterialButton( onPressed: () {}
                             //       onPressed: () {
                             //         setState(() {
                             //           currentSemaphore = GlobalVars().getMorse('OK');

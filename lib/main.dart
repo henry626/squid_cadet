@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:squid_cadet/mainSkillMenu.dart';
-import 'morse/morseHome.dart';
-import 'cryptology/cryptoHome.dart';
-import 'knots/knotsHome.dart';
-import 'semaphore/semaphoreHome.dart';
 import 'router.dart' as router;
-import 'routeNames.dart';
-import 'semaphore/semaphoreSignals.dart';
 import 'globalVariables.dart';
 
 void main() {

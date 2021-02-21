@@ -1,35 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
-import 'package:splashscreen/splashscreen.dart';
-import '../mainAppBar.dart';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
-import '../globalVariables.dart';
-import 'package:flutter/cupertino.dart'
-    show
-        CupertinoApp,
-        CupertinoButton,
-        CupertinoPageScaffold,
-        CupertinoTextField;
-import 'package:flutter/widgets.dart'
-    show
-        BuildContext,
-        Center,
-        ClipRect,
-        Column,
-        Container,
-        FocusNode,
-        FocusScope,
-        MainAxisSize,
-        runApp,
-        State,
-        StatefulWidget,
-        Text,
-        TextAlign,
-        TextEditingController,
-        Widget;
-import 'package:meta/meta.dart' show required;
+// import 'package:flutter/cupertino.dart'
+//     show
+//         CupertinoApp,
+//         CupertinoButton,
+//         CupertinoPageScaffold,
+//         CupertinoTextField;
+// import 'package:flutter/widgets.dart'
+//     show
+//         BuildContext,
+//         Column,
+//         Container,
+//         State,
+//         StatefulWidget,
+//         Text,
+//         Widget;
 import 'package:squid_cadet/semaphore/data.dart';
 MainExit mMainExit = MainExit();
 SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
@@ -84,8 +70,8 @@ class _SemaphorePageState extends State<SemaphorePage> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    // var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
 
     return Container(
       child: new Column(

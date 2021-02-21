@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:async';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 

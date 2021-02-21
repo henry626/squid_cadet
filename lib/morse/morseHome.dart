@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'morseAppBar.dart';
-import 'dart:async';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -21,9 +20,9 @@ class _MorseHomeState extends State<MorseHome> {
   String currentMorse = GlobalVars().getMorse('');
   String currSymbol = '';
 
-  bool _hasFlash = false;
-  bool _isOn = false;
-  double _intensity = 1.0;
+//  bool _hasFlash = false;
+  // bool _isOn = false;
+  // double _intensity = 1.0;
 
   @override
   initState() {
@@ -34,7 +33,7 @@ class _MorseHomeState extends State<MorseHome> {
   initPlatformState() async {
     bool hasFlash = await Lamp.hasLamp;
     print("Device has flash ? $hasFlash");
-    setState(() { _hasFlash = hasFlash; });
+//    setState(() { _hasFlash = hasFlash; });
   }
 
   double getKeyboardPadding(BuildContext context, double width, double percent) {

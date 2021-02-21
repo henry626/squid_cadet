@@ -3,7 +3,6 @@ import 'morseAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import 'package:squid_cadet/widgets/customCardView.dart';
 import 'package:squid_cadet/globalVariables.dart';
-import 'package:squid_cadet/memorygame/views/home/homePage.dart';
 import 'package:squid_cadet/morse/morseQuizGameOne.dart';
 
 MorseAppBar morseAppBar = new MorseAppBar();
