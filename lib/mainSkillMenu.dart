@@ -10,6 +10,7 @@ import 'package:squid_cadet/widgets/customCardView.dart';
 
 MainAppBar mainAppBar = MainAppBar();
 MainExit mMainExit = MainExit();
+GlobalVars globalVars = GlobalVars();
 
 class MainSkillMenu extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class MainSkillMenu extends StatefulWidget {
 
 class _MainSkillMenuState extends State<MainSkillMenu> {
   int currentSelection = GlobalVars.currentSelection;
-  String currSkill = GlobalVars().getSkills();
+  String currSkill = globalVars.getSkills();
 
   @override
   Widget build(BuildContext context) {

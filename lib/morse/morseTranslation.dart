@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'morseAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
-import 'package:audioplayers/audio_cache.dart';
-import 'package:lamp/lamp.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 MorseAppBar morseAppBar = new MorseAppBar();
@@ -15,28 +13,17 @@ class MorseTranslation extends StatefulWidget {
 }
 
 class _MorseTranslationState extends State<MorseTranslation> {
-  final player = AudioCache(prefix: 'assets/sounds/');
 
   String currentMorse = GlobalVars().getMorse('');
   String currSymbol = '';
 
   bool _text2Morse = true;
-//  bool _hasFlash = false;
   var _controller = TextEditingController();
   List morseButtons = ['.', '/', '-'];
 
   @override
   initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  initPlatformState() async {
-    bool hasFlash = await Lamp.hasLamp;
-    print("Device has flash ? $hasFlash");
-    // setState(() {
-    //   _hasFlash = hasFlash;
-    // });
   }
 
   @override
@@ -187,7 +174,7 @@ class _MorseTranslationState extends State<MorseTranslation> {
                               // display morse from given text
                               currentMorse =
                                   translateText2Morse(_controller.text);
-                              GlobalVars().playMorseSound(currentMorse);
+                              GlobalVars.playMorseSoundOrLamp(currentMorse);
                             } else {
                               // display text from given morse code
                               currentMorse =

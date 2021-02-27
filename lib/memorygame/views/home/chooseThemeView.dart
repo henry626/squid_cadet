@@ -24,24 +24,24 @@ class ChooseThemeView extends StatelessWidget {
           //   fontSize: 25.0,
           //   fontColor: MyColors.widgetColor[GlobalVars.choose_theme],
           // ),
-          SizedBox(height: GlobalVars.getHeight(height, 0.05)),
-          InkWell(
-            onTap: () {
-              theme = GlobalVars.theme_morse;
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => GamePage()));
-            },
-            child: CustomCardView(
-//              height: 150,
-              height: GlobalVars.getHeight(height, 0.15),
-              width: width,
-              showTile: true,
-              tileColor: Colors.green,
-              text: GlobalVars.theme_morse,
-              fontColor: MyColors.widgetColor[GlobalVars.theme_morse],
-              fontSize: GlobalVars.getHeight(height, 0.05),
-            ),
-          ),
+//           SizedBox(height: GlobalVars.getHeight(height, 0.05)),
+//           InkWell(
+//             onTap: () {
+//               theme = GlobalVars.theme_morse;
+//               Navigator.of(context)
+//                   .push(MaterialPageRoute(builder: (context) => GamePage()));
+//             },
+//             child: CustomCardView(
+// //              height: 150,
+//               height: GlobalVars.getHeight(height, 0.15),
+//               width: width,
+//               showTile: true,
+//               tileColor: Colors.green,
+//               text: GlobalVars.theme_morse,
+//               fontColor: MyColors.widgetColor[GlobalVars.theme_morse],
+//               fontSize: GlobalVars.getHeight(height, 0.05),
+//             ),
+//           ),
           SizedBox(height: GlobalVars.getHeight(height, 0.05)),
           InkWell(
             onTap: () {

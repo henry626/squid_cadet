@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'morseAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
-import 'package:audioplayers/audio_cache.dart';
-import 'package:lamp/lamp.dart';
 
 MorseAppBar morseAppBar = MorseAppBar();
 MainExit mMainExit = MainExit();
@@ -15,25 +13,14 @@ class MorseHome extends StatefulWidget {
 
 class _MorseHomeState extends State<MorseHome> {
 
-  final player = AudioCache(prefix: 'assets/sounds/');
-
   String currentMorse = GlobalVars().getMorse('');
   String currSymbol = '';
-
-//  bool _hasFlash = false;
-  // bool _isOn = false;
-  // double _intensity = 1.0;
+  bool soundFlag = false;
+  bool lampFlag = false;
 
   @override
   initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  initPlatformState() async {
-    bool hasFlash = await Lamp.hasLamp;
-    print("Device has flash ? $hasFlash");
-//    setState(() { _hasFlash = hasFlash; });
   }
 
   double getKeyboardPadding(BuildContext context, double width, double percent) {
@@ -64,6 +51,72 @@ class _MorseHomeState extends State<MorseHome> {
     return retPaddingValue;
   }
 
+  void playMorseMedia(String currentMorse) {
+    if (lampFlag && soundFlag) {
+      GlobalVars.playMorseSoundAndLamp(currentMorse);
+    } else if (lampFlag) {
+      GlobalVars.currentMorseTool = true;  // lamp = true
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else if (soundFlag) {
+      GlobalVars.currentMorseTool = false;  // sound = false
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else {
+      print ('playMorseSoundOrLamp: No Sound or Lamp');
+    }
+  }
+
+  Widget buildKeyboardButton(String key) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return Expanded(
+        child: RawMaterialButton(
+          onPressed: () {
+            setState(() {
+              currentMorse = GlobalVars().getMorse(key.toString());
+              currSymbol = key;
+            });
+            playMorseMedia(currentMorse);
+          },
+          elevation: 2.0,
+          fillColor: (currSymbol == key) ? Colors.blue : Colors.white,
+          child: Text(
+            key,
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+//                                padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
+          padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
+          shape: CircleBorder(),
+        ),
+    );
+  }
+
+  Widget buildKeyboardButtonSpecial(String key) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return Expanded(
+      child: RawMaterialButton(
+        onPressed: () {
+          setState(() {
+            currentMorse = GlobalVars().getMorse(key.toString());
+            currSymbol = key;
+          });
+          playMorseMedia(currentMorse);
+        },
+        elevation: 2.0,
+        fillColor: (currSymbol == key) ? Colors.blue : Colors.white,
+        child: Text(
+          key,
+          style: TextStyle(
+            color: Colors.black,
+//                              fontWeight: FontWeight.bold
+          ),
+        ),
+        padding: EdgeInsets.all(getSpecialKeysPadding(context, width, 0.005, 0.03)),
+        shape: CircleBorder(),
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     // 0-Home, 1-Lessons, 2-Games, 3-Translation
@@ -81,7 +134,7 @@ class _MorseHomeState extends State<MorseHome> {
             body: Column(
               children: <Widget>[
                 SizedBox(height: (MediaQuery.of(context).orientation == Orientation.portrait) ?
-                  GlobalVars.getHeight(height, 0.10) : GlobalVars.getHeight(height, 0.00) ),
+                  GlobalVars.getHeight(height, 0.10) : GlobalVars.getHeight(height, 0.001) ),
                 Expanded(
                   child: Row(
                     children: <Widget>[
@@ -90,29 +143,30 @@ class _MorseHomeState extends State<MorseHome> {
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
-                                GlobalVars.currentMorseTool = false;
+                                soundFlag = !soundFlag;
                               });
                             },
                             elevation: 2.0,
-                            fillColor: GlobalVars.currentMorseTool
-                                ? Colors.white
-                                : Colors.blue,
+                            fillColor: (soundFlag)
+                                ? Colors.blue
+                                : Colors.white,
                             child: Icon(
                               Icons.audiotrack,
                               size: GlobalVars.getHeight(height, 0.05),
                             ),
                             padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
                             shape: CircleBorder(),
-                          )),
+                          ),
+                      ),
                       Expanded(
                           child: RawMaterialButton(
                             onPressed: () {
                               setState(() {
-                                GlobalVars.currentMorseTool = true;
+                                lampFlag = !lampFlag;
                               });
                             },
                             elevation: 2.0,
-                            fillColor: GlobalVars.currentMorseTool
+                            fillColor: (lampFlag)
                                 ? Colors.blue
                                 : Colors.white,
                             child: Icon(
@@ -148,7 +202,7 @@ class _MorseHomeState extends State<MorseHome> {
                           TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: (currSymbol != '') ?
-                              GlobalVars.getHeight(height, 0.10) :
+                              GlobalVars.getHeight(height, 0.09) :
                               GlobalVars.getHeight(height, 0.05),
                               color: Colors.white),
                         ),
@@ -162,801 +216,68 @@ class _MorseHomeState extends State<MorseHome> {
                   alignment: Alignment.bottomCenter,
                   child: new
                   Column(
-//                crossAxisAlignment: CrossAxisAlignment.end,
-//                  mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(1.toString());
-                                      currSymbol = '1';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '1') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '1',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-//                                padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(2.toString());
-                                      currSymbol = '2';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '2') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(3.toString());
-                                      currSymbol = '3';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '3') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '3',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(4.toString());
-                                      currSymbol = '4';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '4') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '4',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(5.toString());
-                                      currSymbol = '5';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '5') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '5',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(6.toString());
-                                      currSymbol = '6';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '6') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '6',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(7.toString());
-                                      currSymbol = '7';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '7') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '7',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(8.toString());
-                                      currSymbol = '8';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '8') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '8',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(9.toString());
-                                      currSymbol = '9';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '9') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '9',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse(0.toString());
-                                      currSymbol = '0';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == '0') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    '0',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
+                            buildKeyboardButton('1'),
+                            buildKeyboardButton('2'),
+                            buildKeyboardButton('3'),
+                            buildKeyboardButton('4'),
+                            buildKeyboardButton('5'),
+                            buildKeyboardButton('6'),
+                            buildKeyboardButton('7'),
+                            buildKeyboardButton('8'),
+                            buildKeyboardButton('9'),
+                            buildKeyboardButton('0'),
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('Q');
-                                      currSymbol = 'Q';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'Q') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'Q',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('W');
-                                      currSymbol = 'W';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'W') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'W',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('E');
-                                      currSymbol = 'E';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'E') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'E',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('R');
-                                      currSymbol = 'R';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'R') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'R',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('T');
-                                      currSymbol = 'T';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'T') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'T',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('Y');
-                                      currSymbol = 'Y';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'Y') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'Y',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('U');
-                                      currSymbol = 'U';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'U') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'U',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('I');
-                                      currSymbol = 'I';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'I') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'I',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('O');
-                                      currSymbol = 'O';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'O') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'O',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('P');
-                                      currSymbol = 'P';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'P') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'P',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
+                            buildKeyboardButton('Q'),
+                            buildKeyboardButton('W'),
+                            buildKeyboardButton('E'),
+                            buildKeyboardButton('R'),
+                            buildKeyboardButton('T'),
+                            buildKeyboardButton('Y'),
+                            buildKeyboardButton('U'),
+                            buildKeyboardButton('I'),
+                            buildKeyboardButton('O'),
+                            buildKeyboardButton('P'),
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('A');
-                                      currSymbol = 'A';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'A') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'A',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('S');
-                                      currSymbol = 'S';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'S') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'S',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('D');
-                                      currSymbol = 'D';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'D') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'D',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('F');
-                                      currSymbol = 'F';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'F') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'F',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('G');
-                                      currSymbol = 'G';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'G') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'G',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('H');
-                                      currSymbol = 'H';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'H') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'H',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('J');
-                                      currSymbol = 'J';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'J') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'J',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('K');
-                                      currSymbol = 'K';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'K') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'K',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('L');
-                                      currSymbol = 'L';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'L') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'L',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('Atn');
-                                      currSymbol = 'Atn';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor:
-                                  (currSymbol == 'Atn') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'Attn',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.all(getSpecialKeysPadding(context, width, 0.010, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
+                            buildKeyboardButton('A'),
+                            buildKeyboardButton('S'),
+                            buildKeyboardButton('D'),
+                            buildKeyboardButton('F'),
+                            buildKeyboardButton('G'),
+                            buildKeyboardButton('H'),
+                            buildKeyboardButton('J'),
+                            buildKeyboardButton('K'),
+                            buildKeyboardButton('L'),
+                            buildKeyboardButtonSpecial('Attn'),
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
                           ],
                         ),
                         Row(
                           children: <Widget>[
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('Z');
-                                      currSymbol = 'Z';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'Z') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'Z',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('X');
-                                      currSymbol = 'X';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'X') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'X',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('C');
-                                      currSymbol = 'C';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'C') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'C',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('V');
-                                      currSymbol = 'V';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'V') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'V',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('B');
-                                      currSymbol = 'B';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'B') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'B',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('N');
-                                      currSymbol = 'N';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'N') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'N',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('M');
-                                      currSymbol = 'M';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor: (currSymbol == 'M') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'M',
-                                    style: TextStyle(
-                                        color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(getKeyboardPadding(context, width, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('SOS');
-                                      currSymbol = 'SOS';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor:
-                                  (currSymbol == 'SOS') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'SOS',
-                                    style: TextStyle(
-                                      color: Colors.black,
-//                              fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.all(getSpecialKeysPadding(context, width, 0.005, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
-                            Expanded(
-                                child: RawMaterialButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      currentMorse = GlobalVars().getMorse('Error');
-                                      currSymbol = 'Error';
-                                    });
-                                    GlobalVars().playMorseSound(currentMorse);
-                                  },
-                                  elevation: 2.0,
-                                  fillColor:
-                                  (currSymbol == 'Error') ? Colors.blue : Colors.white,
-                                  child: Text(
-                                    'Error',
-                                    style: TextStyle(
-                                      color: Colors.black,
-//                              fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.all(getSpecialKeysPadding(context, width, 0.003, 0.03)),
-                                  shape: CircleBorder(),
-                                )),
+                            buildKeyboardButton('Z'),
+                            buildKeyboardButton('X'),
+                            buildKeyboardButton('C'),
+                            buildKeyboardButton('V'),
+                            buildKeyboardButton('B'),
+                            buildKeyboardButton('N'),
+                            buildKeyboardButton('M'),
+                            buildKeyboardButtonSpecial('SOS'),
+                            buildKeyboardButtonSpecial('Error'),
                             Spacer(),
-                            // Expanded(
-                            //     child: RawMaterialButton(
-                            //       // onPressed: () {
-                            //       //   setState(() {
-                            //       //     currentMorse = GlobalVars().getMorse('OK');
-                            //       //     currSymbol = 'OK';
-                            //       //   });
-                            //       //   GlobalVars().playMorseSound(currentMorse);
-                            //       // },
-                            //       // elevation: 2.0,
-                            //       // fillColor:
-                            //       // (currSymbol == 'OK') ? Colors.blue : Colors.white,
-                            //       // child: Text(
-                            //       //   'OK',
-                            //       //   style: TextStyle(
-                            //       //       color: Colors.black, fontWeight: FontWeight.bold),
-                            //       // ),
-                            //       // padding: EdgeInsets.all(getSpecialKeysPadding(context, width, 0.02, 0.03)),
-                            //       // shape: CircleBorder(),
-                            //     )),
                             SizedBox(width: GlobalVars.getWidth(width, 0.02)),
                           ],
                         ),

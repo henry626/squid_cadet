@@ -36,41 +36,41 @@ class SemaphoreGames extends StatelessWidget {
                 SizedBox(
                   height: GlobalVars.getHeight(height, 0.05),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                  child: CustomCardView(
-                    height: GlobalVars.getHeight(height, 0.15),
-                    width: GlobalVars.getWidth(width, 0.80),
-                    showTile: true,
-                    tileColor: Colors.green,
-                    text: GlobalVars.game_single,
-//                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
-                    fontColor: Colors.black,
-                    fontSize: GlobalVars.getHeight(height, 0.04),
-                  ),
-                ),
-                SizedBox(
-                  height: GlobalVars.getHeight(height, 0.05),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                  child: CustomCardView(
-                    height: GlobalVars.getHeight(height, 0.15),
-                    width: GlobalVars.getWidth(width, 0.80),
-                    showTile: true,
-                    tileColor: Colors.amber,
-                    text: GlobalVars.game_two,
-//                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
-                    fontColor: Colors.black,
-                    fontSize: GlobalVars.getHeight(height, 0.04),
-                  ),
-                ),
+//                 InkWell(
+//                   onTap: () {
+//                     Navigator.of(context).push(
+//                         MaterialPageRoute(builder: (context) => HomePage()));
+//                   },
+//                   child: CustomCardView(
+//                     height: GlobalVars.getHeight(height, 0.15),
+//                     width: GlobalVars.getWidth(width, 0.80),
+//                     showTile: true,
+//                     tileColor: Colors.green,
+//                     text: GlobalVars.game_single,
+// //                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
+//                     fontColor: Colors.black,
+//                     fontSize: GlobalVars.getHeight(height, 0.04),
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: GlobalVars.getHeight(height, 0.05),
+//                 ),
+//                 InkWell(
+//                   onTap: () {
+//                     Navigator.of(context).push(
+//                         MaterialPageRoute(builder: (context) => HomePage()));
+//                   },
+//                   child: CustomCardView(
+//                     height: GlobalVars.getHeight(height, 0.15),
+//                     width: GlobalVars.getWidth(width, 0.80),
+//                     showTile: true,
+//                     tileColor: Colors.amber,
+//                     text: GlobalVars.game_two,
+// //                    fontColor: MyColors.widgetColor[GlobalVars.theme_semaphore],
+//                     fontColor: Colors.black,
+//                     fontSize: GlobalVars.getHeight(height, 0.04),
+//                   ),
+//                 ),
                 SizedBox(
                   height: GlobalVars.getHeight(height, 0.05),
                 ),

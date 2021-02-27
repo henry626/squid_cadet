@@ -6,10 +6,6 @@ int totalMatches = 0;
 int currentCount = 0;
 String gameClue = 'Clue';
 int gameLives = 3;
-// String leftGameButton = 'True';
-// String rightGameButton = 'False';
-// String gameAnswer = 'True';
-//int flipCount = maxFlipCount;
 Map <String, int> animationTimerCount = {
   'easyLevel': 8, 'mediumLevel': 4, 'hardLevel': 2
 };
@@ -60,9 +56,9 @@ List morseLevel22 = ['A','B','C','D','E','F','G','H','I','J','K','L',
   'N','M','O','P','Q','R','S','T','U','V','W','X','Y'];
 List morseLevel23 = ['A','B','C','D','E','F','G','H','I','J','K','L',
   'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-// List morseLevel24 = ['A','B','C','D','E','F','G','H','I','J','K','L',
-//   'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-//   '1','2','3','4','5'];
+ // List morseLevel24 = ['A','B','C','D','E','F','G','H','I','J','K','L',
+ //   'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+ //   '1','2','3','4','5'];
 // List morseLevel25 = ['A','B','C','D','E','F','G','H','I','J','K','L',
 //   'N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 //   '1','2','3','4','5','6','7','8','9','0'];

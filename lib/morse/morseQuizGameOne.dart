@@ -26,6 +26,8 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
   String rightButtonText = '';
   String leftButtonText = '';
   String currAnswer = '';
+  bool soundFlag = false;
+  bool lampFlag = false;
 
   String get timerString {
     Duration duration = controller.duration * controller.value;
@@ -89,6 +91,20 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
     ).show();
   }
 
+  void playMorseMedia(String currentMorse) {
+    if (lampFlag && soundFlag) {
+      GlobalVars.playMorseSoundAndLamp(currentMorse);
+    } else if (lampFlag) {
+      GlobalVars.currentMorseTool = true;  // lamp = true
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else if (soundFlag) {
+      GlobalVars.currentMorseTool = false;  // sound = false
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else {
+//      print ('playMorseSoundOrLamp: No Sound or Lamp');
+    }
+  }
+
   void startNewGame(String stage) {
     // 0. reset currentCount, keysIndex
     currentCount = 0;
@@ -102,7 +118,7 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
 
     // 1. get a list of Keys from Shuffled List
     keys = globalVars.morseTable.keys.toList()..shuffle();
-    print(keys);
+//    print(keys);
 
     // 2. get random guess from another shuffle
     guessKeys = globalVars.morseTable.keys.toList()..shuffle();
@@ -127,6 +143,9 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
 
     // 1. get gameClue, and gameAnswer & guessAnswer to L-R Buttons
     gameClue = globalVars.morseTable[currAnswer];
+    setState(() {
+      playMorseMedia(gameClue);
+    });
     if (randomBinaryList[keysIndex] == 0) {
       rightButtonText = keys[keysIndex];
       leftButtonText = guessKeys[keysIndex];
@@ -217,6 +236,472 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
     }
   }
 
+  Widget buildPortraitLayout() {
+    var height = MediaQuery.of(context).size.height;
+//    print('buildPortraitLayout');
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        // Scoreline
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  GlobalVars.morseGameBestScoreLabel +
+                      bestScore.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.02)),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  GlobalVars.morseGameScoreLabel +
+                      ": $currentCount",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.02)),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.accessibility_rounded,
+                      color: (gameLives == 3)
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    Icon(
+                      Icons.accessibility_rounded,
+                      color: (gameLives >= 2)
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    Icon(
+                      Icons.accessibility_rounded,
+                      color: (gameLives >= 1)
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                AnimatedBuilder(
+                  animation: controller,
+                  builder: (context, child) {
+                    return FloatingActionButton.extended(
+                        onPressed: () {
+                          if (controller.isAnimating) {
+//                                                controller.stop();
+                            print('Play button pressed');
+                          } else {
+                            setState(() {
+                              startNewGame('Play');
+                              checkAnswer('Play');
+                            });
+                          }
+                        },
+                        icon: Icon(controller.isAnimating
+                            ? Icons.access_alarm_outlined
+                            : Icons.play_arrow),
+                        label: Text(controller.isAnimating
+                            ? "Good Luck"
+                            : "Play"));
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Spacer(),
+            Spacer(),
+            Spacer(),
+            Spacer(),
+            Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      soundFlag = !soundFlag;
+                    });
+                  },
+                  elevation: 2.0,
+                  fillColor: (soundFlag)
+                      ? Colors.blue
+                      : Colors.white,
+                  child: Icon(
+                    Icons.audiotrack,
+                    size: GlobalVars.getHeight(height, 0.05),
+                  ),
+                  padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                  shape: CircleBorder(),
+                )),
+            Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      lampFlag = !lampFlag;
+                    });
+                  },
+                  elevation: 2.0,
+                  fillColor: (lampFlag)
+                      ? Colors.blue
+                      : Colors.white,
+                  child: Icon(
+                    Icons.wb_sunny,
+                    size: GlobalVars.getHeight(height, 0.05),
+                  ),
+                  padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                  shape: CircleBorder(),
+                )),
+          ],
+        ),
+        Expanded(
+          child: Align(
+            alignment: FractionalOffset.center,
+            child: AspectRatio(
+              aspectRatio: 1.0,
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: CustomPaint(
+                        painter: CustomTimerPainter(
+                          animation: controller,
+                          backgroundColor: Colors.white,
+                          color: Colors.red,
+                        )),
+                  ),
+                  Align(
+                    alignment: FractionalOffset.center,
+                    child: Text(
+                      (gameClue == 'Clue') ? ' ' : gameClue,
+                      style: TextStyle(
+                          fontSize: GlobalVars.getHeight(
+                              height, 0.12),
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: FlatButton(
+//                                  textColor: Colors.white,
+                  color: Colors.white,
+                  child: Text(
+                    (leftButtonText == '')
+                        ? 'False'
+                        : leftButtonText,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.05),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (controller.isAnimating) {
+                      //The user picked true.
+                      setState(() {
+                        checkAnswer(leftButtonText);
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: FlatButton(
+                  color: Colors.white,
+                  child: Text(
+                    (rightButtonText == '')
+                        ? 'True'
+                        : rightButtonText,
+                    style: TextStyle(
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.05),
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (controller.isAnimating) {
+                      //The user picked false.
+                      setState(() {
+                        checkAnswer(rightButtonText);
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget buildLandscapeLayout() {
+    var height = MediaQuery.of(context).size.height;
+//    print('buildLandscapeLayout');
+    return Column(
+//      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      GlobalVars.morseGameBestScoreLabel +
+                          bestScore.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                          GlobalVars.getHeight(height, 0.04)),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      GlobalVars.morseGameScoreLabel +
+                          ": $currentCount",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                          GlobalVars.getHeight(height, 0.04)),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 6,
+                child: Align(
+                  alignment: FractionalOffset.center,
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: CustomPaint(
+                              painter: CustomTimerPainter(
+                                animation: controller,
+                                backgroundColor: Colors.white,
+                                color: Colors.red,
+                              )),
+                        ),
+                        Align(
+                          alignment: FractionalOffset.center,
+                          child: Text(
+                            (gameClue == 'Clue') ? ' ' : gameClue,
+                            style: TextStyle(
+                                fontSize: GlobalVars.getHeight(
+                                    height, 0.12),
+                                color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Icon(
+                          Icons.accessibility_rounded,
+                          color: (gameLives == 3)
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        Icon(
+                          Icons.accessibility_rounded,
+                          color: (gameLives >= 2)
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                        Icon(
+                          Icons.accessibility_rounded,
+                          color: (gameLives >= 1)
+                              ? Colors.white
+                              : Colors.black,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    AnimatedBuilder(
+                      animation: controller,
+                      builder: (context, child) {
+                        return FloatingActionButton.extended(
+                            onPressed: () {
+                              if (controller.isAnimating) {
+//                                                controller.stop();
+                                print('Play button pressed');
+                              } else {
+                                setState(() {
+                                  startNewGame('Play');
+                                  checkAnswer('Play');
+                                });
+                              }
+                            },
+                            icon: Icon(controller.isAnimating
+                                ? Icons.access_alarm_outlined
+                                : Icons.play_arrow),
+                            label: Text(controller.isAnimating
+                                ? "Good Luck"
+                                : "Play"));
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Spacer(),
+                        Spacer(),
+                        Spacer(),
+                        Expanded(
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                setState(() {
+                                  soundFlag = !soundFlag;
+                                });
+                              },
+                              elevation: 2.0,
+                              fillColor: (soundFlag)
+                                  ? Colors.blue
+                                  : Colors.white,
+                              child: Icon(
+                                Icons.audiotrack,
+                                size: GlobalVars.getHeight(height, 0.05),
+                              ),
+                              padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                              shape: CircleBorder(),
+                            )),
+                        Expanded(
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                setState(() {
+                                  lampFlag = !lampFlag;
+                                });
+                              },
+                              elevation: 2.0,
+                              fillColor: (lampFlag)
+                                  ? Colors.blue
+                                  : Colors.white,
+                              child: Icon(
+                                Icons.wb_sunny,
+                                size: GlobalVars.getHeight(height, 0.05),
+                              ),
+                              padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                              shape: CircleBorder(),
+                            )),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10),
+        Row(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          // crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: FlatButton(
+//                                  textColor: Colors.white,
+                  color: Colors.white,
+                  child: Text(
+                    (leftButtonText == '')
+                        ? 'False'
+                        : leftButtonText,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.05),
+                    ),
+                  ),
+                  onPressed: () {
+                    if (controller.isAnimating) {
+                      //The user picked true.
+                      setState(() {
+                        checkAnswer(leftButtonText);
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: FlatButton(
+                  color: Colors.white,
+                  child: Text(
+                    (rightButtonText == '')
+                        ? 'True'
+                        : rightButtonText,
+                    style: TextStyle(
+                      fontSize:
+                      GlobalVars.getHeight(height, 0.05),
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (controller.isAnimating) {
+                      //The user picked false.
+                      setState(() {
+                        checkAnswer(rightButtonText);
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 //    var width = MediaQuery.of(context).size.width;
@@ -248,181 +733,9 @@ class _MorseQuizGameOneState extends State<MorseQuizGameOne>
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          // Scoreline
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    GlobalVars.morseGameBestScoreLabel +
-                                        bestScore.toString(),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize:
-                                            GlobalVars.getHeight(height, 0.02)),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    GlobalVars.morseGameScoreLabel +
-                                        ": $currentCount",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize:
-                                            GlobalVars.getHeight(height, 0.02)),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.accessibility_rounded,
-                                        color: (gameLives == 3)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      Icon(
-                                        Icons.accessibility_rounded,
-                                        color: (gameLives >= 2)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      Icon(
-                                        Icons.accessibility_rounded,
-                                        color: (gameLives >= 1)
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  AnimatedBuilder(
-                                    animation: controller,
-                                    builder: (context, child) {
-                                      return FloatingActionButton.extended(
-                                          onPressed: () {
-                                            if (controller.isAnimating) {
-//                                                controller.stop();
-                                              print('Play button pressed');
-                                            } else {
-                                              setState(() {
-                                                startNewGame('Play');
-                                                checkAnswer('Play');
-                                              });
-                                            }
-                                          },
-                                          icon: Icon(controller.isAnimating
-                                              ? Icons.access_alarm_outlined
-                                              : Icons.play_arrow),
-                                          label: Text(controller.isAnimating
-                                              ? "Good Luck"
-                                              : "Play"));
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: Align(
-                              alignment: FractionalOffset.center,
-                              child: AspectRatio(
-                                aspectRatio: 1.0,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Positioned.fill(
-                                      child: CustomPaint(
-                                          painter: CustomTimerPainter(
-                                        animation: controller,
-                                        backgroundColor: Colors.white,
-                                        color: Colors.red,
-                                      )),
-                                    ),
-                                    Align(
-                                      alignment: FractionalOffset.center,
-                                      child: Text(
-                                        (gameClue == 'Clue') ? ' ' : gameClue,
-                                        style: TextStyle(
-                                            fontSize: GlobalVars.getHeight(
-                                                height, 0.12),
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: FlatButton(
-//                                  textColor: Colors.white,
-                                    color: Colors.white,
-                                    child: Text(
-                                      (leftButtonText == '')
-                                          ? 'False'
-                                          : leftButtonText,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize:
-                                            GlobalVars.getHeight(height, 0.05),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (controller.isAnimating) {
-                                        //The user picked true.
-                                        setState(() {
-                                          checkAnswer(leftButtonText);
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: FlatButton(
-                                    color: Colors.white,
-                                    child: Text(
-                                      (rightButtonText == '')
-                                          ? 'True'
-                                          : rightButtonText,
-                                      style: TextStyle(
-                                        fontSize:
-                                            GlobalVars.getHeight(height, 0.05),
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (controller.isAnimating) {
-                                        //The user picked false.
-                                        setState(() {
-                                          checkAnswer(rightButtonText);
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child: (MediaQuery.of(context).orientation == Orientation.portrait)
+                      ? buildPortraitLayout()
+                      : buildLandscapeLayout(),
                     ),
                   ],
                 );

@@ -6,6 +6,7 @@ class GlobalVars {
 //  GlobalVars._();
 
   static const String MAINSKILLMENU = 'MainSkillMenu';
+  static final player = AudioCache(prefix: 'assets/sounds/');
 
 // Morse Pages
 //const String MORSEHOME = 'routeMorseHome';
@@ -98,9 +99,9 @@ class GlobalVars {
     'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.',
     'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
     'S': '...', 'T': '-', 'U': '..-', 'V': '...-',
-    'W': '.--', 'X': '-..-', 'Y': '-.-- ', 'Z': '--..',
+    'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
     'SOS': '...---...', 'Error': '........',
-    'OK': '-.-', 'Atn': '-.-.-',
+    'OK': '-.-', 'Attn': '-.-.-',
   };
 
 
@@ -123,26 +124,46 @@ class GlobalVars {
     return retStr;
   }
 
-  void playMorseSound(String currentMorse) async {
-    final player = AudioCache(prefix: 'assets/sounds/');
+  // Mode 0-Home, 1-Lessons, 2-Games, 3-Translation
+  static void playMorseSoundOrLamp(String currentMorse) async {
 
+    await Future.delayed(Duration(milliseconds: 700));
     for (int i = 0; i < currentMorse.length; i++) {
       if (currentMorse[i] == '.') {
-        GlobalVars.currentMorseTool
+        currentMorseTool
             ? Lamp.flash(new Duration(milliseconds: 50))
             : player.play('period.mp3');
-        await Future.delayed(Duration(milliseconds: 300));
+          await Future.delayed(Duration(milliseconds: 300));
       } else if (currentMorse[i] == '-') {
-        GlobalVars.currentMorseTool
+        currentMorseTool
             ? Lamp.flash(new Duration(milliseconds: 400))
             : player.play('dash.mp3');
-        await Future.delayed(Duration(milliseconds: 700));
+          await Future.delayed(Duration(milliseconds: 700));
       } else if (currentMorse[i] == ' ' || currentMorse[i] == '/') {
         await Future.delayed(Duration(milliseconds: 1000));
       }
     }
   }
 
+  // Mode 0-Home, 1-Lessons, 2-Games, 3-Translation
+  static void playMorseSoundAndLamp(String currentMorse) async {
+
+    //wait half a second before start.
+    await Future.delayed(Duration(milliseconds: 500));
+    for (int i = 0; i < currentMorse.length; i++) {
+      if (currentMorse[i] == '.') {
+            Lamp.flash(new Duration(milliseconds: 50));
+            player.play('period.mp3');
+        await Future.delayed(Duration(milliseconds: 300));
+      } else if (currentMorse[i] == '-') {
+            Lamp.flash(new Duration(milliseconds: 400));
+            player.play('dash.mp3');
+        await Future.delayed(Duration(milliseconds: 700));
+      } else if (currentMorse[i] == ' ' || currentMorse[i] == '/') {
+        await Future.delayed(Duration(milliseconds: 1000));
+      }
+    }
+  }
 
 //MorseHome ------END-----------
 

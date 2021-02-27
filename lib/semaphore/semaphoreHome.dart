@@ -15,25 +15,13 @@ class SemaphoreHome extends StatefulWidget {
 
 class _SemaphoreHomeState extends State<SemaphoreHome> {
 
-  final player = AudioCache(prefix: 'assets/sounds/');
 
   String currentSemaphore = GlobalVars().getMorse('');
   String currSymbol = '';
 
-//  bool _hasFlash = false;
-  // bool _isOn = false;
-  // double _intensity = 1.0;
-
   @override
   initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  initPlatformState() async {
-    bool hasFlash = await Lamp.hasLamp;
-    print("Device has flash ? $hasFlash");
-//    setState(() { _hasFlash = hasFlash; });
   }
 
   double getKeyboardPadding(BuildContext context, double width, double percent) {

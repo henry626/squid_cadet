@@ -3,7 +3,7 @@ import 'morseAppBar.dart';
 import 'dart:async';
 import 'package:squid_cadet/mainExit.dart';
 import '../globalVariables.dart';
-import 'lessonBrain.dart';
+import 'questionBrain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:squid_cadet/morse/data.dart';
 import 'package:squid_cadet/globalVariables.dart';
@@ -47,10 +47,27 @@ class _MorsePageState extends State<MorsePage> {
   int currentLetterIndex = 0;
   int letterIndex = 0;
 
+  bool soundFlag = false;
+  bool lampFlag = false;
+
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController();
+  }
+
+  void playMorseMedia(String currentMorse) {
+    if (lampFlag && soundFlag) {
+      GlobalVars.playMorseSoundAndLamp(currentMorse);
+    } else if (lampFlag) {
+      GlobalVars.currentMorseTool = true;  // lamp = true
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else if (soundFlag) {
+      GlobalVars.currentMorseTool = false;  // sound = false
+      GlobalVars.playMorseSoundOrLamp(currentMorse);
+    } else {
+      print ('playMorseSoundOrLamp: No Sound or Lamp');
+    }
   }
 
   bool isSelected(List texts, String text) {
@@ -59,7 +76,8 @@ class _MorsePageState extends State<MorsePage> {
     setState(() {
       if (currentLetterIndex == letterIndex) {
         currLetter = text;
-//        print ('currentLetter = ' + currLetter);
+        // must place playMorseMedia inside setState to reduce static noise.
+        playMorseMedia(globalVars.morseTable[currLetter]);
         retValue = true;
       } else {
         retValue = false;
@@ -276,7 +294,10 @@ class _MorsePageState extends State<MorsePage> {
                     (isSelected(texts, text)) ? Colors.grey : Colors.black,
                 child: Text(
                   text,
-                  textScaleFactor: MediaQuery.of(context).size.height * 0.005,
+                  textScaleFactor: (MediaQuery.of(context).orientation ==
+                      Orientation.portrait)
+                      ? MediaQuery.of(context).size.height * 0.005
+                  : MediaQuery.of(context).size.height * 0.01,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -293,21 +314,23 @@ class _MorsePageState extends State<MorsePage> {
   }
 
   Widget _buildLetterHint() {
+    String imagePath = 'assets/morses/' + currLetter + '.gif';
+    String imageBlankPath = 'assets/morses/blank.gif';
 //    letterIndex = 0;
 //    print ('_buildLetterHint: currentLetterIndex = $currentLetterIndex, letterIndex = $letterIndex');
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * 0.2,
+        height: MediaQuery.of(context).size.height * 0.3,
+        width: MediaQuery.of(context).size.width * 0.3,
         child: ClipOval(
           child: (letterConfidentLevel[currLetter] <= 1)
           ? Image.asset(
-            'assets/morses/$currLetter.gif',
+            imagePath,
             fit: BoxFit.scaleDown,
           )
           : Image.asset(
-            'assets/morses/blank.gif',
+            imageBlankPath,
             fit: BoxFit.scaleDown,
           ),
         ),
@@ -370,33 +393,161 @@ class _MorsePageState extends State<MorsePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // 0-Home, 1-Lessons, 2-Games, 3-Translation
-    morseAppBar.setSelection(context, 1);
-    mMainExit.setContextMainExit(context);
+  Widget buildPortraitLayout() {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
 
-    return new Scaffold(
-      // appBar: morseAppBar.appBar(),
-      backgroundColor: Colors.black,
-      body: Align(
-        alignment: Alignment.center,
-        child: new Column(
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: (MediaQuery.of(context).orientation ==
-                        Orientation.portrait)
-                    ? EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0)
-                    : EdgeInsets.symmetric(vertical: 1.0, horizontal: 20.0),
-                child: _buildRowAlphabet(morseLevel23),
+    return Column(
+      children: <Widget>[
+        //Build Alphabet Row
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: (MediaQuery.of(context).orientation ==
+                Orientation.portrait)
+                ? EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0)
+                : EdgeInsets.symmetric(vertical: 1.0, horizontal: 20.0),
+            child: _buildRowAlphabet(morseLevel23),
+          ),
+        ),
+        //Build Restart Button
+        Expanded(
+          flex: 3,
+          child: InkWell(
+            onTap: () {
+              questionBrain.reset();
+              Navigator.pushNamed(context, MORSELESSONS);
+            },
+            child: new Padding(
+              padding: new EdgeInsets.symmetric(horizontal: 20.0),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: new Text(
+                  'Restart',
+                  style: TextStyle(
+                    color: Colors.white,
+                    // fontSize: (currentLevel == hardLevel) ?
+                    // GlobalVars.getHeight(height, 0.02) :
+                    // GlobalVars.getHeight(height, 0.03),
+                    fontWeight: FontWeight.bold,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                ),
               ),
             ),
-//            Spacer(),
-            Expanded(
-              flex: 3,
-              child: InkWell(
+          ),
+        ),
+        //Build Sound/Lamp Buttons Row
+        Expanded(
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: GlobalVars.getWidth(width, 0.7)),
+              Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      soundFlag = !soundFlag;
+                    });
+                  },
+                  elevation: 2.0,
+                  fillColor: (soundFlag)
+                      ? Colors.blue
+                      : Colors.white,
+                  child: Icon(
+                    Icons.audiotrack,
+                    size: GlobalVars.getHeight(height, 0.025),
+                  ),
+                  padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                  shape: CircleBorder(),
+                ),
+              ),
+              Expanded(
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        lampFlag = !lampFlag;
+                      });
+                    },
+                    elevation: 2.0,
+                    fillColor: (lampFlag)
+                        ? Colors.blue
+                        : Colors.white,
+                    child: Icon(
+                      Icons.wb_sunny,
+                      size: GlobalVars.getHeight(height, 0.025),
+                    ),
+                    padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                    shape: CircleBorder(),
+                  )),
+              SizedBox(width: GlobalVars.getWidth(width, 0.02)),
+            ],
+          ),
+        ),
+        //Build Question Row
+        Expanded(
+          flex: 6,
+          child:
+          _buildRowWord(questionBrain.getQuestionText()),
+        ),
+        //Build Hint Row
+        Expanded(
+          flex: 5,
+          child: _buildLetterHint(),
+        ),
+        Spacer(),
+        //Build Guess Row
+        Expanded(
+          flex: 2,
+          child: TextField(
+            controller: _textController,
+            enabled: false,
+            readOnly: true,
+            showCursor: false,
+            textAlign: TextAlign.center,
+            style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+                color: Colors.white),
+            maxLines: 1,
+          ),
+        ),
+        Spacer(),
+        //Build Morse Buttons Row
+        Expanded(
+          flex: 3,
+          child: _buildRow(['.', '-']),
+        ),
+      ],
+    );
+  }
+
+  Widget buildLandscapeLayout() {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    return Column(
+      children: <Widget>[
+        //Build Alphabet Row
+        Expanded(
+          flex: 3,
+          child: Padding(
+            padding: (MediaQuery.of(context).orientation ==
+                Orientation.portrait)
+                ? EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0)
+                : EdgeInsets.symmetric(vertical: 1.0, horizontal: 20.0),
+            child: _buildRowAlphabet(morseLevel23),
+          ),
+        ),
+        //Build Question Row, Restart Button
+        Expanded(
+          flex: 6,
+          child: Row(
+            children: <Widget>[
+              Spacer(),
+              Spacer(),
+              _buildRowWord(questionBrain.getQuestionText()),
+              Spacer(),
+              InkWell(
                 onTap: () {
                   questionBrain.reset();
                   Navigator.pushNamed(context, MORSELESSONS);
@@ -413,47 +564,107 @@ class _MorsePageState extends State<MorsePage> {
                         // GlobalVars.getHeight(height, 0.02) :
                         // GlobalVars.getHeight(height, 0.03),
                         fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.height * 0.03,
+                        fontSize: MediaQuery.of(context).size.height * 0.06,
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-//            Spacer(),
-            Expanded(
-              flex: 6,
-              child:
-              _buildRowWord(questionBrain.getQuestionText()),
-            ),
-//            Spacer(),
-            Expanded(
-              flex: 5,
-              child: _buildLetterHint(),
-            ),
-            Spacer(),
-            Expanded(
-                flex: 2,
-              child: TextField(
-                controller: _textController,
-                enabled: false,
-                readOnly: true,
-                showCursor: false,
-                textAlign: TextAlign.center,
-                style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40.0,
-                    color: Colors.white),
-                maxLines: 1,
-              ),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 3,
-              child: _buildRow(['.', '-']),
-            ),
-          ],
+            ],
+          ),
         ),
+        //Build Hint Row
+        Expanded(
+          flex: 5,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: GlobalVars.getWidth(width, 0.35)),
+              _buildLetterHint(),
+              SizedBox(width: GlobalVars.getWidth(width, 0.15)),
+              Expanded(
+                child: RawMaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      soundFlag = !soundFlag;
+                    });
+                  },
+                  elevation: 2.0,
+                  fillColor: (soundFlag)
+                      ? Colors.blue
+                      : Colors.white,
+                  child: Icon(
+                    Icons.audiotrack,
+                    size: GlobalVars.getHeight(height, 0.05),
+                  ),
+                  padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                  shape: CircleBorder(),
+                ),
+              ),
+              Expanded(
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        lampFlag = !lampFlag;
+                      });
+                    },
+                    elevation: 2.0,
+                    fillColor: (lampFlag)
+                        ? Colors.blue
+                        : Colors.white,
+                    child: Icon(
+                      Icons.wb_sunny,
+                      size: GlobalVars.getHeight(height, 0.05),
+                    ),
+                    padding: EdgeInsets.all(GlobalVars.getHeight(height, 0.005)),
+                    shape: CircleBorder(),
+                  )),
+              SizedBox(width: GlobalVars.getWidth(width, 0.02)),
+            ],
+          ),
+        ),
+        Spacer(),
+        //Build Guess Row
+        Expanded(
+          flex: 2,
+          child: TextField(
+            controller: _textController,
+            enabled: false,
+            readOnly: true,
+            showCursor: false,
+            textAlign: TextAlign.center,
+            style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+                color: Colors.white),
+            maxLines: 1,
+          ),
+        ),
+        Spacer(),
+        //Build Morse Buttons Row
+        Expanded(
+          flex: 3,
+          child: _buildRow(['.', '-']),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 0-Home, 1-Lessons, 2-Games, 3-Translation
+    morseAppBar.setSelection(context, 1);
+    mMainExit.setContextMainExit(context);
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    return new Scaffold(
+      // appBar: morseAppBar.appBar(),
+      backgroundColor: Colors.black,
+      body: Align(
+        alignment: Alignment.center,
+        child: (MediaQuery.of(context).orientation == Orientation.portrait)
+            ? buildPortraitLayout()
+            : buildLandscapeLayout(),
       ),
     );
   }

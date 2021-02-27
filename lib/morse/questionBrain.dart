@@ -258,8 +258,10 @@ class QuestionBrain {
   }
 
   bool isFinished() {
-     print('_questionNumber = $_questionNumber');
-     print('_questionBank.length = ' + _questionBank.length.toString());
+     print('isFinished: _questionNumber = $_questionNumber');
+     print('isFinished: _questionBank.length = ' + (_questionBank.length-1).toString());
+     print('isFinished: currentLevel = $currentLevel');
+     print('isFinished: _maxLevel = $_maxLevel');
     if ((currentLevel == _maxLevel) && (_questionNumber >= _questionBank.length - 1)) {
       return true;
     } else {

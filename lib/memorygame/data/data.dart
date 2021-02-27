@@ -55,10 +55,10 @@ List<TileModel> getMorsePairs() {
 List<TileModel> getSemaphorePairs() {
   List<TileModel> pairs = List<TileModel>();
   List<String> imgNames = [
-    "a", "b", "c", "d", "e", "f", "g",
-    "h", "i", "j", "k", "l", "m", "n",
-    "o", "p", "q", "r", "s", "t", "u",
-    "v", "w", "x", "y", "z", "Rest", "Error"
+    "A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N",
+    "O", "P", "Q", "R", "S", "T", "U",
+    "V", "W", "X", "Y", "Z", "Rest", "Error"
   ];
   // Pick a range of images( 8 or 16), starting with a random index
 
