@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'semaphoreAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
 import 'package:squid_cadet/semaphore/data.dart';
-import 'questionBrain.dart';
+import 'semaphoreQuestionBrain.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:squid_cadet/globalVariables.dart';
 import 'package:squid_cadet/routeNames.dart';
 
 MainExit mMainExit = MainExit();
 SemaphoreAppBar semaphoreAppBar = SemaphoreAppBar();
-QuestionBrain questionBrain = QuestionBrain(0);
+SemaphoreQuestionBrain semaphoreQuestionBrain = SemaphoreQuestionBrain(0);
 GlobalVars globalVars = GlobalVars();
 
 class SemaphoreLessons extends StatelessWidget {
@@ -73,8 +73,9 @@ class _SemaphorePageState extends State<SemaphorePage> {
     setState(() {
       currentLetterIndex++;
       letterIndex = 0;
-      if (currentLetterIndex == questionBrain.getQuestionText().length) {
-        if ((questionBrain.isFinished() == true)) {
+      if (currentLetterIndex == semaphoreQuestionBrain.getQuestionText().length) {
+        _textController.clear();
+        if ((semaphoreQuestionBrain.isFinished() == true)) {
           //Modified for our purposes:
           Alert(
             context: context,
@@ -87,7 +88,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
-                  questionBrain.reset();
+                  semaphoreQuestionBrain.reset();
                   Navigator.pushNamed(context, MORSELESSONS);
                 },
                 width: 120,
@@ -95,12 +96,12 @@ class _SemaphorePageState extends State<SemaphorePage> {
             ],
           ).show();
 
-          questionBrain.reset();
+          semaphoreQuestionBrain.reset();
           currentLetterIndex = 0;
           letterIndex = 0;
         } else {
-          print('currentLevel = ' + questionBrain.getCurrentLevel().toString());
-          questionBrain.nextQuestion();
+          print('currentLevel = ' + semaphoreQuestionBrain.getCurrentLevel().toString());
+          semaphoreQuestionBrain.nextQuestion();
           currentLetterIndex = 0;
           letterIndex = 0;
         }
@@ -109,7 +110,10 @@ class _SemaphorePageState extends State<SemaphorePage> {
   }
 
   _insertText(String textToInsert) async {
-//    if (textToInsert != currLetter) return;
+    print('_insertText: textToInsert = $textToInsert');
+    print('_insertText: _textController.text.length = ' + _textController.text.length.toString());
+    print('_insertText: semaphoreQuestionBrain.getQuestionText().length = ' + semaphoreQuestionBrain.getQuestionText().length.toString());
+    if (_textController.text.length > semaphoreQuestionBrain.getQuestionText().length) _textController.clear();
     if (_textController.selection.start >= 0) {
 //      int newPosition = _textController.selection.start + textToInsert.length;
       _textController.text = _textController.text.replaceRange(
@@ -118,33 +122,31 @@ class _SemaphorePageState extends State<SemaphorePage> {
         textToInsert,
       );
     }
-    if (_textController.text.isNotEmpty) {
-      if (textToInsert == currLetter) {
-        // 1. check textToInsert == currLetter:
-        // increase confident level of the letter, move to the next letter.
-        _textController.text += textToInsert;
-        await Future.delayed(Duration(milliseconds: 500));
-        letterConfidentLevel[currLetter] += 1;
-        getNextQuestion();
-      } else {
-        // wrong answer: reduce confidentLevel,
-        // clear editor, cursor stay at the same letter.
-        setState(() {
-          letterConfidentLevel[currLetter] =
-          (letterConfidentLevel[currLetter] - 3 <= 0)
-              ? 0
-              : letterConfidentLevel[currLetter] - 3;
-        });
-        if (letterConfidentLevel[currLetter] == 0) {
-          //show Hint
-        }
+    if (textToInsert == currLetter) {
+      // 1. check textToInsert == currLetter:
+      // increase confident level of the letter, move to the next letter.
+      _textController.text += textToInsert;
+      await Future.delayed(Duration(milliseconds: 500));
+      letterConfidentLevel[currLetter] += 1;
+      getNextQuestion();
+    } else {
+      // wrong answer: reduce confidentLevel,
+      // clear editor, cursor stay at the same letter.
+      setState(() {
+        letterConfidentLevel[currLetter] =
+        (letterConfidentLevel[currLetter] - 3 <= 0)
+            ? 0
+            : letterConfidentLevel[currLetter] - 3;
+      });
+      if (letterConfidentLevel[currLetter] == 0) {
+        //show Hint
       }
     }
   }
 
   bool isTextInMorseLevel(String text) {
     bool retValue = false;
-    switch (questionBrain.currentLevel) {
+    switch (semaphoreQuestionBrain.currentLevel) {
       case 0:
         retValue = semaphoreLevel0.contains(text);
         break;
@@ -247,21 +249,21 @@ class _SemaphorePageState extends State<SemaphorePage> {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width * 0.2,
-        child: ClipOval(
+        height: MediaQuery.of(context).size.height * 0.15,
+        width: MediaQuery.of(context).size.width * 0.15,
+        child: ClipRRect(
           child: (letterConfidentLevel[currLetter] <= 1)
               ? Text(
             currLetter,
             textScaleFactor: MediaQuery.of(context).size.height * 0.005,
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+                color: Colors.grey, fontWeight: FontWeight.bold),
           )
               : Text(
             ' ',
             textScaleFactor: MediaQuery.of(context).size.height * 0.005,
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
+                color: Colors.black26, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -353,7 +355,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
      var width = MediaQuery.of(context).size.width;
      var height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+     return Scaffold(
       backgroundColor: Colors.black,
       body: Align(
         alignment: Alignment.center,
@@ -373,7 +375,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
               flex: 3,
               child: InkWell(
                 onTap: () {
-                  questionBrain.reset();
+                  semaphoreQuestionBrain.reset();
                   Navigator.pushNamed(context, SEMAPHORELESSONS);
                 },
                 child: new Padding(
@@ -399,7 +401,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
             Expanded(
               flex: 6,
               child:
-              _buildRowWord(questionBrain.getQuestionText()),
+              _buildRowWord(semaphoreQuestionBrain.getQuestionText()),
             ),
             Spacer(),
             Expanded(
