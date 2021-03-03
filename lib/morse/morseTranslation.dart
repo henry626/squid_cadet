@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'morseAppBar.dart';
 import 'package:squid_cadet/mainExit.dart';
-import '../globalVariables.dart';
+import 'package:squid_cadet/globalVariables.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 MorseAppBar morseAppBar = new MorseAppBar();
@@ -288,7 +288,8 @@ class _MorseTranslationState extends State<MorseTranslation> {
                  _buildRow(['.', '/', '-']),
               ],
             ),
-          )),
+          ),
+      ),
     );
   }
 

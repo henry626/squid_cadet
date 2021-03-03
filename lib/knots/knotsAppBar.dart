@@ -15,7 +15,7 @@ class KnotsAppBar extends MainAppBar {
     setSettingsIcon(context);
     setHomeButton(context);
     setLessonsButton(context);
-    setGamesButton(context);
+    // setGamesButton(context);
 //    setTranslationButton(context);
   }
 
@@ -53,22 +53,22 @@ class KnotsAppBar extends MainAppBar {
     }
   }
 
-  @override
-  TextButton setGamesButton(BuildContext context) {
-    if (_selection == 2) {
-      return TextButton(
-        onPressed: () {},
-        child: Text("Games"),
-        style: TextButton.styleFrom(primary: Colors.blueGrey),);
-    } else {
-      return TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, KNOTSGAMES);
-        },
-        child: Text("Games"),
-        style: TextButton.styleFrom(primary: Colors.white),);
-    }
-  }
+  // @override
+  // TextButton setGamesButton(BuildContext context) {
+  //   if (_selection == 2) {
+  //     return TextButton(
+  //       onPressed: () {},
+  //       child: Text("Games"),
+  //       style: TextButton.styleFrom(primary: Colors.blueGrey),);
+  //   } else {
+  //     return TextButton(
+  //       onPressed: () {
+  //         Navigator.pushNamed(context, KNOTSGAMES);
+  //       },
+  //       child: Text("Games"),
+  //       style: TextButton.styleFrom(primary: Colors.white),);
+  //   }
+  // }
 
   @override
   TextButton setTranslationButton(BuildContext context) {

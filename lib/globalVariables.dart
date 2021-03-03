@@ -1,5 +1,6 @@
 // Names that are use for routes
 import 'package:audioplayers/audio_cache.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lamp/lamp.dart';
 
 class GlobalVars {
@@ -204,12 +205,29 @@ class GlobalVars {
   void setSemaphoreValue(String key) {
     //String retStr = '';
     // (key == '') ?
-    // retStr = 'Click on the symbol to hear or see it in morse code.' :
     if (semaphoreTable[key] != null) {
       semaphoreTable[key] = !semaphoreTable[key];
     }   //retStr = morseTable[key], if null, then equal ''
     print('key = $key, val = $semaphoreTable[key]');
   }
+
+  Widget getSemaphore(BuildContext context, String key) {
+    String retStr = '';
+    // (key == '') ?
+    retStr = morseTable[key] ?? '';  //retStr = morseTable[key], if null, then equal ''
+    print('key = $key, retStr = $retStr');
+    return Container(
+      height: MediaQuery.of(context).size.height * .005,
+      width: MediaQuery.of(context).size.width * .005,
+      child: ClipOval(
+        child: Image.asset(
+          GlobalVars.semaphore_img_dir_path + key + ".gif",
+          fit: BoxFit.scaleDown,
+        ),
+      ),
+    );
+  }
+
 //Semaphore ------END-----------
 
 

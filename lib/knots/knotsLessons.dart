@@ -61,7 +61,6 @@ class _KnotsLessonsState extends State<KnotsLessons> {
               : 4,
           // Generate 100 widgets that display their index in the List.
           children: new List<Widget>.generate(
-//            24,
             imageList.length,
                 (index) {
               return InkWell(

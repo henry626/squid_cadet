@@ -80,7 +80,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
           Alert(
             context: context,
             title: 'Finish!',
-            desc: 'You\'ve reached the end of the morse lesson.',
+            desc: 'You\'ve reached the end of the semaphore lesson.',
             buttons: [
               DialogButton(
                 child: Text(
@@ -89,7 +89,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
                 ),
                 onPressed: () {
                   semaphoreQuestionBrain.reset();
-                  Navigator.pushNamed(context, MORSELESSONS);
+                  Navigator.pushNamed(context, SEMAPHORELESSONS);
                 },
                 width: 120,
               )
@@ -144,7 +144,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
     }
   }
 
-  bool isTextInMorseLevel(String text) {
+  bool isTextInSemaphoreLevel(String text) {
     bool retValue = false;
     switch (semaphoreQuestionBrain.currentLevel) {
       case 0:
@@ -190,7 +190,7 @@ class _SemaphorePageState extends State<SemaphorePage> {
           textScaleFactor: (MediaQuery.of(context).orientation == Orientation.portrait)
               ? MediaQuery.of(context).size.height * 0.0015
               : MediaQuery.of(context).size.width * 0.0015,
-                  style: (isTextInMorseLevel(text))
+                  style: (isTextInSemaphoreLevel(text))
                       ? TextStyle(
                           //grey[50],grey[200],grey[400],grey[600],grey[900]
                           color: Colors.grey[100],
@@ -220,8 +220,8 @@ class _SemaphorePageState extends State<SemaphorePage> {
             (isSelected(texts, text)) ? Colors.grey : Colors.black,
             // instead of text, it should be the semaphore presentation
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.12,
-              width: MediaQuery.of(context).size.width * 0.12,
+              height: MediaQuery.of(context).size.height / (texts.length + 4),
+              width: MediaQuery.of(context).size.width / (texts.length + 4),
               child: ClipOval(
                 child: Image.asset(
                   GlobalVars.semaphore_img_dir_path + text + ".gif",
@@ -413,13 +413,14 @@ class _SemaphorePageState extends State<SemaphorePage> {
               flex: 2,
               child: TextField(
                 controller: _textController,
+                //autofocus: true,
                 enabled: false,
                 readOnly: true,
                 showCursor: false,
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 40.0,
+                    fontSize: 30.0,
                     color: Colors.white),
                 maxLines: 1,
               ),

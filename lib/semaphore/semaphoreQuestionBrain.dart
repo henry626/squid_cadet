@@ -1,10 +1,10 @@
-import 'package:squid_cadet/morse/data.dart';
+import 'package:squid_cadet/semaphore/data.dart';
 
 import 'semaphoreQuestion.dart';
 
 class SemaphoreQuestionBrain {
   int _questionNumber = 0;
-  int _maxLevel = 23;
+  int _semaphoreMaxLevel = 8;
   int currentLevel = 0;
   List <SemaphoreQuestion> _questionBank;
 
@@ -143,9 +143,11 @@ class SemaphoreQuestionBrain {
   }
 
   bool isFinished() {
-     print('_questionNumber = $_questionNumber');
-     print('_questionBank.length = ' + _questionBank.length.toString());
-    if ((currentLevel == _maxLevel) && (_questionNumber >= _questionBank.length - 1)) {
+     print('isFinished: _questionNumber = $_questionNumber');
+     print('isFinished: _questionBank.length = ' + _questionBank.length.toString());
+     print('isFinished: _maxLevel = ' + _semaphoreMaxLevel.toString());
+     print('isFinished: currentLevel = ' + currentLevel.toString());
+    if ((currentLevel == _semaphoreMaxLevel) && (_questionNumber >= _questionBank.length - 1)) {
       return true;
     } else {
       return false;
